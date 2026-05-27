@@ -702,15 +702,14 @@ function autoDetect(){
 // ══ RESPIRAÇÃO GUIADA ════════════════════════════════════
 function startBreathGuide(){
   const mode=BREATH_MODES[S.breathMode];
-  // Esconde widget no modo livre
   const widget=document.getElementById('bg-widget');
-  if(S.breathMode==='livre'||!mode.phases.length){
+  if(!mode||!mode.phases||mode.phases.length===0){
     widget.style.display='none'; return;
   }
   widget.style.display='flex';
   document.getElementById('bg-mode-lbl').textContent=mode.name+' · '+mode.desc;
   document.getElementById('bg-desc-lbl').textContent=getBGDesc(S.breathMode);
-  S.bgPhaseIdx=0;S.bgCount=0;
+  S.bgPhaseIdx=0; S.bgCount=0;
   runBGPhase();
 }
 
@@ -725,8 +724,9 @@ function getBGDesc(m){
 }
 
 function runBGPhase(){
-  if(!S.ticker) return; // sessão encerrada
+  if(!S.ticker) return;
   const mode=BREATH_MODES[S.breathMode];
+  if(!mode||!mode.phases||mode.phases.length===0) return;
   const ph=mode.phases[S.bgPhaseIdx%mode.phases.length];
   const dur=ph.s;
   const colors={INSPIRE:PHASES[S.phase].color, EXPIRE:'#4ade80', SEGURE:'#fb923c'};
@@ -762,13 +762,18 @@ function runBGPhase(){
 
 // ══ NAVEGAÇÃO ════════════════════════════════════════════
 function showScreen(id){
-  document.getElementById('sc-home').style.display='none';
-  document.getElementById('sc-med').style.display='none';
-  document.getElementById('sc-rep').style.display='none';
-  const el=document.getElementById(id);
-  el.style.display='flex';
-  el.style.flexDirection='column';
-  document.querySelector('.scroll').scrollTop=0;
+  ['sc-home','sc-med','sc-rep'].forEach(s=>{
+    const el=document.getElementById(s);
+    if(!el) return;
+    if(s===id){
+      el.style.display='flex';
+      el.style.flexDirection='column';
+      el.classList.remove('hidden');
+    } else {
+      el.style.display='none';
+    }
+  });
+  try{ document.querySelector('.scroll').scrollTop=0; }catch(e){}
 }
 
 // ══ INICIAR ══════════════════════════════════════════════
