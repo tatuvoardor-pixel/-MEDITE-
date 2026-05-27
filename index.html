@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MindWave</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-title" content="MindWave">
+<meta name="theme-color" content="#18181b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+<script>
+(function(){
+  const ico=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="115" fill="#18181b"/><path d="M60 240 Q105 175 150 240 Q195 305 240 240 Q285 175 330 240 Q365 288 400 240" fill="none" stroke="#64b5f6" stroke-width="32" stroke-linecap="round"/><path d="M60 275 Q105 210 150 275 Q195 340 240 275 Q285 210 330 275 Q365 323 400 275" fill="none" stroke="#9b72cf" stroke-width="22" stroke-linecap="round" opacity="0.88"/><path d="M60 306 Q105 245 150 306 Q195 367 240 306 Q285 245 330 306 Q365 350 400 306" fill="none" stroke="#5c6bc0" stroke-width="14" stroke-linecap="round" opacity="0.72"/></svg>`;
+  const iUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ico);
+  const mf={name:"MindWave",short_name:"MindWave",display:"fullscreen",orientation:"portrait",start_url:"./index.html",scope:"./",background_color:"#18181b",theme_color:"#18181b",icons:[{src:iUrl,sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
+  const ml=document.createElement('link');ml.rel='manifest';ml.href='data:application/manifest+json;charset=utf-8,'+encodeURIComponent(JSON.stringify(mf));document.head.appendChild(ml);
+  const il=document.createElement('link');il.rel='apple-touch-icon';il.href=iUrl;document.head.appendChild(il);
+})();
+</script>
+
+<style>
+:root{
+  --bg:#18181b;
+  --s1:#212125;
+  --s2:#2a2a2f;
+  --s3:#323238;
+  --bd:#3f3f46;
+  --tx:#f4f4f5;
+  --t2:#a1a1aa;
+  --t3:#52525b;
+  --alfa:#64b5f6;
+  --alfa-d:#64b5f618;
+  --alfa-m:#64b5f640;
+  --alfa-g:#64b5f622;
+  --teta:#9b72cf;
+  --teta-d:#9b72cf18;
+  --teta-m:#9b72cf40;
+  --teta-g:#9b72cf22;
+  --delta:#5c6bc0;
+  --delta-d:#5c6bc018;
+  --delta-m:#5c6bc040;
+  --delta-g:#5c6bc022;
+  --red:#f87171;
+  --green:#4ade80;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Barlow',sans-serif;}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:999;transition:opacity 0.8s ease;}
+#splash.hide{opacity:0;pointer-events:none;}
+.sp-waves{width:110px;height:64px;animation:spIn 0.9s ease forwards;opacity:0;}
+.sp-name{font-family:'Lilita One',cursive;font-size:2.4rem;letter-spacing:2px;background:linear-gradient(120deg,var(--alfa),var(--teta) 50%,var(--delta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spIn 0.9s 0.18s ease forwards;opacity:0;}
+.sp-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:5px;text-transform:uppercase;color:var(--t3);animation:spIn 0.9s 0.34s ease forwards;opacity:0;}
+@keyframes spIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* LAYOUT */
+.app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+
+/* HEADER */
+.hdr{padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--bd);}
+.hdr-logo{display:flex;align-items:center;gap:9px;}
+.hdr-waves{width:32px;height:20px;}
+.hdr-name{font-family:'Lilita One',cursive;font-size:1.25rem;letter-spacing:1px;color:var(--tx);}
+.bt-pill{display:flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);border-radius:20px;padding:7px 13px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:1.5px;color:var(--t2);transition:all 0.2s;user-select:none;}
+.bt-pill.on{border-color:var(--alfa);color:var(--alfa);}
+.bt-dot{width:7px;height:7px;border-radius:50%;background:var(--t3);transition:background 0.3s;}
+.bt-pill.on .bt-dot{background:var(--alfa);animation:blink 1.4s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* SCROLL */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:18px 14px 28px;display:flex;flex-direction:column;gap:14px;}
+
+/* ═══ HOME ═══ */
+#sc-home{display:flex;flex-direction:column;gap:14px;}
+
+.home-hero{background:var(--s1);border-radius:22px;padding:22px 18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:18px;}
+
+.hero-title{font-family:'Lilita One',cursive;font-size:1.6rem;color:var(--tx);line-height:1.15;}
+.hero-sub{font-size:0.82rem;color:var(--t2);line-height:1.6;margin-top:-6px;}
+
+.phases-stack{display:flex;flex-direction:column;gap:8px;}
+.ph-row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;border:1px solid transparent;}
+.ph-row.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
+.ph-row.teta{background:var(--teta-d);border-color:var(--teta-m);}
+.ph-row.delta{background:var(--delta-d);border-color:var(--delta-m);}
+.ph-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.ph-row.alfa .ph-dot{background:var(--alfa);}
+.ph-row.teta .ph-dot{background:var(--teta);}
+.ph-row.delta .ph-dot{background:var(--delta);}
+.ph-info{flex:1;}
+.ph-name{font-family:'Lilita One',cursive;font-size:1rem;letter-spacing:0.5px;}
+.ph-row.alfa .ph-name{color:var(--alfa);}
+.ph-row.teta .ph-name{color:var(--teta);}
+.ph-row.delta .ph-name{color:var(--delta);}
+.ph-desc{font-size:0.76rem;color:var(--t2);margin-top:2px;line-height:1.4;}
+.ph-badge{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
+.ph-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1px;color:var(--t3);}
+.ph-bpm{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:0.5px;color:var(--t3);}
+
+.btn-start{width:100%;padding:18px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:16px;font-family:'Lilita One',cursive;font-size:1.2rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
+.btn-start:active{opacity:0.78;}
+
+/* ═══ MEDITAÇÃO ═══ */
+#sc-med{display:none;flex-direction:column;gap:12px;}
+
+.med-arena{border-radius:22px;padding:26px 18px 22px;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid transparent;transition:background 0.9s ease,border-color 0.9s ease;}
+.med-arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
+.med-arena.teta{background:var(--teta-d);border-color:var(--teta-m);}
+.med-arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
+
+.arena-wave{width:90px;height:48px;margin-bottom:4px;}
+
+.arena-phase{font-family:'Lilita One',cursive;font-size:2.8rem;letter-spacing:1px;transition:color 0.9s ease;line-height:1;}
+.med-arena.alfa .arena-phase{color:var(--alfa);}
+.med-arena.teta .arena-phase{color:var(--teta);}
+.med-arena.delta .arena-phase{color:var(--delta);}
+
+.arena-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--t2);margin-bottom:4px;}
+
+.arena-timer{font-family:'Lilita One',cursive;font-size:4.2rem;color:var(--tx);line-height:1;letter-spacing:-1px;}
+
+/* Biometrics row */
+.bio-row{display:flex;gap:10px;width:100%;margin-top:4px;}
+.bio-box{flex:1;background:var(--s2);border-radius:14px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--bd);}
+.bio-val{font-family:'Lilita One',cursive;font-size:1.5rem;color:var(--tx);line-height:1;}
+.bio-unit{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.bio-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
+.bio-hr .bio-val{color:var(--red);}
+.bio-rr .bio-val{color:var(--green);}
+
+/* Auto fase badge */
+.auto-phase-badge{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 14px;border-radius:20px;
+  background:var(--s2);border:1px solid var(--bd);
+  font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--t2);
+  transition:all 0.4s;
+}
+.auto-phase-badge.auto-alfa{background:var(--alfa-g);border-color:var(--alfa-m);color:var(--alfa);}
+.auto-phase-badge.auto-teta{background:var(--teta-g);border-color:var(--teta-m);color:var(--teta);}
+.auto-phase-badge.auto-delta{background:var(--delta-g);border-color:var(--delta-m);color:var(--delta);}
+.apb-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:blink 1.4s infinite;}
+
+/* Resp counter */
+.resp-counter-wrap{width:100%;display:flex;flex-direction:column;gap:8px;}
+.resp-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);text-align:center;}
+.resp-btn{
+  width:100%;padding:16px;
+  background:var(--s1);border:2px solid var(--green);
+  border-radius:16px;color:var(--green);
+  font-family:'Lilita One',cursive;font-size:1rem;letter-spacing:1px;
+  cursor:pointer;transition:all 0.1s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.resp-btn:active{background:var(--green);color:#000;transform:scale(0.97);}
+
+/* Fase buttons manual */
+.phase-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.ph-btn{padding:12px 6px;border-radius:14px;border:2px solid transparent;background:var(--s1);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.2s;}
+.ph-btn.alfa{border-color:var(--alfa-m);}
+.ph-btn.teta{border-color:var(--teta-m);}
+.ph-btn.delta{border-color:var(--delta-m);}
+.ph-btn.active.alfa{background:var(--alfa-d);border-color:var(--alfa);}
+.ph-btn.active.teta{background:var(--teta-d);border-color:var(--teta);}
+.ph-btn.active.delta{background:var(--delta-d);border-color:var(--delta);}
+.ph-btn-name{font-family:'Lilita One',cursive;font-size:0.88rem;letter-spacing:0.5px;}
+.ph-btn.alfa .ph-btn-name{color:var(--alfa);}
+.ph-btn.teta .ph-btn-name{color:var(--teta);}
+.ph-btn.delta .ph-btn-name{color:var(--delta);}
+.ph-btn-t{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;color:var(--t3);letter-spacing:1px;}
+.ph-btn-auto{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;color:var(--green);letter-spacing:1px;margin-top:1px;}
+
+.btn-finish{width:100%;padding:15px;background:transparent;color:var(--red);border:1px solid #4a1a1a;border-radius:16px;font-family:'Lilita One',cursive;font-size:1rem;letter-spacing:1px;cursor:pointer;transition:background 0.15s;}
+.btn-finish:active{background:#1a0505;}
+
+/* ═══ RELATÓRIO ═══ */
+#sc-rep{display:none;flex-direction:column;gap:14px;}
+
+.rep-hero{background:var(--s1);border-radius:22px;padding:20px 18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:3px;}
+.rep-title{font-family:'Lilita One',cursive;font-size:1.8rem;color:var(--tx);}
+.rep-date{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;}
+.rep-dur{font-family:'Lilita One',cursive;font-size:3.6rem;color:var(--tx);line-height:1;}
+.rep-dur-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+
+/* Score */
+.score-card{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;align-items:center;gap:16px;}
+.score-ring{position:relative;width:86px;height:86px;flex-shrink:0;}
+.score-ring svg{width:86px;height:86px;transform:rotate(-90deg);}
+.sr-track{fill:none;stroke:var(--s3);stroke-width:8;}
+.sr-fill{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:238;stroke-dashoffset:238;transition:stroke-dashoffset 1.4s cubic-bezier(0.22,1,0.36,1);}
+.score-n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:1.5rem;color:var(--tx);}
+.score-info{flex:1;}
+.score-lbl{font-family:'Lilita One',cursive;font-size:1.35rem;color:var(--tx);}
+.score-desc{font-size:0.78rem;color:var(--t2);margin-top:5px;line-height:1.55;}
+
+/* Hipograma */
+.hipo-card{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--t3);}
+
+.timeline-strip{display:flex;height:30px;border-radius:8px;overflow:hidden;gap:2px;}
+.tm-min{flex:1;min-width:0;border-radius:2px;}
+.tm-min.alfa{background:var(--alfa);}
+.tm-min.teta{background:var(--teta);}
+.tm-min.delta{background:var(--delta);}
+.tm-min.empty{background:var(--s3);}
+.timeline-axis{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--t3);letter-spacing:1px;margin-top:2px;}
+
+/* Barras fases */
+.hipo-bars{display:flex;flex-direction:column;gap:8px;}
+.hb-row{display:flex;align-items:center;gap:10px;}
+.hb-lbl{font-family:'Lilita One',cursive;font-size:0.82rem;width:74px;flex-shrink:0;}
+.hb-row.alfa .hb-lbl{color:var(--alfa);}
+.hb-row.teta .hb-lbl{color:var(--teta);}
+.hb-row.delta .hb-lbl{color:var(--delta);}
+.hb-track{flex:1;height:22px;background:var(--s2);border-radius:5px;overflow:hidden;}
+.hb-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(0.22,1,0.36,1);}
+.hb-row.alfa .hb-fill{background:var(--alfa);}
+.hb-row.teta .hb-fill{background:var(--teta);}
+.hb-row.delta .hb-fill{background:var(--delta);}
+.hb-pct{font-family:'Lilita One',cursive;font-size:0.85rem;width:38px;text-align:right;flex-shrink:0;}
+.hb-row.alfa .hb-pct{color:var(--alfa);}
+.hb-row.teta .hb-pct{color:var(--teta);}
+.hb-row.delta .hb-pct{color:var(--delta);}
+
+/* Stats fases */
+.phase-stats{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:9px;}
+.ps-row{display:flex;align-items:center;gap:11px;padding:13px;border-radius:13px;}
+.ps-row.alfa{background:var(--alfa-d);}
+.ps-row.teta{background:var(--teta-d);}
+.ps-row.delta{background:var(--delta-d);}
+.ps-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.ps-row.alfa .ps-dot{background:var(--alfa);}
+.ps-row.teta .ps-dot{background:var(--teta);}
+.ps-row.delta .ps-dot{background:var(--delta);}
+.ps-name{font-family:'Lilita One',cursive;font-size:0.95rem;flex:1;letter-spacing:0.3px;}
+.ps-row.alfa .ps-name{color:var(--alfa);}
+.ps-row.teta .ps-name{color:var(--teta);}
+.ps-row.delta .ps-name{color:var(--delta);}
+.ps-time{font-family:'Lilita One',cursive;font-size:1rem;color:var(--tx);}
+.ps-pct{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--t3);margin-left:4px;}
+
+/* FC card */
+.fc-card{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;}
+.fc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.fc-stat{background:var(--s2);border-radius:14px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--bd);}
+.fc-val{font-family:'Lilita One',cursive;font-size:1.9rem;color:var(--tx);}
+.fc-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.fc-u{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);}
+.fc-chart{height:56px;position:relative;}
+.fc-chart canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+/* Resp card */
+.rr-card{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;}
+.rr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.rr-stat{background:var(--s2);border-radius:14px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--bd);}
+.rr-val{font-family:'Lilita One',cursive;font-size:1.9rem;color:var(--green);}
+.rr-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.rr-u{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);}
+
+/* Detecção automática card */
+.auto-card{background:var(--s1);border-radius:22px;padding:20px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:10px;}
+.auto-row{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--s2);border-radius:12px;border:1px solid var(--bd);}
+.auto-icon{font-size:1rem;flex-shrink:0;margin-top:1px;}
+.auto-text{flex:1;}
+.auto-text strong{font-family:'Lilita One',cursive;font-size:0.85rem;color:var(--tx);display:block;margin-bottom:2px;}
+.auto-text span{font-size:0.74rem;color:var(--t2);line-height:1.4;}
+
+.btn-new{width:100%;padding:18px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:16px;font-family:'Lilita One',cursive;font-size:1.2rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;margin-bottom:4px;}
+.btn-new:active{opacity:0.78;}
+
+/* Install banner */
+#install-banner{display:none;background:#0d1829;border:1px solid var(--alfa);border-radius:14px;padding:10px 14px;align-items:center;gap:10px;font-size:0.8rem;color:var(--t2);}
+#install-banner.visible{display:flex;}
+#install-banner span{flex:1;line-height:1.4;}
+#install-banner strong{color:var(--alfa);}
+.ib-y{background:var(--alfa);color:#000;font-family:'Lilita One',cursive;font-size:0.8rem;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap;}
+.ib-n{background:transparent;color:var(--t3);border:none;font-size:1.1rem;cursor:pointer;padding:4px;}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <svg class="sp-waves" viewBox="0 0 110 64" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 30 Q20 8 35 30 Q50 52 65 30 Q80 8 95 30 Q102 40 107 30" fill="none" stroke="#64b5f6" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M5 40 Q20 18 35 40 Q50 62 65 40 Q80 18 95 40 Q102 50 107 40" fill="none" stroke="#9b72cf" stroke-width="4" stroke-linecap="round" opacity="0.88"/>
+    <path d="M5 49 Q20 30 35 49 Q50 68 65 49 Q80 30 95 49 Q102 58 107 49" fill="none" stroke="#5c6bc0" stroke-width="2.8" stroke-linecap="round" opacity="0.72"/>
+  </svg>
+  <div class="sp-name">MindWave</div>
+  <div class="sp-sub">Rastreador de Meditação</div>
+</div>
+
+<div class="app" id="main-app">
+  <div class="hdr">
+    <div class="hdr-logo">
+      <svg class="hdr-waves" viewBox="0 0 110 48" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 20 Q20 4 35 20 Q50 36 65 20 Q80 4 95 20 Q102 28 107 20" fill="none" stroke="#64b5f6" stroke-width="5" stroke-linecap="round"/>
+        <path d="M5 30 Q20 14 35 30 Q50 46 65 30 Q80 14 95 30 Q102 38 107 30" fill="none" stroke="#9b72cf" stroke-width="3.5" stroke-linecap="round" opacity="0.88"/>
+        <path d="M5 38 Q20 24 35 38 Q50 52 65 38 Q80 24 95 38 Q102 45 107 38" fill="none" stroke="#5c6bc0" stroke-width="2.5" stroke-linecap="round" opacity="0.72"/>
+      </svg>
+      <span class="hdr-name">MindWave</span>
+    </div>
+    <div class="bt-pill" id="bt-btn">
+      <div class="bt-dot"></div>
+      <span id="bt-lbl">BLUETOOTH</span>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <div id="install-banner">
+      <span>📲 <strong>Instalar app?</strong></span>
+      <button class="ib-y" id="btn-iyes">Instalar</button>
+      <button class="ib-n" id="btn-ino">✕</button>
+    </div>
+
+    <!-- HOME -->
+    <div id="sc-home">
+      <div class="home-hero">
+        <div>
+          <div class="hero-title">Sua mente,<br>em ondas.</div>
+          <div class="hero-sub">Rastreie cada fase da meditação por frequência cardíaca e respiração. Relatório completo no final.</div>
+        </div>
+        <div class="phases-stack">
+          <div class="ph-row alfa">
+            <div class="ph-dot"></div>
+            <div class="ph-info">
+              <div class="ph-name">Alfa</div>
+              <div class="ph-desc">Solte o corpo. Ansiedade cai, mente abre.</div>
+            </div>
+            <div class="ph-badge">
+              <div class="ph-hz">α 8–14Hz</div>
+              <div class="ph-bpm">65–80 bpm · 8–12 resp</div>
+            </div>
+          </div>
+          <div class="ph-row teta">
+            <div class="ph-dot"></div>
+            <div class="ph-info">
+              <div class="ph-name">Teta</div>
+              <div class="ph-desc">Entrou fundo. Subconsciente ativo.</div>
+            </div>
+            <div class="ph-badge">
+              <div class="ph-hz">θ 3–7Hz</div>
+              <div class="ph-bpm">55–68 bpm · 4–7 resp</div>
+            </div>
+          </div>
+          <div class="ph-row delta">
+            <div class="ph-dot"></div>
+            <div class="ph-info">
+              <div class="ph-name">Delta</div>
+              <div class="ph-desc">Pura presença. Cura e regeneração.</div>
+            </div>
+            <div class="ph-badge">
+              <div class="ph-hz">δ 0.5–3Hz</div>
+              <div class="ph-bpm">45–60 bpm · 2–5 resp</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-start" id="btn-start">Iniciar Meditação</button>
+      </div>
+    </div>
+
+    <!-- MEDITAÇÃO -->
+    <div id="sc-med">
+      <div class="med-arena alfa" id="med-arena">
+        <svg class="arena-wave" viewBox="0 0 100 52" xmlns="http://www.w3.org/2000/svg">
+          <path id="aw-path" d="M5 26 Q18 8 31 26 Q44 44 57 26 Q70 8 83 26 Q90 35 95 26" fill="none" stroke="#64b5f6" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+        <div class="arena-phase" id="arena-phase">ALFA</div>
+        <div class="arena-hz" id="arena-hz">Ondas Alfa · 8–14 Hz</div>
+        <div class="arena-timer" id="arena-timer">00:00:00</div>
+      </div>
+
+      <!-- Biometrics -->
+      <div class="bio-row">
+        <div class="bio-box bio-hr">
+          <div class="bio-val" id="bio-hr">--</div>
+          <div class="bio-unit">BPM</div>
+          <div class="bio-lbl">Freq. Cardíaca</div>
+        </div>
+        <div class="bio-box bio-rr">
+          <div class="bio-val" id="bio-rr">--</div>
+          <div class="bio-unit">RESP/MIN</div>
+          <div class="bio-lbl">Respiração</div>
+        </div>
+        <div class="bio-box">
+          <div class="bio-val" id="bio-auto" style="font-size:1rem;color:var(--t2)">AUTO</div>
+          <div class="bio-unit">FASE</div>
+          <div class="bio-lbl">Detectada</div>
+        </div>
+      </div>
+
+      <!-- Resp counter -->
+      <div class="resp-counter-wrap">
+        <div class="resp-lbl">Toque a cada expiração para medir respiração</div>
+        <button class="resp-btn" id="btn-resp">
+          <span>🌬️</span> EXPIREI
+        </button>
+      </div>
+
+      <!-- Fase manual -->
+      <div class="phase-grid">
+        <button class="ph-btn alfa active" id="pb-alfa" onclick="manualPhase('alfa')">
+          <div class="ph-btn-name">Alfa</div>
+          <div class="ph-btn-t" id="pt-alfa">0:00</div>
+          <div class="ph-btn-auto" id="pa-alfa"></div>
+        </button>
+        <button class="ph-btn teta" id="pb-teta" onclick="manualPhase('teta')">
+          <div class="ph-btn-name">Teta</div>
+          <div class="ph-btn-t" id="pt-teta">0:00</div>
+          <div class="ph-btn-auto" id="pa-teta"></div>
+        </button>
+        <button class="ph-btn delta" id="pb-delta" onclick="manualPhase('delta')">
+          <div class="ph-btn-name">Delta</div>
+          <div class="ph-btn-t" id="pt-delta">0:00</div>
+          <div class="ph-btn-auto" id="pa-delta"></div>
+        </button>
+      </div>
+
+      <button class="btn-finish" id="btn-finish">Encerrar Sessão</button>
+    </div>
+
+    <!-- RELATÓRIO -->
+    <div id="sc-rep">
+      <div class="rep-hero">
+        <div class="rep-date" id="rep-date"></div>
+        <div class="rep-title">Sessão Completa</div>
+        <div class="rep-dur" id="rep-dur">--</div>
+        <div class="rep-dur-lbl">Duração total</div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-ring">
+          <svg viewBox="0 0 86 86">
+            <circle class="sr-track" cx="43" cy="43" r="38"/>
+            <circle class="sr-fill" id="sr-fill" cx="43" cy="43" r="38"/>
+          </svg>
+          <div class="score-n" id="score-n">0</div>
+        </div>
+        <div class="score-info">
+          <div class="score-lbl" id="score-lbl">—</div>
+          <div class="score-desc" id="score-desc"></div>
+        </div>
+      </div>
+
+      <div class="hipo-card">
+        <div class="sec-title">Hipograma da Sessão</div>
+        <div class="timeline-strip" id="tm-strip"></div>
+        <div class="timeline-axis" id="tm-axis"></div>
+        <div class="sec-title" style="margin-top:8px">Tempo por fase</div>
+        <div class="hipo-bars">
+          <div class="hb-row alfa">
+            <div class="hb-lbl">Alfa</div>
+            <div class="hb-track"><div class="hb-fill" id="hb-alfa" style="width:0%"></div></div>
+            <div class="hb-pct alfa" id="hp-alfa">0%</div>
+          </div>
+          <div class="hb-row teta">
+            <div class="hb-lbl">Teta</div>
+            <div class="hb-track"><div class="hb-fill" id="hb-teta" style="width:0%"></div></div>
+            <div class="hb-pct teta" id="hp-teta">0%</div>
+          </div>
+          <div class="hb-row delta">
+            <div class="hb-lbl">Delta</div>
+            <div class="hb-track"><div class="hb-fill" id="hb-delta" style="width:0%"></div></div>
+            <div class="hb-pct delta" id="hp-delta">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-stats">
+        <div class="sec-title">Minutos por fase</div>
+        <div class="ps-row alfa">
+          <div class="ps-dot"></div>
+          <div class="ps-name">Alfa</div>
+          <div><span class="ps-time" id="ps-alfa">0 min</span><span class="ps-pct" id="pp-alfa"></span></div>
+        </div>
+        <div class="ps-row teta">
+          <div class="ps-dot"></div>
+          <div class="ps-name">Teta</div>
+          <div><span class="ps-time" id="ps-teta">0 min</span><span class="ps-pct" id="pp-teta"></span></div>
+        </div>
+        <div class="ps-row delta">
+          <div class="ps-dot"></div>
+          <div class="ps-name">Delta</div>
+          <div><span class="ps-time" id="ps-delta">0 min</span><span class="ps-pct" id="pp-delta"></span></div>
+        </div>
+      </div>
+
+      <div class="fc-card">
+        <div class="sec-title">Frequência Cardíaca</div>
+        <div class="fc-grid">
+          <div class="fc-stat"><div class="fc-val" id="fc-avg">--</div><div class="fc-lbl">Média</div><div class="fc-u">bpm</div></div>
+          <div class="fc-stat"><div class="fc-val" id="fc-max">--</div><div class="fc-lbl">Máxima</div><div class="fc-u">bpm</div></div>
+          <div class="fc-stat"><div class="fc-val" id="fc-min">--</div><div class="fc-lbl">Mínima</div><div class="fc-u">bpm</div></div>
+        </div>
+        <div class="fc-chart"><canvas id="fc-canvas"></canvas></div>
+      </div>
+
+      <div class="rr-card">
+        <div class="sec-title">Respiração</div>
+        <div class="rr-grid">
+          <div class="rr-stat"><div class="rr-val" id="rr-avg">--</div><div class="rr-lbl">Média</div><div class="rr-u">resp/min</div></div>
+          <div class="rr-stat"><div class="rr-val" id="rr-max">--</div><div class="rr-lbl">Máxima</div><div class="rr-u">resp/min</div></div>
+          <div class="rr-stat"><div class="rr-val" id="rr-min">--</div><div class="rr-lbl">Mínima</div><div class="rr-u">resp/min</div></div>
+        </div>
+      </div>
+
+      <div class="auto-card">
+        <div class="sec-title">Detecção Automática de Fase</div>
+        <div class="auto-row">
+          <div class="auto-icon">❤️</div>
+          <div class="auto-text">
+            <strong>Frequência Cardíaca</strong>
+            <span>Relaxar 65–80 · Mergulhar 55–68 · Profundo 45–60 bpm</span>
+          </div>
+        </div>
+        <div class="auto-row">
+          <div class="auto-icon">🌬️</div>
+          <div class="auto-text">
+            <strong>Respiração</strong>
+            <span>Relaxar 8–12 · Mergulhar 4–7 · Profundo 2–5 resp/min</span>
+          </div>
+        </div>
+        <div class="auto-row">
+          <div class="auto-icon">🧠</div>
+          <div class="auto-text">
+            <strong>Algoritmo combinado</strong>
+            <span>FC + Respiração detectam automaticamente sua fase. Botões manuais sempre têm prioridade.</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-new" id="btn-new">Nova Meditação</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DADOS ────────────────────────────────────────────────
+const PHASES = {
+  alfa:  {name:'ALFA',   hz:'Ondas Alfa · 8–14 Hz',  color:'#64b5f6', hrLo:65, hrHi:80, rrLo:8,  rrHi:12},
+  teta:  {name:'TETA', hz:'Ondas Teta · 3–7 Hz',   color:'#9b72cf', hrLo:55, hrHi:68, rrLo:4,  rrHi:7},
+  delta: {name:'DELTA',  hz:'Ondas Delta · 0.5–3 Hz',color:'#5c6bc0', hrLo:45, hrHi:60, rrLo:2,  rrHi:5},
+};
+
+const S = {
+  phase:'alfa', manual:false,
+  startTime:null, phaseStart:null,
+  phaseTimes:{alfa:0,teta:0,delta:0},
+  log:[], hrLog:[], rrLog:[],
+  respTimes:[], respRate:0,
+  btDevice:null, btOn:false,
+  ticker:null,
+};
+
+// ── BLUETOOTH ────────────────────────────────────────────
+document.getElementById('bt-btn').addEventListener('click', async () => {
+  if (S.btOn) { disconnectBT(); return; }
+  if (!navigator.bluetooth) {
+    alert('Bluetooth não disponível.\nUse Chrome no Android ou Edge no Windows.'); return;
+  }
+  try {
+    const dev = await navigator.bluetooth.requestDevice({
+      filters:[{services:['heart_rate']}], optionalServices:['heart_rate']
+    });
+    S.btDevice = dev;
+    const srv = await dev.gatt.connect();
+    const svc = await srv.getPrimaryService('heart_rate');
+    const chr = await svc.getCharacteristic('heart_rate_measurement');
+    await chr.startNotifications();
+    chr.addEventListener('characteristicvaluechanged', e => {
+      const v = e.target.value;
+      const hr = (v.getUint8(0) & 1) ? v.getUint16(1,true) : v.getUint8(1);
+      onHR(hr);
+    });
+    dev.addEventListener('gattserverdisconnected', disconnectBT);
+    S.btOn = true; updateBTUI();
+  } catch(e) { console.log('BT error:',e); }
+});
+
+function disconnectBT() {
+  if (S.btDevice?.gatt?.connected) S.btDevice.gatt.disconnect();
+  S.btOn = false; S.btDevice = null; updateBTUI();
+}
+
+function updateBTUI() {
+  const btn = document.getElementById('bt-btn');
+  const lbl = document.getElementById('bt-lbl');
+  btn.classList.toggle('on', S.btOn);
+  lbl.textContent = S.btOn ? 'CONECTADO' : 'BLUETOOTH';
+}
+
+function onHR(bpm) {
+  S.hrLog.push({t:Date.now(), bpm});
+  document.getElementById('bio-hr').textContent = bpm;
+  if (!S.manual) autoDetectPhase();
+}
+
+// ── RESPIRAÇÃO ───────────────────────────────────────────
+document.getElementById('btn-resp').addEventListener('click', () => {
+  const now = Date.now();
+  S.respTimes.push(now);
+  // Usa últimas 4 expirações para calcular resp/min
+  const recent = S.respTimes.filter(t => now - t < 60000);
+  S.respTimes = recent;
+  if (recent.length >= 2) {
+    const intervals = [];
+    for (let i=1;i<recent.length;i++) intervals.push(recent[i]-recent[i-1]);
+    const avgInterval = intervals.reduce((a,b)=>a+b,0)/intervals.length;
+    S.respRate = Math.round(60000 / avgInterval);
+    S.rrLog.push({t:now, rr:S.respRate});
+    document.getElementById('bio-rr').textContent = S.respRate;
+    if (!S.manual) autoDetectPhase();
+  }
+  // Feedback visual
+  const btn = document.getElementById('btn-resp');
+  btn.style.background = 'var(--green)';
+  btn.style.color = '#000';
+  setTimeout(() => { btn.style.background=''; btn.style.color=''; }, 180);
+});
+
+// ── DETECÇÃO AUTOMÁTICA ──────────────────────────────────
+function autoDetectPhase() {
+  const hr = S.hrLog.length ? S.hrLog[S.hrLog.length-1].bpm : null;
+  const rr = S.rrLog.length  ? S.rrLog[S.rrLog.length-1].rr  : null;
+
+  let scores = {alfa:0, teta:0, delta:0};
+
+  if (hr) {
+    Object.entries(PHASES).forEach(([k,p]) => {
+      if (hr >= p.hrLo && hr <= p.hrHi) scores[k] += 2;
+      else if (hr < p.hrLo) scores[k] += Math.max(0, 1 - (p.hrLo-hr)/15);
+      else scores[k] += Math.max(0, 1 - (hr-p.hrHi)/15);
+    });
+  }
+
+  if (rr) {
+    Object.entries(PHASES).forEach(([k,p]) => {
+      if (rr >= p.rrLo && rr <= p.rrHi) scores[k] += 2;
+      else if (rr < p.rrLo) scores[k] += Math.max(0, 1-(p.rrLo-rr)/6);
+      else scores[k] += Math.max(0, 1-(rr-p.rrHi)/6);
+    });
+  }
+
+  const best = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+
+  // Atualiza badge da fase detectada
+  const badge = document.getElementById('bio-auto');
+  const names = {alfa:'ALFA', teta:'TETA', delta:'DELTA'};
+  badge.textContent = names[best];
+  badge.style.color = PHASES[best].color;
+
+  // Sugere nos botões
+  ['alfa','teta','delta'].forEach(ph => {
+    const el = document.getElementById('pa-'+ph);
+    el.textContent = ph===best ? '▲ DETECTADO' : '';
+  });
+
+  // Muda fase automaticamente se não manual
+  if (best !== S.phase) setPhase(best, false);
+}
+
+// ── NAVEGAÇÃO ────────────────────────────────────────────
+function showScreen(id) {
+  ['sc-home','sc-med','sc-rep'].forEach(s => {
+    const el = document.getElementById(s);
+    el.style.display = s===id ? 'flex' : 'none';
+    el.style.flexDirection = 'column';
+  });
+  window.scrollTo(0,0);
+}
+
+// ── INÍCIO ───────────────────────────────────────────────
+document.getElementById('btn-start').addEventListener('click', () => {
+  S.startTime = Date.now();
+  S.phaseStart = Date.now();
+  S.phase = 'alfa'; S.manual = false;
+  S.phaseTimes = {alfa:0,teta:0,delta:0};
+  S.log = [{phase:'alfa', start:Date.now()}];
+  S.hrLog = []; S.rrLog = [];
+  S.respTimes = []; S.respRate = 0;
+  document.getElementById('bio-hr').textContent = '--';
+  document.getElementById('bio-rr').textContent = '--';
+  document.getElementById('bio-auto').textContent = 'AUTO';
+  document.getElementById('bio-auto').style.color = '';
+  updateMedUI();
+  showScreen('sc-med');
+  if (S.ticker) clearInterval(S.ticker);
+  S.ticker = setInterval(tick, 1000);
+});
+
+// ── FASE ─────────────────────────────────────────────────
+function setPhase(phase, isManual=true) {
+  if (phase === S.phase) return;
+  S.manual = isManual;
+  const now = Date.now();
+  S.phaseTimes[S.phase] += now - S.phaseStart;
+  if (S.log.length) S.log[S.log.length-1].end = now;
+  S.log.push({phase, start:now});
+  S.phase = phase; S.phaseStart = now;
+  updateMedUI();
+  // Reset manual após 3min (deixa auto retomar)
+  if (isManual) setTimeout(() => { S.manual = false; }, 180000);
+}
+
+function manualPhase(ph) { setPhase(ph, true); }
+
+function updateMedUI() {
+  const p = PHASES[S.phase];
+  const arena = document.getElementById('med-arena');
+  arena.className = 'med-arena ' + S.phase;
+  document.getElementById('arena-phase').textContent = p.name;
+  document.getElementById('arena-hz').textContent = p.hz;
+  document.getElementById('aw-path').setAttribute('stroke', p.color);
+  ['alfa','teta','delta'].forEach(ph => {
+    document.getElementById('pb-'+ph).className = 'ph-btn '+ph+(ph===S.phase?' active':'');
+  });
+}
+
+// ── TICK ─────────────────────────────────────────────────
+function tick() {
+  const elapsed = Date.now() - S.startTime;
+  const h = Math.floor(elapsed/3600000);
+  const m = Math.floor((elapsed%3600000)/60000);
+  const s = Math.floor((elapsed%60000)/1000);
+  document.getElementById('arena-timer').textContent =
+    String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+
+  const now = Date.now();
+  const times = {...S.phaseTimes};
+  times[S.phase] += now - S.phaseStart;
+  ['alfa','teta','delta'].forEach(ph => {
+    const sec = Math.floor(times[ph]/1000);
+    document.getElementById('pt-'+ph).textContent = Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
+  });
+}
+
+// ── ENCERRAR ─────────────────────────────────────────────
+document.getElementById('btn-finish').addEventListener('click', () => {
+  if (!confirm('Encerrar a meditação?')) return;
+  clearInterval(S.ticker);
+  const now = Date.now();
+  S.phaseTimes[S.phase] += now - S.phaseStart;
+  if (S.log.length) S.log[S.log.length-1].end = now;
+  buildReport();
+  showScreen('sc-rep');
+});
+
+// ── RELATÓRIO ────────────────────────────────────────────
+function buildReport() {
+  const totalMs = Date.now() - S.startTime;
+  const totalMin = Math.floor(totalMs/60000);
+  const h = Math.floor(totalMin/60), m = totalMin%60;
+  document.getElementById('rep-dur').textContent = (h>0?h+'h ':'')+m+'min';
+
+  const now = new Date();
+  document.getElementById('rep-date').textContent =
+    now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toUpperCase()+
+    ' · '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+
+  const T = S.phaseTimes;
+  const tot = T.alfa+T.teta+T.delta||1;
+  const pcts = {
+    alfa: Math.round(T.alfa/tot*100),
+    teta: Math.round(T.teta/tot*100),
+    delta:Math.round(T.delta/tot*100),
+  };
+
+  // Score
+  const score = Math.min(100,Math.round((pcts.alfa*0.6+pcts.teta*1.6+pcts.delta*2.2)/1.5));
+  const circ = 2*Math.PI*38;
+  const fill = document.getElementById('sr-fill');
+  fill.style.strokeDasharray = circ;
+  fill.style.stroke = score>=80?'#64b5f6':score>=55?'#9b72cf':'#5c6bc0';
+  setTimeout(()=>{ fill.style.strokeDashoffset = circ*(1-score/100); },300);
+  document.getElementById('score-n').textContent = score;
+  const lbs = [[85,'Excelente 🧠','Estados profundos atingidos. Sessão de alto nível.'],[65,'Muito Boa 🌊','Boa profundidade. Continue praticando.'],[40,'Boa ✨','Relaxamento alcançado. Tente ir mais fundo.'],[0,'Iniciando 🌱','Cada sessão te leva mais longe.']];
+  const [,lb,desc] = lbs.find(([t])=>score>=t);
+  document.getElementById('score-lbl').textContent = lb;
+  document.getElementById('score-desc').textContent = desc;
+
+  // Timeline
+  const strip = document.getElementById('tm-strip');
+  const axis = document.getElementById('tm-axis');
+  strip.innerHTML=''; axis.innerHTML='';
+  const maxMin = Math.max(totalMin,1);
+  for(let i=0;i<maxMin;i++){
+    const ms = S.startTime+i*60000, me = ms+60000;
+    let ph='empty', best=0;
+    S.log.forEach(seg=>{
+      const ov = Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);
+      if(ov>best){best=ov;ph=seg.phase;}
+    });
+    const d=document.createElement('div');
+    d.className='tm-min '+ph; d.title=(i+1)+'min';
+    strip.appendChild(d);
+  }
+  const steps=Math.min(6,maxMin);
+  for(let i=0;i<=steps;i++){
+    const sp=document.createElement('span');
+    sp.textContent=Math.round(i*maxMin/steps)+'min';
+    axis.appendChild(sp);
+  }
+
+  // Barras
+  ['alfa','teta','delta'].forEach(ph=>{
+    document.getElementById('hb-'+ph).style.width=pcts[ph]+'%';
+    document.getElementById('hp-'+ph).textContent=pcts[ph]+'%';
+    const min=Math.round(T[ph]/60000);
+    document.getElementById('ps-'+ph).textContent=min+' min';
+    document.getElementById('pp-'+ph).textContent='· '+pcts[ph]+'%';
+  });
+
+  // FC
+  if(S.hrLog.length){
+    const bpms=S.hrLog.map(x=>x.bpm);
+    document.getElementById('fc-avg').textContent=Math.round(bpms.reduce((a,b)=>a+b,0)/bpms.length);
+    document.getElementById('fc-max').textContent=Math.max(...bpms);
+    document.getElementById('fc-min').textContent=Math.min(...bpms);
+    drawChart('fc-canvas', S.hrLog.map(x=>({t:x.t,v:x.bpm})), S.startTime, '#f87171');
+  } else {
+    ['fc-avg','fc-max','fc-min'].forEach(id=>document.getElementById(id).textContent='--');
+  }
+
+  // Respiração
+  if(S.rrLog.length){
+    const rrs=S.rrLog.map(x=>x.rr);
+    document.getElementById('rr-avg').textContent=Math.round(rrs.reduce((a,b)=>a+b,0)/rrs.length);
+    document.getElementById('rr-max').textContent=Math.max(...rrs);
+    document.getElementById('rr-min').textContent=Math.min(...rrs);
+  } else {
+    ['rr-avg','rr-max','rr-min'].forEach(id=>document.getElementById(id).textContent='--');
+  }
+}
+
+function drawChart(canvasId, data, startTime, color) {
+  const canvas = document.getElementById(canvasId);
+  const W = canvas.parentElement.offsetWidth*2;
+  const H = 112;
+  canvas.width=W; canvas.height=H;
+  canvas.style.width=canvas.parentElement.offsetWidth+'px';
+  canvas.style.height='56px';
+  const ctx=canvas.getContext('2d');
+  if(data.length<2) return;
+  const vals=data.map(x=>x.v);
+  const minV=Math.min(...vals)-3, maxV=Math.max(...vals)+3;
+  const totalMs=(data[data.length-1].t-startTime)||1;
+  const grd=ctx.createLinearGradient(0,0,0,H);
+  grd.addColorStop(0,color+'55'); grd.addColorStop(1,color+'00');
+  ctx.beginPath();
+  data.forEach((pt,i)=>{
+    const x=(pt.t-startTime)/totalMs*W;
+    const y=H-((pt.v-minV)/(maxV-minV))*H;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
+  ctx.fillStyle=grd; ctx.fill();
+  ctx.beginPath();
+  data.forEach((pt,i)=>{
+    const x=(pt.t-startTime)/totalMs*W;
+    const y=H-((pt.v-minV)/(maxV-minV))*H;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle=color; ctx.lineWidth=3;
+  ctx.lineJoin='round'; ctx.stroke();
+}
+
+// ── NOVA SESSÃO ──────────────────────────────────────────
+document.getElementById('btn-new').addEventListener('click', ()=>showScreen('sc-home'));
+
+// ── TELA CHEIA ───────────────────────────────────────────
+const app=document.getElementById('main-app');
+const goFull=()=>{
+  if(!document.fullscreenElement) app.requestFullscreen().catch(()=>{});
+  document.removeEventListener('click',goFull);
+  document.removeEventListener('touchstart',goFull);
+};
+document.addEventListener('click',goFull);
+document.addEventListener('touchstart',goFull);
+
+// ── SERVICE WORKER ───────────────────────────────────────
+if('serviceWorker' in navigator)
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+// ── INSTALL BANNER ───────────────────────────────────────
+let dPrm=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dPrm=e;document.getElementById('install-banner').classList.add('visible');});
+document.getElementById('btn-iyes').addEventListener('click',async()=>{
+  document.getElementById('install-banner').classList.remove('visible');
+  if(dPrm){dPrm.prompt();await dPrm.userChoice;dPrm=null;}
+});
+document.getElementById('btn-ino').addEventListener('click',()=>document.getElementById('install-banner').classList.remove('visible'));
+window.addEventListener('appinstalled',()=>document.getElementById('install-banner').classList.remove('visible'));
+
+// ── SPLASH ───────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(()=>document.getElementById('splash').remove(),900);
+  },2200);
+});
+
+showScreen('sc-home');
+</script>
+</body>
+</html>
