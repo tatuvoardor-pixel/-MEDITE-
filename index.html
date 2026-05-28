@@ -23,15 +23,15 @@
 :root{
   --bg:#18181b; --s1:#212125; --s2:#2a2a2f; --s3:#323238; --bd:#3f3f46;
   --tx:#f4f4f5; --t2:#a1a1aa; --t3:#52525b;
-  --alfa:#64b5f6; --alfa-d:#64b5f614; --alfa-m:#64b5f645; --alfa-g:#64b5f628;
-  --teta:#9b72cf; --teta-d:#9b72cf14; --teta-m:#9b72cf45; --teta-g:#9b72cf28;
-  --delta:#5c6bc0; --delta-d:#5c6bc014; --delta-m:#5c6bc045; --delta-g:#5c6bc028;
+  --alfa:#64b5f6; --alfa-d:#64b5f614; --alfa-m:#64b5f645;
+  --teta:#9b72cf; --teta-d:#9b72cf14; --teta-m:#9b72cf45;
+  --delta:#5c6bc0; --delta-d:#5c6bc014; --delta-m:#5c6bc045;
   --red:#f87171; --grn:#4ade80; --org:#fb923c;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Barlow',sans-serif;}
 
-/* SPLASH */
+/* ── SPLASH ── */
 #splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:999;transition:opacity 0.8s ease;}
 #splash.hide{opacity:0;pointer-events:none;}
 #splash svg{width:120px;height:70px;animation:fadeUp 1s ease forwards;opacity:0;}
@@ -39,10 +39,10 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 #splash .ss{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--t3);animation:fadeUp 1s 0.4s ease forwards;opacity:0;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-/* APP */
+/* ── LAYOUT ── */
 .app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
 
-/* HEADER */
+/* ── HEADER ── */
 .hdr{padding:13px 16px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--bd);}
 .hlogo{display:flex;align-items:center;gap:8px;}
 .hlogo svg{width:30px;height:18px;}
@@ -56,39 +56,41 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .pill.mic-on .pdot{background:var(--grn);animation:bl 1.4s infinite;}
 @keyframes bl{0%,100%{opacity:1;}50%{opacity:0.25;}}
 
-/* SCROLL */
+/* ── SCROLL ── */
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:16px 14px 28px;display:flex;flex-direction:column;gap:12px;}
 
-/* CARD BASE */
+/* ── CARD BASE ── */
 .card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;}
-.stitle{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--t3);}
+.sec{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--t3);}
 
-/* ══ HOME ══ */
-.hero-txt .ht{font-family:'Lilita One',cursive;font-size:1.55rem;line-height:1.15;color:var(--tx);}
-.hero-txt .hs{font-size:0.8rem;color:var(--t2);line-height:1.6;margin-top:4px;}
+/* ── HOME ── */
+.ht{font-family:'Lilita One',cursive;font-size:1.55rem;line-height:1.2;color:var(--tx);}
+.hs{font-size:0.8rem;color:var(--t2);line-height:1.6;margin-top:5px;}
 
-.ph-stack{display:flex;flex-direction:column;gap:7px;}
-.ph-row{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:13px;border:1px solid transparent;}
+/* FIX PRINCIPAL: ph-row com min-height e align-items:stretch para não vazar */
+.ph-stack{display:flex;flex-direction:column;gap:8px;}
+.ph-row{display:flex;align-items:stretch;gap:11px;padding:14px 13px;border-radius:14px;border:1px solid transparent;min-height:0;}
 .ph-row.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
 .ph-row.teta{background:var(--teta-d);border-color:var(--teta-m);}
 .ph-row.delta{background:var(--delta-d);border-color:var(--delta-m);}
+.ph-dot-wrap{display:flex;align-items:flex-start;padding-top:4px;flex-shrink:0;}
 .ph-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .ph-row.alfa .ph-dot{background:var(--alfa);}
 .ph-row.teta .ph-dot{background:var(--teta);}
 .ph-row.delta .ph-dot{background:var(--delta);}
-.ph-info{flex:1;}
-.ph-nm{font-family:'Lilita One',cursive;font-size:1rem;}
+.ph-info{flex:1;min-width:0;}
+.ph-nm{font-family:'Lilita One',cursive;font-size:1rem;line-height:1.2;}
 .ph-row.alfa .ph-nm{color:var(--alfa);}
 .ph-row.teta .ph-nm{color:var(--teta);}
 .ph-row.delta .ph-nm{color:var(--delta);}
-.ph-ds{font-size:0.74rem;color:var(--t2);margin-top:1px;line-height:1.4;}
-.ph-bg{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
-.ph-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1px;color:var(--t3);}
-.ph-rng{font-family:'Barlow Condensed',sans-serif;font-size:0.63rem;color:var(--t3);}
+.ph-ds{font-size:0.74rem;color:var(--t2);margin-top:3px;line-height:1.45;word-break:break-word;}
+.ph-bg{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;gap:3px;flex-shrink:0;padding-top:2px;}
+.ph-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1px;color:var(--t3);white-space:nowrap;}
+.ph-rng{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);white-space:nowrap;}
 
-/* Respiração guiada home */
+/* Modos de respiração — grid 2x2 + livre embaixo */
 .breath-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.bm-card{background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:13px 12px;cursor:pointer;display:flex;flex-direction:column;gap:5px;transition:all 0.18s;}
+.bm-card{background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:13px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:all 0.18s;}
 .bm-card:active{transform:scale(0.97);}
 .bm-card.sel{border-width:2px;}
 .bm-card.sel.wake{border-color:var(--org);}
@@ -96,56 +98,57 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .bm-card.sel.focus{border-color:var(--teta);}
 .bm-card.sel.sleep{border-color:var(--delta);}
 .bm-card.sel.livre{border-color:var(--t2);}
-.bm-card.livre .bm-name{color:var(--t2);}
-.bm-icon{font-size:1.4rem;}
-.bm-name{font-family:'Lilita One',cursive;font-size:0.95rem;}
+.bm-icon{font-size:1.3rem;}
+.bm-name{font-family:'Lilita One',cursive;font-size:0.92rem;}
 .bm-card.wake .bm-name{color:var(--org);}
 .bm-card.train .bm-name{color:var(--alfa);}
 .bm-card.focus .bm-name{color:var(--teta);}
 .bm-card.sleep .bm-name{color:var(--delta);}
-.bm-desc{font-size:0.7rem;color:var(--t3);line-height:1.4;}
-.bm-rhythm{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:1px;color:var(--t3);margin-top:2px;}
+.bm-card.livre .bm-name{color:var(--t2);}
+.bm-desc{font-size:0.69rem;color:var(--t3);line-height:1.4;}
+.bm-rhythm{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:0.5px;color:var(--t3);margin-top:1px;}
+/* Livre ocupa linha inteira */
+.bm-livre-wrap{grid-column:1/-1;}
 
 .btn-start{width:100%;padding:17px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:15px;font-family:'Lilita One',cursive;font-size:1.15rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
 .btn-start:active{opacity:0.78;}
 
-/* ══ MEDITAÇÃO ══ */
+/* ── MEDITAÇÃO ── */
 .arena{border-radius:20px;padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid transparent;transition:background 1s ease,border-color 1s ease;}
 .arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
 .arena.teta{background:var(--teta-d);border-color:var(--teta-m);}
 .arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
-
-.arena svg.wv{width:88px;height:46px;margin-bottom:3px;}
+.arena svg.wv{width:80px;height:42px;margin-bottom:2px;}
 .arena-ph{font-family:'Lilita One',cursive;font-size:2.6rem;letter-spacing:1px;transition:color 1s ease;line-height:1;}
 .arena.alfa .arena-ph{color:var(--alfa);}
 .arena.teta .arena-ph{color:var(--teta);}
 .arena.delta .arena-ph{color:var(--delta);}
-.arena-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--t2);}
+.arena-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t2);}
 .arena-timer{font-family:'Lilita One',cursive;font-size:4rem;color:var(--tx);line-height:1;letter-spacing:-1px;margin-top:2px;}
 
 /* Bio boxes */
 .bio-row{display:flex;gap:8px;}
-.bio-box{flex:1;background:var(--s2);border-radius:13px;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
-.bv{font-family:'Lilita One',cursive;font-size:1.4rem;line-height:1;}
-.bu{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-.bl{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
+.bio-box{flex:1;background:var(--s2);border-radius:13px;padding:11px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
+.bv{font-family:'Lilita One',cursive;font-size:1.35rem;line-height:1;}
+.bu{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);}
+.bl{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
 .bio-hr .bv{color:var(--red);}
 .bio-rr .bv{color:var(--grn);}
-.bio-auto .bv{font-size:0.85rem;transition:color 0.6s;}
+.bio-auto .bv{font-size:0.82rem;transition:color 0.6s;}
 
-/* Respiração guiada widget */
+/* Widget respiração guiada */
 .breath-guide{background:var(--s2);border-radius:16px;padding:16px;border:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;gap:10px;}
-.bg-label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
-.bg-circle-wrap{position:relative;width:100px;height:100px;}
-.bg-circle-wrap svg{width:100px;height:100px;transform:rotate(-90deg);}
+.bg-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+.bg-ring-wrap{position:relative;width:96px;height:96px;}
+.bg-ring-wrap svg{width:96px;height:96px;transform:rotate(-90deg);}
 .bgc-track{fill:none;stroke:var(--s3);stroke-width:7;}
-.bgc-fill{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 0.2s linear;}
+.bgc-fill{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 0.15s linear;}
 .bg-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
-.bg-action{font-family:'Lilita One',cursive;font-size:0.85rem;text-align:center;line-height:1.1;}
-.bg-count{font-family:'Lilita One',cursive;font-size:1.6rem;color:var(--tx);line-height:1;}
-.bg-mode-name{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.bg-action{font-family:'Lilita One',cursive;font-size:0.82rem;text-align:center;line-height:1.1;}
+.bg-count{font-family:'Lilita One',cursive;font-size:1.55rem;color:var(--tx);line-height:1;}
+.bg-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);text-align:center;}
 
-/* Fase buttons */
+/* Botões de fase manual */
 .ph-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
 .ph-btn{padding:11px 5px;border-radius:13px;border:2px solid transparent;background:var(--s1);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all 0.2s;}
 .ph-btn.alfa{border-color:var(--alfa-m);}
@@ -158,43 +161,39 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .ph-btn.alfa .ph-btn-n{color:var(--alfa);}
 .ph-btn.teta .ph-btn-n{color:var(--teta);}
 .ph-btn.delta .ph-btn-n{color:var(--delta);}
-.ph-btn-t{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--t3);letter-spacing:1px;}
-.ph-btn-det{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;color:var(--grn);letter-spacing:1px;}
+.ph-btn-t{font-family:'Barlow Condensed',sans-serif;font-size:0.64rem;color:var(--t3);letter-spacing:1px;}
+.ph-btn-det{font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;color:var(--grn);letter-spacing:0.5px;min-height:9px;}
 
 .btn-end{width:100%;padding:14px;background:transparent;color:var(--red);border:1px solid #4a1a1a;border-radius:14px;font-family:'Lilita One',cursive;font-size:0.95rem;letter-spacing:1px;cursor:pointer;transition:background 0.15s;}
 .btn-end:active{background:#1a0505;}
 
-/* ══ RELATÓRIO ══ */
-.rep-head{display:flex;flex-direction:column;gap:2px;}
-.rep-date{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
-.rep-title{font-family:'Lilita One',cursive;font-size:1.75rem;color:var(--tx);}
-.rep-dur{font-family:'Lilita One',cursive;font-size:3.4rem;color:var(--tx);line-height:1;margin-top:4px;}
-.rep-dur-l{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+/* ── RELATÓRIO ── */
+.rep-date{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+.rep-title{font-family:'Lilita One',cursive;font-size:1.75rem;color:var(--tx);margin-top:2px;}
+.rep-dur{font-family:'Lilita One',cursive;font-size:3.2rem;color:var(--tx);line-height:1;margin-top:6px;}
+.rep-dur-l{font-family:'Barlow Condensed',sans-serif;font-size:0.63rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
 
-/* Score */
 .score-wrap{display:flex;align-items:center;gap:14px;}
-.score-ring{position:relative;width:84px;height:84px;flex-shrink:0;}
-.score-ring svg{width:84px;height:84px;transform:rotate(-90deg);}
+.score-ring{position:relative;width:82px;height:82px;flex-shrink:0;}
+.score-ring svg{width:82px;height:82px;transform:rotate(-90deg);}
 .srt{fill:none;stroke:var(--s3);stroke-width:8;}
-.srf{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:236;stroke-dashoffset:236;transition:stroke-dashoffset 1.5s cubic-bezier(0.22,1,0.36,1);}
-.srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:1.45rem;color:var(--tx);}
-.score-info{flex:1;}
-.sc-lbl{font-family:'Lilita One',cursive;font-size:1.3rem;color:var(--tx);}
-.sc-desc{font-size:0.76rem;color:var(--t2);margin-top:4px;line-height:1.55;}
+.srf{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:226;stroke-dashoffset:226;transition:stroke-dashoffset 1.5s cubic-bezier(0.22,1,0.36,1);}
+.srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:1.4rem;color:var(--tx);}
+.sc-lbl{font-family:'Lilita One',cursive;font-size:1.25rem;color:var(--tx);}
+.sc-desc{font-size:0.75rem;color:var(--t2);margin-top:4px;line-height:1.55;}
 
 /* Hipograma */
 .tm-strip{display:flex;height:28px;border-radius:7px;overflow:hidden;gap:1.5px;}
-.tm-m{flex:1;min-width:0;border-radius:2px;}
+.tm-m{flex:1;min-width:2px;border-radius:2px;}
 .tm-m.alfa{background:var(--alfa);}
 .tm-m.teta{background:var(--teta);}
 .tm-m.delta{background:var(--delta);}
 .tm-m.empty{background:var(--s3);}
-.tm-axis{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;color:var(--t3);letter-spacing:1px;margin-top:3px;}
+.tm-axis{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);letter-spacing:0.5px;margin-top:4px;}
 
-/* Barras */
 .hb-rows{display:flex;flex-direction:column;gap:7px;}
 .hb-row{display:flex;align-items:center;gap:9px;}
-.hb-lbl{font-family:'Lilita One',cursive;font-size:0.8rem;width:56px;flex-shrink:0;}
+.hb-lbl{font-family:'Lilita One',cursive;font-size:0.78rem;width:52px;flex-shrink:0;}
 .hb-row.alfa .hb-lbl{color:var(--alfa);}
 .hb-row.teta .hb-lbl{color:var(--teta);}
 .hb-row.delta .hb-lbl{color:var(--delta);}
@@ -203,12 +202,11 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .hb-row.alfa .hb-fill{background:var(--alfa);}
 .hb-row.teta .hb-fill{background:var(--teta);}
 .hb-row.delta .hb-fill{background:var(--delta);}
-.hb-pct{font-family:'Lilita One',cursive;font-size:0.82rem;width:36px;text-align:right;flex-shrink:0;}
+.hb-pct{font-family:'Lilita One',cursive;font-size:0.8rem;width:36px;text-align:right;flex-shrink:0;}
 .hb-row.alfa .hb-pct{color:var(--alfa);}
 .hb-row.teta .hb-pct{color:var(--teta);}
 .hb-row.delta .hb-pct{color:var(--delta);}
 
-/* Stats fases */
 .ps-rows{display:flex;flex-direction:column;gap:8px;}
 .ps-row{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;}
 .ps-row.alfa{background:var(--alfa-d);}
@@ -218,54 +216,51 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .ps-row.alfa .ps-dot{background:var(--alfa);}
 .ps-row.teta .ps-dot{background:var(--teta);}
 .ps-row.delta .ps-dot{background:var(--delta);}
-.ps-nm{font-family:'Lilita One',cursive;font-size:0.92rem;flex:1;}
+.ps-nm{font-family:'Lilita One',cursive;font-size:0.9rem;flex:1;}
 .ps-row.alfa .ps-nm{color:var(--alfa);}
 .ps-row.teta .ps-nm{color:var(--teta);}
 .ps-row.delta .ps-nm{color:var(--delta);}
-.ps-tm{font-family:'Lilita One',cursive;font-size:0.95rem;color:var(--tx);}
-.ps-pc{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;color:var(--t3);margin-left:3px;}
+.ps-tm{font-family:'Lilita One',cursive;font-size:0.92rem;color:var(--tx);}
+.ps-pc{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;color:var(--t3);margin-left:3px;}
 
-/* FC + RR */
 .bio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
-.bg-stat{background:var(--s2);border-radius:13px;padding:12px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
-.bg-v{font-family:'Lilita One',cursive;font-size:1.75rem;color:var(--tx);}
-.bg-l{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-.bg-u{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;color:var(--t3);}
+.bg-stat{background:var(--s2);border-radius:13px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
+.bg-v{font-family:'Lilita One',cursive;font-size:1.7rem;color:var(--tx);}
+.bg-l{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.bg-u{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;color:var(--t3);}
 .chart-wrap{height:52px;position:relative;}
 .chart-wrap canvas{position:absolute;inset:0;width:100%;height:100%;}
 
 /* Mural */
 .mural-list{display:flex;flex-direction:column;}
 .mural-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--s2);}
-.mural-item:last-child{border-bottom:none;}
-.mural-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;padding-top:3px;}
+.mural-item:last-child{border-bottom:none;padding-bottom:0;}
+.mural-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:3px;}
 .mural-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .mural-item.alfa .mural-dot{background:var(--alfa);}
 .mural-item.teta .mural-dot{background:var(--teta);}
 .mural-item.delta .mural-dot{background:var(--delta);}
 .mural-item.insight .mural-dot{background:var(--org);}
 .mural-line{width:1px;flex:1;min-height:16px;background:var(--bd);margin-top:4px;}
-.mural-body{flex:1;}
+.mural-body{flex:1;min-width:0;}
 .mural-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
 .mural-item.alfa .mural-tag{color:var(--alfa);}
 .mural-item.teta .mural-tag{color:var(--teta);}
 .mural-item.delta .mural-tag{color:var(--delta);}
 .mural-item.insight .mural-tag{color:var(--org);}
-.mural-ev{font-family:'Lilita One',cursive;font-size:0.95rem;color:var(--tx);margin-bottom:2px;}
-.mural-desc{font-size:0.76rem;color:var(--t2);line-height:1.5;}
+.mural-ev{font-family:'Lilita One',cursive;font-size:0.92rem;color:var(--tx);margin-bottom:3px;line-height:1.2;}
+.mural-desc{font-size:0.75rem;color:var(--t2);line-height:1.5;}
 
 .btn-new{width:100%;padding:17px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:15px;font-family:'Lilita One',cursive;font-size:1.15rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
 .btn-new:active{opacity:0.78;}
 
-/* install */
+/* Banner instalar */
 #ib{display:none;background:#0c1620;border:1px solid var(--alfa);border-radius:13px;padding:9px 13px;align-items:center;gap:9px;font-size:0.78rem;color:var(--t2);}
 #ib.show{display:flex;}
 #ib span{flex:1;line-height:1.4;}
 #ib strong{color:var(--alfa);}
-.ib-y{background:var(--alfa);color:#000;font-family:'Lilita One',cursive;font-size:0.78rem;border:none;border-radius:7px;padding:7px 11px;cursor:pointer;}
+.ib-y{background:var(--alfa);color:#000;font-family:'Lilita One',cursive;font-size:0.78rem;border:none;border-radius:7px;padding:7px 11px;cursor:pointer;white-space:nowrap;}
 .ib-n{background:transparent;color:var(--t3);border:none;font-size:1rem;cursor:pointer;padding:3px;}
-
-.hidden{display:none!important;}
 </style>
 </head>
 <body>
@@ -300,46 +295,58 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
   </div>
 
   <div class="scroll">
+
     <div id="ib"><span>📲 <strong>Instalar app?</strong></span><button class="ib-y" id="ib-y">Instalar</button><button class="ib-n" id="ib-n">✕</button></div>
 
-    <!-- ══ HOME ══ -->
+    <!-- ═══ HOME ═══ -->
     <div id="sc-home" style="display:flex;flex-direction:column;gap:12px;">
 
       <div class="card">
-        <div class="hero-txt">
-          <div class="ht">Sua mente,<br>em ondas.</div>
-          <div class="hs">Rastreie cada fase da meditação por FC e respiração automática. Relatório completo no final.</div>
-        </div>
+        <div class="ht">Sua mente,<br>em ondas.</div>
+        <div class="hs">Rastreie cada fase da meditação por frequência cardíaca e respiração automática. Relatório completo ao final.</div>
+
         <div class="ph-stack">
           <div class="ph-row alfa">
-            <div class="ph-dot"></div>
+            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
             <div class="ph-info">
               <div class="ph-nm">Alfa</div>
               <div class="ph-ds">Ondas relaxantes. Ansiedade cai, criatividade sobe.</div>
             </div>
-            <div class="ph-bg"><div class="ph-hz">α 8–14Hz</div><div class="ph-rng">65–80bpm · 8–12resp</div></div>
+            <div class="ph-bg">
+              <div class="ph-hz">α 8–14 Hz</div>
+              <div class="ph-rng">65–80 bpm</div>
+              <div class="ph-rng">8–12 resp/min</div>
+            </div>
           </div>
           <div class="ph-row teta">
-            <div class="ph-dot"></div>
+            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
             <div class="ph-info">
               <div class="ph-nm">Teta</div>
-              <div class="ph-ds">Meditação profunda. Subconsciente ativo.</div>
+              <div class="ph-ds">Meditação profunda. Subconsciente ativo, pensamentos somem.</div>
             </div>
-            <div class="ph-bg"><div class="ph-hz">θ 3–7Hz</div><div class="ph-rng">55–68bpm · 4–7resp</div></div>
+            <div class="ph-bg">
+              <div class="ph-hz">θ 3–7 Hz</div>
+              <div class="ph-rng">55–68 bpm</div>
+              <div class="ph-rng">4–7 resp/min</div>
+            </div>
           </div>
           <div class="ph-row delta">
-            <div class="ph-dot"></div>
+            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
             <div class="ph-info">
               <div class="ph-nm">Delta</div>
               <div class="ph-ds">Estado mais profundo. Cura e regeneração celular.</div>
             </div>
-            <div class="ph-bg"><div class="ph-hz">δ 0.5–3Hz</div><div class="ph-rng">45–60bpm · 2–5resp</div></div>
+            <div class="ph-bg">
+              <div class="ph-hz">δ 0.5–3 Hz</div>
+              <div class="ph-rng">45–60 bpm</div>
+              <div class="ph-rng">2–5 resp/min</div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="stitle">Respiração Guiada — Escolha seu modo</div>
+        <div class="sec">Escolha o modo de respiração</div>
         <div class="breath-modes">
           <div class="bm-card wake" data-mode="wake" onclick="selMode(this)">
             <div class="bm-icon">🌅</div>
@@ -357,19 +364,21 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
             <div class="bm-icon">🧠</div>
             <div class="bm-name">Foco</div>
             <div class="bm-desc">HRV otimizado. Resiliência ao estresse.</div>
-            <div class="bm-rhythm">Coerente 5 resp/min</div>
+            <div class="bm-rhythm">Coerente — 5 resp/min</div>
           </div>
           <div class="bm-card sleep" data-mode="sleep" onclick="selMode(this)">
             <div class="bm-icon">😴</div>
             <div class="bm-name">Dormir</div>
-            <div class="bm-desc">Nervo vago ativo. Parasimpático dominante.</div>
-            <div class="bm-rhythm">4-7-8 (Dr. Weil)</div>
+            <div class="bm-desc">Nervo vago ativo. Sistema parassimpático dominante.</div>
+            <div class="bm-rhythm">4-7-8 (Dr. Andrew Weil)</div>
           </div>
-          <div class="bm-card livre" data-mode="livre" onclick="selMode(this)" style="grid-column:1/-1;">
-            <div class="bm-icon">🔮</div>
-            <div class="bm-name">Livre</div>
-            <div class="bm-desc">Sem guia de respiração. Apenas timer, detecção automática de fase por FC e microfone, e relatório completo no final.</div>
-            <div class="bm-rhythm">Sua respiração natural</div>
+          <div class="bm-livre-wrap">
+            <div class="bm-card livre" data-mode="livre" onclick="selMode(this)" style="width:100%;">
+              <div class="bm-icon">🔮</div>
+              <div class="bm-name">Livre</div>
+              <div class="bm-desc">Sem guia de respiração. Timer, detecção automática de fase e relatório completo ao final.</div>
+              <div class="bm-rhythm">Respiração natural — sem guia</div>
+            </div>
           </div>
         </div>
         <button class="btn-start" id="btn-start">Iniciar Meditação</button>
@@ -377,8 +386,8 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 
     </div>
 
-    <!-- ══ MEDITAÇÃO ══ -->
-    <div id="sc-med" class="hidden" style="flex-direction:column;gap:11px;">
+    <!-- ═══ MEDITAÇÃO ═══ -->
+    <div id="sc-med" style="display:none;flex-direction:column;gap:11px;">
 
       <div class="arena alfa" id="arena">
         <svg class="wv" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
@@ -395,10 +404,9 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="bio-box bio-auto"><div class="bv" id="bio-auto" style="color:var(--t2)">AUTO</div><div class="bu">FASE</div><div class="bl">Detectada</div></div>
       </div>
 
-      <!-- Respiração guiada widget -->
       <div class="breath-guide" id="bg-widget">
-        <div class="bg-label" id="bg-mode-lbl">FOCO · COERENTE</div>
-        <div class="bg-circle-wrap">
+        <div class="bg-lbl" id="bg-mode-lbl">FOCO · COERENTE</div>
+        <div class="bg-ring-wrap">
           <svg viewBox="0 0 100 100">
             <circle class="bgc-track" cx="50" cy="50" r="45"/>
             <circle class="bgc-fill" id="bgc" cx="50" cy="50" r="45" stroke="#9b72cf"/>
@@ -408,7 +416,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
             <div class="bg-count" id="bg-count">6</div>
           </div>
         </div>
-        <div class="bg-mode-name" id="bg-desc-lbl">Respire 5x por minuto — otimiza HRV</div>
+        <div class="bg-sub" id="bg-sub">Respire 5x por minuto — otimiza HRV</div>
       </div>
 
       <div class="ph-grid">
@@ -432,34 +440,31 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
       <button class="btn-end" id="btn-end">Encerrar Sessão</button>
     </div>
 
-    <!-- ══ RELATÓRIO ══ -->
-    <div id="sc-rep" class="hidden" style="flex-direction:column;gap:12px;">
+    <!-- ═══ RELATÓRIO ═══ -->
+    <div id="sc-rep" style="display:none;flex-direction:column;gap:12px;">
 
       <div class="card">
-        <div class="rep-head">
-          <div class="rep-date" id="rep-date"></div>
-          <div class="rep-title">Sessão Completa</div>
-          <div class="rep-dur" id="rep-dur">--</div>
-          <div class="rep-dur-l">Duração total</div>
-        </div>
+        <div class="rep-date" id="rep-date"></div>
+        <div class="rep-title">Sessão Completa</div>
+        <div class="rep-dur" id="rep-dur">--</div>
+        <div class="rep-dur-l">Duração total</div>
         <div class="score-wrap">
           <div class="score-ring">
-            <svg viewBox="0 0 84 84"><circle class="srt" cx="42" cy="42" r="37"/><circle class="srf" id="srf" cx="42" cy="42" r="37"/></svg>
+            <svg viewBox="0 0 82 82"><circle class="srt" cx="41" cy="41" r="36"/><circle class="srf" id="srf" cx="41" cy="41" r="36"/></svg>
             <div class="srn" id="srn">0</div>
           </div>
-          <div class="score-info">
+          <div>
             <div class="sc-lbl" id="sc-lbl">—</div>
             <div class="sc-desc" id="sc-desc"></div>
           </div>
         </div>
       </div>
 
-      <!-- Hipograma -->
       <div class="card">
-        <div class="stitle">Hipograma da Sessão</div>
+        <div class="sec">Hipograma da sessão</div>
         <div class="tm-strip" id="tm-strip"></div>
         <div class="tm-axis" id="tm-axis"></div>
-        <div class="stitle" style="margin-top:6px">Tempo por fase</div>
+        <div class="sec" style="margin-top:8px">Tempo por fase</div>
         <div class="hb-rows">
           <div class="hb-row alfa"><div class="hb-lbl">Alfa</div><div class="hb-track"><div class="hb-fill" id="hf-alfa"></div></div><div class="hb-pct" id="hp-alfa">0%</div></div>
           <div class="hb-row teta"><div class="hb-lbl">Teta</div><div class="hb-track"><div class="hb-fill" id="hf-teta"></div></div><div class="hb-pct" id="hp-teta">0%</div></div>
@@ -467,9 +472,8 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         </div>
       </div>
 
-      <!-- Minutos por fase -->
       <div class="card">
-        <div class="stitle">Minutos por fase</div>
+        <div class="sec">Minutos por fase</div>
         <div class="ps-rows">
           <div class="ps-row alfa"><div class="ps-dot"></div><div class="ps-nm">Alfa</div><div><span class="ps-tm" id="ps-alfa">0 min</span><span class="ps-pc" id="pp-alfa"></span></div></div>
           <div class="ps-row teta"><div class="ps-dot"></div><div class="ps-nm">Teta</div><div><span class="ps-tm" id="ps-teta">0 min</span><span class="ps-pc" id="pp-teta"></span></div></div>
@@ -477,9 +481,8 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         </div>
       </div>
 
-      <!-- FC -->
       <div class="card">
-        <div class="stitle">Frequência Cardíaca</div>
+        <div class="sec">Frequência Cardíaca</div>
         <div class="bio-grid">
           <div class="bg-stat"><div class="bg-v" id="fc-avg" style="color:var(--red)">--</div><div class="bg-l">Média</div><div class="bg-u">bpm</div></div>
           <div class="bg-stat"><div class="bg-v" id="fc-max" style="color:var(--red)">--</div><div class="bg-l">Máxima</div><div class="bg-u">bpm</div></div>
@@ -488,9 +491,8 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="chart-wrap"><canvas id="fc-canvas"></canvas></div>
       </div>
 
-      <!-- Respiração -->
       <div class="card">
-        <div class="stitle">Respiração</div>
+        <div class="sec">Respiração</div>
         <div class="bio-grid">
           <div class="bg-stat"><div class="bg-v" id="rr-avg" style="color:var(--grn)">--</div><div class="bg-l">Média</div><div class="bg-u">resp/min</div></div>
           <div class="bg-stat"><div class="bg-v" id="rr-max" style="color:var(--grn)">--</div><div class="bg-l">Máxima</div><div class="bg-u">resp/min</div></div>
@@ -499,9 +501,8 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="chart-wrap"><canvas id="rr-canvas"></canvas></div>
       </div>
 
-      <!-- Mural neurociência -->
       <div class="card">
-        <div class="stitle">O que aconteceu no seu cérebro</div>
+        <div class="sec">O que aconteceu no seu cérebro</div>
         <div class="mural-list" id="mural-list"></div>
       </div>
 
@@ -512,42 +513,50 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 </div>
 
 <script>
-// ══ DADOS NEUROCIÊNCIA ══════════════════════════════════
+// ══ NEUROCIÊNCIA — FASES ═══════════════════════════════
 const PHASES = {
-  alfa:  {name:'ALFA',  hz:'Ondas Alfa · 8–14 Hz',  color:'#64b5f6', hrLo:65,hrHi:80, rrLo:8,rrHi:12},
-  teta:  {name:'TETA',  hz:'Ondas Teta · 3–7 Hz',   color:'#9b72cf', hrLo:55,hrHi:68, rrLo:4,rrHi:7},
-  delta: {name:'DELTA', hz:'Ondas Delta · 0.5–3 Hz', color:'#5c6bc0', hrLo:45,hrHi:60, rrLo:2,rrHi:5},
+  alfa:  {name:'ALFA',  hz:'Ondas Alfa · 8–14 Hz',   color:'#64b5f6', hrLo:65,hrHi:80, rrLo:8, rrHi:12},
+  teta:  {name:'TETA',  hz:'Ondas Teta · 3–7 Hz',    color:'#9b72cf', hrLo:55,hrHi:68, rrLo:4, rrHi:7},
+  delta: {name:'DELTA', hz:'Ondas Delta · 0.5–3 Hz', color:'#5c6bc0', hrLo:45,hrHi:60, rrLo:2, rrHi:5},
 };
 
-// Mural: eventos científicos por tempo de meditação
-const MURAL_EVENTS = [
-  {min:0,  phase:'alfa',    ev:'Início — Ondas Alfa dominantes',       desc:'A frequência cardíaca começa a cair. O córtex pré-frontal desacelera a produção de adrenalina. Ansiedade reduz em até 40% nos primeiros 5 minutos.'},
-  {min:3,  phase:'alfa',    ev:'Serotonina sobe',                      desc:'Com FC abaixo de 75 bpm e respiração ritmada, o cérebro aumenta a produção de serotonina — o neurotransmissor do bem-estar e regulação emocional.'},
-  {min:5,  phase:'alfa',    ev:'Cortisol começa a cair',               desc:'Após 5 minutos de ondas Alfa estáveis, os níveis de cortisol (hormônio do estresse) iniciam queda mensurável. O sistema nervoso parassimpático assume o controle.'},
-  {min:8,  phase:'teta',    ev:'Transição para ondas Teta',            desc:'Com FC abaixo de 68 bpm e respiração lenta (4–7 resp/min), o cérebro começa a produzir ondas Teta. O subconsciente abre. Memórias e insights emergem.'},
-  {min:10, phase:'teta',    ev:'Dopamina e criatividade',              desc:'Ondas Teta ativam o hipocampo. A produção de dopamina aumenta. Este é o estado dos artistas, meditadores experientes e do "fluxo criativo".'},
-  {min:12, phase:'teta',    ev:'DMN desativado — ego dissolvendo',     desc:'A Default Mode Network (rede do modo padrão) — responsável pelo "eu" e ruminação mental — começa a silenciar. Menos pensamentos automáticos.'},
-  {min:15, phase:'teta',    ev:'GABA e relaxamento profundo',          desc:'O ácido gama-aminobutírico (GABA) atinge pico. É o principal neurotransmissor inibitório do cérebro — reduz ansiedade mais eficazmente que benzodiazepínicos leves.'},
-  {min:20, phase:'delta',   ev:'Ondas Delta — limiar do profundo',     desc:'FC abaixo de 60 bpm e respiração abaixo de 5 resp/min. O cérebro entra em Delta consciente — estado raramente atingido. Regeneração celular inicia.'},
-  {min:25, phase:'delta',   ev:'GH — Hormônio do Crescimento',         desc:'Após 20+ minutos em estados profundos, o hipotálamo libera hormônio do crescimento (GH). Reparação muscular, consolidação da memória e longevidade celular.'},
-  {min:30, phase:'delta',   ev:'Autofagia profunda',                   desc:'30 minutos em estados Teta/Delta ativa autofagia — limpeza celular de proteínas danificadas. O mesmo processo estimulado pelo jejum prolongado.'},
-  {min:40, phase:'insight', ev:'Neuroplasticidade elevada',            desc:'Meditações acima de 40 minutos aumentam a densidade de massa cinzenta no córtex pré-frontal e ínsula. Mudanças estruturais mensuráveis em MRI após 8 semanas de prática.'},
+// ══ NEUROCIÊNCIA — MURAL ═══════════════════════════════
+const MURAL = [
+  {min:0,  ph:'alfa',    ev:'Início — ondas Alfa dominantes',      desc:'A frequência cardíaca começa a cair. O córtex pré-frontal reduz a produção de adrenalina. A ansiedade diminui até 40% nos primeiros 5 minutos.'},
+  {min:3,  ph:'alfa',    ev:'Serotonina em alta',                   desc:'Com FC abaixo de 75 bpm e respiração ritmada, o cérebro aumenta a produção de serotonina — neurotransmissor responsável pelo bem-estar e regulação emocional.'},
+  {min:5,  ph:'alfa',    ev:'Cortisol começa a cair',               desc:'Após 5 minutos em ondas Alfa estáveis, os níveis de cortisol (hormônio do estresse) iniciam queda mensurável. O sistema nervoso parassimpático assume o controle.'},
+  {min:8,  ph:'teta',    ev:'Transição para ondas Teta',           desc:'Com FC abaixo de 68 bpm e respiração lenta (4–7 resp/min), o cérebro começa a produzir ondas Teta. O subconsciente abre. Memórias e insights emergem naturalmente.'},
+  {min:10, ph:'teta',    ev:'Dopamina e criatividade',             desc:'As ondas Teta ativam o hipocampo. A produção de dopamina aumenta. Este é o estado dos artistas, meditadores experientes e do chamado "estado de fluxo".'},
+  {min:12, ph:'teta',    ev:'Rede de Modo Padrão silenciando',     desc:'A Default Mode Network (DMN) — responsável pelo ego e ruminação mental — começa a silenciar. Menos pensamentos automáticos e autocrítica.'},
+  {min:15, ph:'teta',    ev:'GABA em pico — relaxamento profundo', desc:'O ácido gama-aminobutírico (GABA) atinge seu pico. É o principal neurotransmissor inibitório do cérebro — reduz a ansiedade de forma mais eficaz do que benzodiazepínicos leves.'},
+  {min:20, ph:'delta',   ev:'Ondas Delta — limiar do profundo',    desc:'Com FC abaixo de 60 bpm e respiração abaixo de 5 resp/min, o cérebro entra em Delta consciente — estado raramente atingido. A regeneração celular tem início.'},
+  {min:25, ph:'delta',   ev:'Hormônio do Crescimento liberado',    desc:'Após 20 minutos em estados profundos, o hipotálamo libera o hormônio do crescimento (GH). Reparação muscular, consolidação da memória e longevidade celular são estimuladas.'},
+  {min:30, ph:'delta',   ev:'Autofagia profunda',                  desc:'30 minutos em ondas Teta e Delta ativa a autofagia — limpeza de proteínas celulares danificadas. O mesmo processo estimulado pelo jejum prolongado.'},
+  {min:40, ph:'insight', ev:'Neuroplasticidade elevada',           desc:'Sessões acima de 40 minutos aumentam a densidade de massa cinzenta no córtex pré-frontal e na ínsula. Mudanças estruturais mensuráveis em ressonância magnética após 8 semanas de prática.'},
 ];
 
-// Protocolos de respiração guiada
-const BREATH_MODES = {
-  wake:  {name:'ACORDAR',  desc:'Energize o sistema nervoso',  color:'#fb923c',
-          phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}], cycles:30, hold:15},
-  train: {name:'TREINO',   desc:'Box Breathing — 4-4-4-4',     color:'#64b5f6',
+// ══ MODOS DE RESPIRAÇÃO ════════════════════════════════
+const BREATH = {
+  wake:  {name:'ACORDAR', sub:'Energize o sistema nervoso',        color:'#fb923c',
+          phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
+  train: {name:'TREINAR',  sub:'Box Breathing 4-4-4-4',            color:'#64b5f6',
           phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:4},{a:'EXPIRE',s:4},{a:'SEGURE',s:4}]},
-  focus: {name:'FOCO',     desc:'Coerente — 5 resp/min',       color:'#9b72cf',
+  focus: {name:'FOCO',     sub:'Coerente — 5 resp/min',            color:'#9b72cf',
           phases:[{a:'INSPIRE',s:6},{a:'EXPIRE',s:6}]},
-  sleep: {name:'DORMIR',   desc:'4-7-8 — Dr. Andrew Weil',     color:'#5c6bc0',
+  sleep: {name:'DORMIR',   sub:'4-7-8 — Dr. Andrew Weil',          color:'#5c6bc0',
           phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:7},{a:'EXPIRE',s:8}]},
-  livre: {name:'LIVRE',    desc:'Respiração natural',           color:'#a1a1aa', phases:[]},
+  livre: {name:'LIVRE',    sub:'Respiração natural',               color:'#a1a1aa', phases:[]},
 };
 
-// ══ ESTADO ══════════════════════════════════════════════
+const BREATH_SUBS = {
+  wake:'30 ciclos rápidos ativam o sistema simpático — energia imediata',
+  train:'4-4-4-4 equilibra simpático e parassimpático — foco total',
+  focus:'5 respirações por minuto maximiza a variabilidade cardíaca (HRV)',
+  sleep:'Expiração longa ativa o nervo vago — prepara o corpo para dormir',
+  livre:'Respire naturalmente — a detecção é automática',
+};
+
+// ══ ESTADO ═════════════════════════════════════════════
 const S = {
   phase:'alfa', manual:false,
   startTime:null, phaseStart:null,
@@ -556,46 +565,47 @@ const S = {
   btDevice:null, btOn:false,
   micOn:false, micStream:null, micCtx:null, micAnalyser:null,
   breathMode:'focus',
-  bgPhaseIdx:0, bgCount:0, bgTimer:null,
-  rrBuffer:[], rrLastPeak:0,
+  bgIdx:0, bgTimer:null,
+  rrBuf:[], rrLastPeak:0,
   ticker:null,
 };
 
-// ══ SELEÇÃO DE MODO ══════════════════════════════════════
-function selMode(el) {
+// ══ SELEÇÃO DE MODO ════════════════════════════════════
+function selMode(el){
   document.querySelectorAll('.bm-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  S.breathMode = el.dataset.mode;
+  S.breathMode=el.dataset.mode;
 }
 
-// ══ BLUETOOTH FC ════════════════════════════════════════
-document.getElementById('bt-btn').addEventListener('click', async () => {
-  if (S.btOn) { disconnectBT(); return; }
-  if (!navigator.bluetooth) { alert('Bluetooth indisponível. Use Chrome no Android.'); return; }
-  try {
-    const dev = await navigator.bluetooth.requestDevice({
-      filters:[{services:['heart_rate']}], optionalServices:['heart_rate']
+// ══ BLUETOOTH FC ═══════════════════════════════════════
+document.getElementById('bt-btn').addEventListener('click',async()=>{
+  if(S.btOn){disconnectBT();return;}
+  if(!navigator.bluetooth){alert('Bluetooth não disponível.\nUse Chrome no Android ou Edge.');return;}
+  try{
+    const dev=await navigator.bluetooth.requestDevice({
+      filters:[{services:['heart_rate']}],optionalServices:['heart_rate']
     });
-    S.btDevice = dev;
-    const srv = await dev.gatt.connect();
-    const svc = await srv.getPrimaryService('heart_rate');
-    const chr = await svc.getCharacteristic('heart_rate_measurement');
+    S.btDevice=dev;
+    const srv=await dev.gatt.connect();
+    const svc=await srv.getPrimaryService('heart_rate');
+    const chr=await svc.getCharacteristic('heart_rate_measurement');
     await chr.startNotifications();
-    chr.addEventListener('characteristicvaluechanged', e => {
+    chr.addEventListener('characteristicvaluechanged',e=>{
       const v=e.target.value;
       const hr=(v.getUint8(0)&1)?v.getUint16(1,true):v.getUint8(1);
       onHR(hr);
     });
-    dev.addEventListener('gattserverdisconnected', disconnectBT);
-    S.btOn=true; updateBTUI();
-  } catch(e){console.log('BT:',e);}
+    dev.addEventListener('gattserverdisconnected',disconnectBT);
+    S.btOn=true;updateBTUI();
+  }catch(e){console.log('BT:',e);}
 });
+
 function disconnectBT(){
   if(S.btDevice?.gatt?.connected) S.btDevice.gatt.disconnect();
   S.btOn=false;S.btDevice=null;updateBTUI();
 }
 function updateBTUI(){
-  const b=document.getElementById('bt-btn'), l=document.getElementById('bt-lbl');
+  const b=document.getElementById('bt-btn'),l=document.getElementById('bt-lbl');
   b.className='pill'+(S.btOn?' on':'');
   l.textContent=S.btOn?'BT ✓':'BT';
 }
@@ -605,8 +615,8 @@ function onHR(bpm){
   if(!S.manual) autoDetect();
 }
 
-// ══ MICROFONE — DETECÇÃO AUTOMÁTICA DE RESPIRAÇÃO ════════
-document.getElementById('mic-btn').addEventListener('click', async ()=>{
+// ══ MICROFONE — RESPIRAÇÃO AUTOMÁTICA ══════════════════
+document.getElementById('mic-btn').addEventListener('click',async()=>{
   if(S.micOn){stopMic();return;}
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
@@ -617,45 +627,38 @@ document.getElementById('mic-btn').addEventListener('click', async ()=>{
     S.micAnalyser.fftSize=512;
     S.micAnalyser.smoothingTimeConstant=0.8;
     src.connect(S.micAnalyser);
-    S.micOn=true;
-    S.rrBuffer=[];S.rrLastPeak=0;
+    S.micOn=true;S.rrBuf=[];S.rrLastPeak=0;
     updateMicUI();
-    detectBreathLoop();
-  }catch(e){alert('Microfone indisponível: '+e.message);}
+    detectBreath();
+  }catch(e){alert('Erro ao acessar o microfone: '+e.message);}
 });
 
 function stopMic(){
   if(S.micStream) S.micStream.getTracks().forEach(t=>t.stop());
-  if(S.micCtx) S.micCtx.close();
+  if(S.micCtx) S.micCtx.close().catch(()=>{});
   S.micOn=false;S.micAnalyser=null;
   updateMicUI();
 }
-
 function updateMicUI(){
   const b=document.getElementById('mic-btn'),l=document.getElementById('mic-lbl');
   b.className='pill'+(S.micOn?' mic-on':'');
   l.textContent=S.micOn?'MIC ✓':'MIC';
 }
-
-function detectBreathLoop(){
-  if(!S.micOn||!S.micAnalyser) return;
+function detectBreath(){
+  if(!S.micOn||!S.micAnalyser){return;}
   const buf=new Uint8Array(S.micAnalyser.frequencyBinCount);
   S.micAnalyser.getByteTimeDomainData(buf);
-  // RMS da amplitude
   let sum=0;
   for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
   const rms=Math.sqrt(sum/buf.length);
-
   const now=Date.now();
-  // Detecta pico de expiração (rms > threshold) com refractory de 1.5s
-  if(rms>0.015 && now-S.rrLastPeak>1500){
+  if(rms>0.015&&now-S.rrLastPeak>1500){
     S.rrLastPeak=now;
-    S.rrBuffer.push(now);
-    // Janela de 60s
-    S.rrBuffer=S.rrBuffer.filter(t=>now-t<60000);
-    if(S.rrBuffer.length>=2){
+    S.rrBuf.push(now);
+    S.rrBuf=S.rrBuf.filter(t=>now-t<60000);
+    if(S.rrBuf.length>=2){
       const intervals=[];
-      for(let i=1;i<S.rrBuffer.length;i++) intervals.push(S.rrBuffer[i]-S.rrBuffer[i-1]);
+      for(let i=1;i<S.rrBuf.length;i++) intervals.push(S.rrBuf[i]-S.rrBuf[i-1]);
       const avg=intervals.reduce((a,b)=>a+b,0)/intervals.length;
       const rr=Math.round(60000/avg);
       if(rr>=1&&rr<=30){
@@ -665,15 +668,16 @@ function detectBreathLoop(){
       }
     }
   }
-  requestAnimationFrame(detectBreathLoop);
+  requestAnimationFrame(detectBreath);
 }
 
-// ══ DETECÇÃO AUTOMÁTICA DE FASE ══════════════════════════
+// ══ DETECÇÃO AUTOMÁTICA DE FASE ════════════════════════
 function autoDetect(){
   const hr=S.hrLog.length?S.hrLog[S.hrLog.length-1].bpm:null;
   const rr=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:null;
-  let scores={alfa:0,teta:0,delta:0};
+  if(!hr&&!rr) return;
 
+  let scores={alfa:0,teta:0,delta:0};
   if(hr){
     Object.entries(PHASES).forEach(([k,p])=>{
       if(hr>=p.hrLo&&hr<=p.hrHi) scores[k]+=3;
@@ -693,108 +697,93 @@ function autoDetect(){
   el.style.color=PHASES[best].color;
 
   ['alfa','teta','delta'].forEach(ph=>{
-    document.getElementById('pd-'+ph).textContent=ph===best?'● DETECTADO':'';
+    const det=document.getElementById('pd-'+ph);
+    if(det) det.textContent=ph===best?'● DETECTADO':'';
   });
 
   if(best!==S.phase) setPhase(best,false);
 }
 
-// ══ RESPIRAÇÃO GUIADA ════════════════════════════════════
+// ══ RESPIRAÇÃO GUIADA ══════════════════════════════════
 function startBreathGuide(){
-  const mode=BREATH_MODES[S.breathMode];
+  const mode=BREATH[S.breathMode];
   const widget=document.getElementById('bg-widget');
   if(!mode||!mode.phases||mode.phases.length===0){
-    widget.style.display='none'; return;
+    widget.style.display='none';return;
   }
   widget.style.display='flex';
-  document.getElementById('bg-mode-lbl').textContent=mode.name+' · '+mode.desc;
-  document.getElementById('bg-desc-lbl').textContent=getBGDesc(S.breathMode);
-  S.bgPhaseIdx=0; S.bgCount=0;
+  document.getElementById('bg-mode-lbl').textContent=mode.name+' · '+mode.sub;
+  document.getElementById('bg-sub').textContent=BREATH_SUBS[S.breathMode]||'';
+  S.bgIdx=0;
   runBGPhase();
-}
-
-function getBGDesc(m){
-  return {
-    wake:'30 ciclos rápidos ativam o simpático — energia imediata',
-    train:'4-4-4-4 equilibra simpático/parassimpático — foco total',
-    focus:'5 respirações/min maximiza a variabilidade cardíaca (HRV)',
-    sleep:'Expiração longa ativa o nervo vago — prepara para o sono',
-    livre:'Respiração natural — sem guia',
-  }[m];
 }
 
 function runBGPhase(){
   if(!S.ticker) return;
-  const mode=BREATH_MODES[S.breathMode];
+  const mode=BREATH[S.breathMode];
   if(!mode||!mode.phases||mode.phases.length===0) return;
-  const ph=mode.phases[S.bgPhaseIdx%mode.phases.length];
+  const ph=mode.phases[S.bgIdx%mode.phases.length];
   const dur=ph.s;
-  const colors={INSPIRE:PHASES[S.phase].color, EXPIRE:'#4ade80', SEGURE:'#fb923c'};
+  const colors={INSPIRE:PHASES[S.phase].color,EXPIRE:'#4ade80',SEGURE:'#fb923c'};
+  const col=colors[ph.a]||PHASES[S.phase].color;
 
   document.getElementById('bg-action').textContent=ph.a;
-  document.getElementById('bg-action').style.color=colors[ph.a]||'#fff';
+  document.getElementById('bg-action').style.color=col;
 
   const circ=283;
   const bgc=document.getElementById('bgc');
-  bgc.style.stroke=colors[ph.a]||PHASES[S.phase].color;
+  bgc.style.stroke=col;
   bgc.style.transition='none';
   bgc.style.strokeDashoffset=ph.a==='INSPIRE'?circ:0;
 
   let elapsed=0;
-  const interval=100;
   if(S.bgTimer) clearInterval(S.bgTimer);
   S.bgTimer=setInterval(()=>{
-    elapsed+=interval;
+    elapsed+=100;
+    document.getElementById('bg-count').textContent=Math.max(Math.ceil(dur-elapsed/1000),0);
     const pct=elapsed/(dur*1000);
-    const cnt=Math.ceil(dur-elapsed/1000);
-    document.getElementById('bg-count').textContent=Math.max(cnt,0);
     const offset=ph.a==='INSPIRE'?circ*(1-pct):circ*pct;
     bgc.style.transition='stroke-dashoffset 0.1s linear';
     bgc.style.strokeDashoffset=Math.max(0,Math.min(circ,offset));
-
-    if(elapsed>=dur*1000){
-      clearInterval(S.bgTimer);
-      S.bgPhaseIdx++;
-      runBGPhase();
-    }
-  },interval);
+    if(elapsed>=dur*1000){clearInterval(S.bgTimer);S.bgIdx++;runBGPhase();}
+  },100);
 }
 
-// ══ NAVEGAÇÃO ════════════════════════════════════════════
+// ══ NAVEGAÇÃO ══════════════════════════════════════════
 function showScreen(id){
   ['sc-home','sc-med','sc-rep'].forEach(s=>{
     const el=document.getElementById(s);
     if(!el) return;
-    if(s===id){
-      el.style.display='flex';
-      el.style.flexDirection='column';
-      el.classList.remove('hidden');
-    } else {
-      el.style.display='none';
-    }
+    el.style.display=(s===id)?'flex':'none';
+    if(s===id) el.style.flexDirection='column';
   });
-  try{ document.querySelector('.scroll').scrollTop=0; }catch(e){}
+  try{document.querySelector('.scroll').scrollTop=0;}catch(e){}
 }
 
-// ══ INICIAR ══════════════════════════════════════════════
+// ══ INICIAR ════════════════════════════════════════════
 document.getElementById('btn-start').addEventListener('click',()=>{
-  S.startTime=Date.now(); S.phaseStart=Date.now();
-  S.phase='alfa'; S.manual=false;
+  S.startTime=Date.now();S.phaseStart=Date.now();
+  S.phase='alfa';S.manual=false;
   S.phaseTimes={alfa:0,teta:0,delta:0};
   S.log=[{phase:'alfa',start:Date.now()}];
-  S.hrLog=[]; S.rrLog=[];
-  S.rrBuffer=[]; S.rrLastPeak=0;
-  ['bio-hr','bio-rr'].forEach(id=>document.getElementById(id).textContent='--');
+  S.hrLog=[];S.rrLog=[];
+  S.rrBuf=[];S.rrLastPeak=0;
+  document.getElementById('bio-hr').textContent='--';
+  document.getElementById('bio-rr').textContent='--';
   document.getElementById('bio-auto').textContent='AUTO';
   document.getElementById('bio-auto').style.color='var(--t2)';
-  updateArenaUI();
+  ['alfa','teta','delta'].forEach(ph=>{
+    const det=document.getElementById('pd-'+ph);
+    if(det) det.textContent='';
+  });
+  updateArena();
   showScreen('sc-med');
   if(S.ticker) clearInterval(S.ticker);
   S.ticker=setInterval(tick,1000);
   startBreathGuide();
 });
 
-// ══ FASE ════════════════════════════════════════════════
+// ══ FASE ═══════════════════════════════════════════════
 function setPhase(phase,isManual=true){
   if(phase===S.phase) return;
   S.manual=isManual;
@@ -802,13 +791,13 @@ function setPhase(phase,isManual=true){
   S.phaseTimes[S.phase]+=now-S.phaseStart;
   if(S.log.length) S.log[S.log.length-1].end=now;
   S.log.push({phase,start:now});
-  S.phase=phase; S.phaseStart=now;
-  updateArenaUI();
+  S.phase=phase;S.phaseStart=now;
+  updateArena();
   if(isManual) setTimeout(()=>{S.manual=false;},180000);
 }
 function manualPhase(ph){setPhase(ph,true);}
 
-function updateArenaUI(){
+function updateArena(){
   const p=PHASES[S.phase];
   document.getElementById('arena').className='arena '+S.phase;
   document.getElementById('arena-ph').textContent=p.name;
@@ -819,24 +808,25 @@ function updateArenaUI(){
   });
 }
 
-// ══ TICK ════════════════════════════════════════════════
+// ══ TICK ═══════════════════════════════════════════════
 function tick(){
   const e=Date.now()-S.startTime;
   const h=Math.floor(e/3600000),m=Math.floor((e%3600000)/60000),s=Math.floor((e%60000)/1000);
   document.getElementById('arena-timer').textContent=
     String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const now=Date.now(), times={...S.phaseTimes};
+  const now=Date.now(),times={...S.phaseTimes};
   times[S.phase]+=now-S.phaseStart;
   ['alfa','teta','delta'].forEach(ph=>{
     const sec=Math.floor(times[ph]/1000);
-    document.getElementById('pt-'+ph).textContent=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
+    const el=document.getElementById('pt-'+ph);
+    if(el) el.textContent=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
   });
 }
 
-// ══ ENCERRAR ════════════════════════════════════════════
+// ══ ENCERRAR ═══════════════════════════════════════════
 document.getElementById('btn-end').addEventListener('click',()=>{
   if(!confirm('Encerrar a meditação?')) return;
-  clearInterval(S.ticker); clearInterval(S.bgTimer); S.ticker=null;
+  clearInterval(S.ticker);clearInterval(S.bgTimer);S.ticker=null;
   const now=Date.now();
   S.phaseTimes[S.phase]+=now-S.phaseStart;
   if(S.log.length) S.log[S.log.length-1].end=now;
@@ -844,7 +834,7 @@ document.getElementById('btn-end').addEventListener('click',()=>{
   showScreen('sc-rep');
 });
 
-// ══ RELATÓRIO ════════════════════════════════════════════
+// ══ RELATÓRIO ══════════════════════════════════════════
 function buildReport(){
   const totalMs=Date.now()-S.startTime;
   const totalMin=Math.floor(totalMs/60000);
@@ -856,38 +846,44 @@ function buildReport(){
     now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toUpperCase()+
     ' · '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
 
-  const T=S.phaseTimes, tot=T.alfa+T.teta+T.delta||1;
+  const T=S.phaseTimes,tot=T.alfa+T.teta+T.delta||1;
   const pcts={
     alfa:Math.round(T.alfa/tot*100),
     teta:Math.round(T.teta/tot*100),
     delta:Math.round(T.delta/tot*100),
   };
 
-  // Score baseado em profundidade (neurociência)
+  // Score baseado em profundidade
   const score=Math.min(100,Math.round((pcts.alfa*0.5+pcts.teta*1.6+pcts.delta*2.4)/1.5));
-  const circ=2*Math.PI*37;
+  const circ=2*Math.PI*36;
   const f=document.getElementById('srf');
-  f.style.strokeDasharray=circ; f.style.stroke=score>=80?'#64b5f6':score>=55?'#9b72cf':'#5c6bc0';
+  f.style.strokeDasharray=circ;
+  f.style.stroke=score>=80?'#64b5f6':score>=55?'#9b72cf':'#5c6bc0';
   setTimeout(()=>{f.style.strokeDashoffset=circ*(1-score/100);},300);
   document.getElementById('srn').textContent=score;
-  const grades=[[85,'Excelente 🧠','Estados profundos atingidos. Autofagia, GH e GABA em alta.'],[65,'Muito Boa 🌊','Boa profundidade. Ondas Teta dominantes. Continue.'],[40,'Boa ✨','Relaxamento sólido. Cortisol em queda.'],[0,'Início 🌱','Cada sessão reconfigura o cérebro. Continue.']];
+  const grades=[
+    [85,'Excelente 🧠','Estados profundos atingidos. Autofagia, hormônio do crescimento e GABA em alta.'],
+    [65,'Muito Boa 🌊','Boa profundidade. Ondas Teta dominantes. Continue praticando.'],
+    [40,'Boa ✨','Relaxamento sólido. Cortisol reduzido, serotonina elevada.'],
+    [0, 'Início 🌱','Cada sessão reconfigura o cérebro. Continue praticando.'],
+  ];
   const [,lb,desc]=grades.find(([t])=>score>=t);
   document.getElementById('sc-lbl').textContent=lb;
   document.getElementById('sc-desc').textContent=desc;
 
-  // Hipograma
-  const strip=document.getElementById('tm-strip'), axis=document.getElementById('tm-axis');
-  strip.innerHTML=''; axis.innerHTML='';
+  // Hipograma minuto a minuto
+  const strip=document.getElementById('tm-strip'),axis=document.getElementById('tm-axis');
+  strip.innerHTML='';axis.innerHTML='';
   const maxMin=Math.max(totalMin,1);
   for(let i=0;i<maxMin;i++){
-    const ms=S.startTime+i*60000, me=ms+60000;
-    let ph='empty', best=0;
+    const ms=S.startTime+i*60000,me=ms+60000;
+    let ph='empty',best=0;
     S.log.forEach(seg=>{
       const ov=Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);
       if(ov>best){best=ov;ph=seg.phase;}
     });
     const d=document.createElement('div');
-    d.className='tm-m '+ph; d.title=(i+1)+'min';
+    d.className='tm-m '+ph;d.title=(i+1)+'min';
     strip.appendChild(d);
   }
   const steps=Math.min(6,maxMin);
@@ -897,7 +893,7 @@ function buildReport(){
     axis.appendChild(sp);
   }
 
-  // Barras
+  // Barras e stats por fase
   ['alfa','teta','delta'].forEach(ph=>{
     document.getElementById('hf-'+ph).style.width=pcts[ph]+'%';
     document.getElementById('hp-'+ph).textContent=pcts[ph]+'%';
@@ -905,7 +901,7 @@ function buildReport(){
     document.getElementById('pp-'+ph).textContent='· '+pcts[ph]+'%';
   });
 
-  // FC
+  // Frequência cardíaca
   if(S.hrLog.length){
     const b=S.hrLog.map(x=>x.bpm);
     document.getElementById('fc-avg').textContent=Math.round(b.reduce((a,c)=>a+c,0)/b.length);
@@ -923,24 +919,25 @@ function buildReport(){
     drawChart('rr-canvas',S.rrLog.map(x=>({t:x.t,v:x.rr})),S.startTime,'#4ade80');
   } else ['rr-avg','rr-max','rr-min'].forEach(id=>document.getElementById(id).textContent='--');
 
-  // Mural neurociência
-  buildMural(totalMin, pcts);
+  buildMural(totalMin,pcts);
 }
 
-function buildMural(totalMin, pcts){
+function buildMural(totalMin,pcts){
   const list=document.getElementById('mural-list');
   list.innerHTML='';
-  // Filtra eventos que ocorreram dentro do tempo da sessão
-  const events=MURAL_EVENTS.filter(e=>e.min<=totalMin);
-  // Adiciona insight de sessão
-  if(pcts.delta>20) events.push({min:totalMin,phase:'insight',ev:'Delta atingido — regeneração ativa',desc:'Você atingiu ondas Delta conscientes — estado alcançado por menos de 5% dos meditadores. Hormônio do crescimento e autofagia em ação.'});
-  else if(pcts.teta>40) events.push({min:totalMin,phase:'insight',ev:'Teta dominante — subconsciente acessado',desc:'Mais de 40% em ondas Teta indica meditação profunda consistente. GABA e dopamina elevados. Memória e criatividade reforçadas.'});
-  else events.push({min:totalMin,phase:'insight',ev:'Ondas Alfa consolidadas',desc:'Sessão de relaxamento sólido. Cortisol reduzido, serotonina elevada. Base para aprofundar nas próximas sessões.'});
+  const events=MURAL.filter(e=>e.min<=totalMin);
+  // Insight final baseado na sessão
+  if(pcts.delta>20)
+    events.push({min:totalMin,ph:'insight',ev:'Delta atingido — regeneração ativa',desc:'Você atingiu ondas Delta conscientes — estado alcançado por menos de 5% dos meditadores. Hormônio do crescimento e autofagia em plena ação.'});
+  else if(pcts.teta>40)
+    events.push({min:totalMin,ph:'insight',ev:'Teta dominante — subconsciente acessado',desc:'Mais de 40% do tempo em ondas Teta indica meditação profunda. GABA e dopamina elevados. Memória e criatividade reforçadas.'});
+  else
+    events.push({min:totalMin,ph:'insight',ev:'Ondas Alfa consolidadas',desc:'Sessão de relaxamento sólido. Cortisol reduzido, serotonina elevada. Base para aprofundar nas próximas sessões.'});
 
   events.forEach((ev,i)=>{
     const isLast=i===events.length-1;
     const item=document.createElement('div');
-    item.className='mural-item '+ev.phase;
+    item.className='mural-item '+(ev.ph||ev.phase||'alfa');
     item.innerHTML=`
       <div class="mural-left">
         <div class="mural-dot"></div>
@@ -957,17 +954,18 @@ function buildMural(totalMin, pcts){
 
 function drawChart(id,data,startTime,color){
   const canvas=document.getElementById(id);
-  const W=canvas.parentElement.offsetWidth*2, H=104;
-  canvas.width=W; canvas.height=H;
+  if(!canvas) return;
+  const W=canvas.parentElement.offsetWidth*2,H=104;
+  canvas.width=W;canvas.height=H;
   canvas.style.width=canvas.parentElement.offsetWidth+'px';
   canvas.style.height='52px';
   const ctx=canvas.getContext('2d');
   if(data.length<2) return;
   const vals=data.map(x=>x.v);
-  const minV=Math.min(...vals)-2, maxV=Math.max(...vals)+2;
+  const minV=Math.min(...vals)-2,maxV=Math.max(...vals)+2;
   const total=(data[data.length-1].t-startTime)||1;
   const grd=ctx.createLinearGradient(0,0,0,H);
-  grd.addColorStop(0,color+'44'); grd.addColorStop(1,color+'00');
+  grd.addColorStop(0,color+'44');grd.addColorStop(1,color+'00');
   ctx.beginPath();
   data.forEach((pt,i)=>{
     const x=(pt.t-startTime)/total*W;
@@ -985,34 +983,46 @@ function drawChart(id,data,startTime,color){
   ctx.strokeStyle=color;ctx.lineWidth=3;ctx.lineJoin='round';ctx.stroke();
 }
 
-// ══ NOVA SESSÃO ══════════════════════════════════════════
+// ══ NOVA SESSÃO ════════════════════════════════════════
 document.getElementById('btn-new').addEventListener('click',()=>showScreen('sc-home'));
 
-// ══ TELA CHEIA ═══════════════════════════════════════════
+// ══ TELA CHEIA ═════════════════════════════════════════
 const appEl=document.getElementById('main-app');
-const goFull=()=>{if(!document.fullscreenElement) appEl.requestFullscreen().catch(()=>{});
-  document.removeEventListener('click',goFull);document.removeEventListener('touchstart',goFull);};
-document.addEventListener('click',goFull);document.addEventListener('touchstart',goFull);
+const goFull=()=>{
+  if(!document.fullscreenElement) appEl.requestFullscreen().catch(()=>{});
+  document.removeEventListener('click',goFull);
+  document.removeEventListener('touchstart',goFull);
+};
+document.addEventListener('click',goFull);
+document.addEventListener('touchstart',goFull);
 
-// ══ SERVICE WORKER ════════════════════════════════════════
+// ══ SERVICE WORKER ═════════════════════════════════════
 if('serviceWorker' in navigator)
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 
-// ══ INSTALL BANNER ════════════════════════════════════════
+// ══ BANNER INSTALAR ════════════════════════════════════
 let dPrm=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dPrm=e;document.getElementById('ib').classList.add('show');});
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();dPrm=e;
+  document.getElementById('ib').classList.add('show');
+});
 document.getElementById('ib-y').addEventListener('click',async()=>{
   document.getElementById('ib').classList.remove('show');
   if(dPrm){dPrm.prompt();await dPrm.userChoice;dPrm=null;}
 });
-document.getElementById('ib-n').addEventListener('click',()=>document.getElementById('ib').classList.remove('show'));
-window.addEventListener('appinstalled',()=>document.getElementById('ib').classList.remove('show'));
+document.getElementById('ib-n').addEventListener('click',()=>
+  document.getElementById('ib').classList.remove('show'));
+window.addEventListener('appinstalled',()=>
+  document.getElementById('ib').classList.remove('show'));
 
-// ══ SPLASH ════════════════════════════════════════════════
+// ══ SPLASH ═════════════════════════════════════════════
 window.addEventListener('load',()=>{
   setTimeout(()=>{
     document.getElementById('splash').classList.add('hide');
-    setTimeout(()=>document.getElementById('splash').remove(),900);
+    setTimeout(()=>{
+      const s=document.getElementById('splash');
+      if(s) s.remove();
+    },900);
   },2200);
 });
 
