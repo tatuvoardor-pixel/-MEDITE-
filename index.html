@@ -27,6 +27,7 @@
   --teta:#9b72cf; --teta-d:#9b72cf14; --teta-m:#9b72cf45;
   --delta:#5c6bc0; --delta-d:#5c6bc014; --delta-m:#5c6bc045;
   --red:#f87171; --grn:#4ade80; --org:#fb923c;
+  --gamma:#f0c060;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Barlow',sans-serif;}
@@ -43,12 +44,12 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
 
 /* ── HEADER ── */
-.hdr{padding:13px 16px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--bd);}
-.hlogo{display:flex;align-items:center;gap:8px;}
-.hlogo svg{width:30px;height:18px;}
-.hname{font-family:'Lilita One',cursive;font-size:1.2rem;letter-spacing:1px;}
-.hright{display:flex;gap:8px;align-items:center;}
-.pill{display:flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--bd);border-radius:20px;padding:6px 11px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1.5px;color:var(--t2);transition:all 0.2s;user-select:none;}
+.hdr{padding:11px 14px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--bd);gap:8px;overflow:hidden;}
+.hlogo{display:flex;align-items:center;gap:7px;min-width:0;flex:1;}
+.hlogo svg{width:26px;height:16px;flex-shrink:0;}
+.hname{font-family:'Lilita One',cursive;font-size:1.1rem;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hright{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+.pill{display:flex;align-items:center;gap:4px;background:var(--s2);border:1px solid var(--bd);border-radius:20px;padding:5px 9px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:1px;color:var(--t2);transition:all 0.2s;user-select:none;white-space:nowrap;}
 .pill.on{border-color:var(--alfa);color:var(--alfa);}
 .pill.mic-on{border-color:var(--grn);color:var(--grn);}
 .pdot{width:6px;height:6px;border-radius:50%;background:var(--t3);}
@@ -114,17 +115,17 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .btn-start:active{opacity:0.78;}
 
 /* ── MEDITAÇÃO ── */
-.arena{border-radius:20px;padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid transparent;transition:background 1s ease,border-color 1s ease;}
+.arena{border-radius:20px;padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid transparent;transition:background 1s ease,border-color 1s ease;overflow:hidden;}
 .arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
 .arena.teta{background:var(--teta-d);border-color:var(--teta-m);}
 .arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
 .arena svg.wv{width:80px;height:42px;margin-bottom:2px;}
-.arena-ph{font-family:'Lilita One',cursive;font-size:2.6rem;letter-spacing:1px;transition:color 1s ease;line-height:1;}
+.arena-ph{font-family:'Lilita One',cursive;font-size:clamp(1.8rem,8vw,2.6rem);letter-spacing:1px;transition:color 1s ease;line-height:1;}
 .arena.alfa .arena-ph{color:var(--alfa);}
 .arena.teta .arena-ph{color:var(--teta);}
 .arena.delta .arena-ph{color:var(--delta);}
 .arena-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t2);}
-.arena-timer{font-family:'Lilita One',cursive;font-size:4rem;color:var(--tx);line-height:1;letter-spacing:-1px;margin-top:2px;}
+.arena-timer{font-family:'Lilita One',cursive;font-size:clamp(1.8rem,8vw,2.8rem);color:var(--tx);line-height:1;letter-spacing:-1px;margin-top:2px;}
 
 /* Bio boxes */
 .bio-row{display:flex;gap:8px;}
@@ -254,7 +255,81 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 .btn-new{width:100%;padding:17px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:15px;font-family:'Lilita One',cursive;font-size:1.15rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
 .btn-new:active{opacity:0.78;}
 
-/* Banner instalar */
+/* ── STREAK ── */
+.streak-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;align-items:center;gap:14px;}
+.streak-fire{font-size:2.2rem;flex-shrink:0;}
+.streak-info{flex:1;}
+.streak-num{font-family:'Lilita One',cursive;font-size:2rem;color:var(--org);line-height:1;}
+.streak-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);margin-top:2px;}
+.streak-dots{display:flex;gap:5px;margin-top:8px;}
+.sd{width:28px;height:6px;border-radius:3px;background:var(--s3);}
+.sd.done{background:var(--org);}
+.streak-best{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--t3);letter-spacing:1px;flex-shrink:0;text-align:right;}
+
+/* ── HISTÓRICO ── */
+.hist-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:12px;}
+.hist-empty{font-size:0.8rem;color:var(--t3);text-align:center;padding:16px 0;}
+.hist-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--s2);border-radius:13px;border:1px solid var(--bd);cursor:pointer;transition:background 0.15s;}
+.hist-item:active{background:var(--s3);}
+.hi-date{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+.hi-d{font-family:'Lilita One',cursive;font-size:1.1rem;color:var(--tx);line-height:1;}
+.hi-m{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.hi-bar{flex:1;display:flex;flex-direction:column;gap:5px;}
+.hi-strip{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:1px;}
+.hi-seg{height:100%;border-radius:2px;}
+.hi-seg.alfa{background:var(--alfa);}
+.hi-seg.teta{background:var(--teta);}
+.hi-seg.delta{background:var(--delta);}
+.hi-meta{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--t3);letter-spacing:1px;}
+.hi-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
+.hi-dur{font-family:'Lilita One',cursive;font-size:1rem;color:var(--tx);}
+.hi-score{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:1px;}
+.hi-score.s-great{color:var(--alfa);}
+.hi-score.s-good{color:var(--teta);}
+.hi-score.s-ok{color:var(--t3);}
+
+/* ── TELA ESCURA durante meditação ── */
+#screen-dim{
+  position:fixed;inset:0;background:#000;
+  opacity:0;pointer-events:none;
+  z-index:50;transition:opacity 1.5s ease;
+  display:flex;align-items:center;justify-content:center;
+}
+#screen-dim.visible{opacity:0.92;pointer-events:all;}
+#screen-dim .dim-hint{
+  font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;
+  letter-spacing:3px;text-transform:uppercase;color:#333;
+  animation:dimPulse 4s ease-in-out infinite;
+}
+@keyframes dimPulse{0%,100%{opacity:0;}50%{opacity:1;}}
+
+/* ── GAMMA conquista ── */
+.gamma-badge{
+  display:none;
+  background:linear-gradient(135deg,#f0c06022,#f0c06008);
+  border:1px solid #f0c06055;border-radius:16px;
+  padding:14px 16px;flex-direction:column;gap:6px;
+}
+.gamma-badge.show{display:flex;}
+.gb-title{font-family:'Lilita One',cursive;font-size:1.1rem;color:var(--gamma);}
+.gb-desc{font-size:0.76rem;color:var(--t2);line-height:1.5;}
+
+/* ── SOM BINAURAL pill ── */
+.pill.bin-on{border-color:var(--gamma);color:var(--gamma);}
+.pill.bin-on .pdot{background:var(--gamma);animation:bl 1.4s infinite;}
+
+/* ── RESUMO IA ── */
+.ai-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:12px;}
+.ai-header{display:flex;align-items:center;gap:10px;}
+.ai-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--alfa),var(--teta));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ai-title{font-family:'Lilita One',cursive;font-size:1rem;color:var(--tx);}
+.ai-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-top:1px;}
+.ai-body{font-size:0.82rem;color:var(--t2);line-height:1.7;min-height:60px;}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--t3);font-size:0.78rem;}
+.ai-dots span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--alfa);animation:aiDot 1.2s ease-in-out infinite;}
+.ai-dots span:nth-child(2){animation-delay:0.2s;background:var(--teta);}
+.ai-dots span:nth-child(3){animation-delay:0.4s;background:var(--delta);}
+@keyframes aiDot{0%,80%,100%{transform:scale(0.6);opacity:0.4;}40%{transform:scale(1);opacity:1;}}
 #ib{display:none;background:#0c1620;border:1px solid var(--alfa);border-radius:13px;padding:9px 13px;align-items:center;gap:9px;font-size:0.78rem;color:var(--t2);}
 #ib.show{display:flex;}
 #ib span{flex:1;line-height:1.4;}
@@ -289,10 +364,14 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
       <span class="hname">MindWave</span>
     </div>
     <div class="hright">
+      <div class="pill" id="bin-btn"><div class="pdot"></div><span id="bin-lbl">♪</span></div>
       <div class="pill" id="mic-btn"><div class="pdot"></div><span id="mic-lbl">MIC</span></div>
       <div class="pill" id="bt-btn"><div class="pdot"></div><span id="bt-lbl">BT</span></div>
     </div>
   </div>
+
+  <!-- Tela escura durante meditação -->
+  <div id="screen-dim"><div class="dim-hint">toque para acender</div></div>
 
   <div class="scroll">
 
@@ -300,6 +379,17 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 
     <!-- ═══ HOME ═══ -->
     <div id="sc-home" style="display:flex;flex-direction:column;gap:12px;">
+
+      <!-- Streak -->
+      <div class="streak-card" id="streak-card">
+        <div class="streak-fire">🔥</div>
+        <div class="streak-info">
+          <div class="streak-num" id="streak-num">0</div>
+          <div class="streak-lbl">dias consecutivos</div>
+          <div class="streak-dots" id="streak-dots"></div>
+        </div>
+        <div class="streak-best" id="streak-best"></div>
+      </div>
 
       <div class="card">
         <div class="ht">Sua mente,<br>em ondas.</div>
@@ -321,7 +411,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
           <div class="ph-row teta">
             <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
             <div class="ph-info">
-              <div class="ph-nm">Teta</div>
+              <div class="ph-nm">Theta</div>
               <div class="ph-ds">Meditação profunda. Subconsciente ativo, pensamentos somem.</div>
             </div>
             <div class="ph-bg">
@@ -384,9 +474,13 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <button class="btn-start" id="btn-start">Iniciar Meditação</button>
       </div>
 
-    </div>
+      <!-- Histórico -->
+      <div class="hist-card">
+        <div class="sec">Histórico de sessões</div>
+        <div id="hist-list"><div class="hist-empty">Nenhuma sessão ainda.<br>Complete sua primeira meditação!</div></div>
+      </div>
 
-    <!-- ═══ MEDITAÇÃO ═══ -->
+    </div>
     <div id="sc-med" style="display:none;flex-direction:column;gap:11px;">
 
       <div class="arena alfa" id="arena">
@@ -426,7 +520,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
           <div class="ph-btn-det" id="pd-alfa"></div>
         </button>
         <button class="ph-btn teta" id="pb-teta" onclick="manualPhase('teta')">
-          <div class="ph-btn-n">Teta</div>
+          <div class="ph-btn-n">Theta</div>
           <div class="ph-btn-t" id="pt-teta">0:00</div>
           <div class="ph-btn-det" id="pd-teta"></div>
         </button>
@@ -467,7 +561,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="sec" style="margin-top:8px">Tempo por fase</div>
         <div class="hb-rows">
           <div class="hb-row alfa"><div class="hb-lbl">Alfa</div><div class="hb-track"><div class="hb-fill" id="hf-alfa"></div></div><div class="hb-pct" id="hp-alfa">0%</div></div>
-          <div class="hb-row teta"><div class="hb-lbl">Teta</div><div class="hb-track"><div class="hb-fill" id="hf-teta"></div></div><div class="hb-pct" id="hp-teta">0%</div></div>
+          <div class="hb-row teta"><div class="hb-lbl">Theta</div><div class="hb-track"><div class="hb-fill" id="hf-teta"></div></div><div class="hb-pct" id="hp-teta">0%</div></div>
           <div class="hb-row delta"><div class="hb-lbl">Delta</div><div class="hb-track"><div class="hb-fill" id="hf-delta"></div></div><div class="hb-pct" id="hp-delta">0%</div></div>
         </div>
       </div>
@@ -476,7 +570,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="sec">Minutos por fase</div>
         <div class="ps-rows">
           <div class="ps-row alfa"><div class="ps-dot"></div><div class="ps-nm">Alfa</div><div><span class="ps-tm" id="ps-alfa">0 min</span><span class="ps-pc" id="pp-alfa"></span></div></div>
-          <div class="ps-row teta"><div class="ps-dot"></div><div class="ps-nm">Teta</div><div><span class="ps-tm" id="ps-teta">0 min</span><span class="ps-pc" id="pp-teta"></span></div></div>
+          <div class="ps-row teta"><div class="ps-dot"></div><div class="ps-nm">Theta</div><div><span class="ps-tm" id="ps-teta">0 min</span><span class="ps-pc" id="pp-teta"></span></div></div>
           <div class="ps-row delta"><div class="ps-dot"></div><div class="ps-nm">Delta</div><div><span class="ps-tm" id="ps-delta">0 min</span><span class="ps-pc" id="pp-delta"></span></div></div>
         </div>
       </div>
@@ -506,6 +600,29 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
         <div class="mural-list" id="mural-list"></div>
       </div>
 
+      <!-- Gamma conquista -->
+      <div class="gamma-badge" id="gamma-badge">
+        <div class="gb-title">✨ Gamma Detectado</div>
+        <div class="gb-desc" id="gamma-desc"></div>
+      </div>
+
+      <!-- Resumo por IA -->
+      <div class="ai-card">
+        <div class="ai-header">
+          <div class="ai-icon">🧠</div>
+          <div>
+            <div class="ai-title">Análise da Sessão</div>
+            <div class="ai-sub">Gerado por IA · Neurociência</div>
+          </div>
+        </div>
+        <div class="ai-body" id="ai-body">
+          <div class="ai-loading">
+            <div class="ai-dots"><span></span><span></span><span></span></div>
+            Analisando sua sessão...
+          </div>
+        </div>
+      </div>
+
       <button class="btn-new" id="btn-new">Nova Meditação</button>
     </div>
 
@@ -516,7 +633,7 @@ body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:h
 // ══ NEUROCIÊNCIA — FASES ═══════════════════════════════
 const PHASES = {
   alfa:  {name:'ALFA',  hz:'Ondas Alfa · 8–14 Hz',   color:'#64b5f6', hrLo:65,hrHi:80, rrLo:8, rrHi:12},
-  teta:  {name:'TETA',  hz:'Ondas Teta · 3–7 Hz',    color:'#9b72cf', hrLo:55,hrHi:68, rrLo:4, rrHi:7},
+  teta:  {name:'THETA',  hz:'Ondas Theta · 3–7 Hz',    color:'#9b72cf', hrLo:55,hrHi:68, rrLo:4, rrHi:7},
   delta: {name:'DELTA', hz:'Ondas Delta · 0.5–3 Hz', color:'#5c6bc0', hrLo:45,hrHi:60, rrLo:2, rrHi:5},
 };
 
@@ -525,17 +642,117 @@ const MURAL = [
   {min:0,  ph:'alfa',    ev:'Início — ondas Alfa dominantes',      desc:'A frequência cardíaca começa a cair. O córtex pré-frontal reduz a produção de adrenalina. A ansiedade diminui até 40% nos primeiros 5 minutos.'},
   {min:3,  ph:'alfa',    ev:'Serotonina em alta',                   desc:'Com FC abaixo de 75 bpm e respiração ritmada, o cérebro aumenta a produção de serotonina — neurotransmissor responsável pelo bem-estar e regulação emocional.'},
   {min:5,  ph:'alfa',    ev:'Cortisol começa a cair',               desc:'Após 5 minutos em ondas Alfa estáveis, os níveis de cortisol (hormônio do estresse) iniciam queda mensurável. O sistema nervoso parassimpático assume o controle.'},
-  {min:8,  ph:'teta',    ev:'Transição para ondas Teta',           desc:'Com FC abaixo de 68 bpm e respiração lenta (4–7 resp/min), o cérebro começa a produzir ondas Teta. O subconsciente abre. Memórias e insights emergem naturalmente.'},
-  {min:10, ph:'teta',    ev:'Dopamina e criatividade',             desc:'As ondas Teta ativam o hipocampo. A produção de dopamina aumenta. Este é o estado dos artistas, meditadores experientes e do chamado "estado de fluxo".'},
+  {min:8,  ph:'teta',    ev:'Transição para ondas Theta',           desc:'Com FC abaixo de 68 bpm e respiração lenta (4–7 resp/min), o cérebro começa a produzir ondas Theta. O subconsciente abre. Memórias e insights emergem naturalmente.'},
+  {min:10, ph:'teta',    ev:'Dopamina e criatividade',             desc:'As ondas Theta ativam o hipocampo. A produção de dopamina aumenta. Este é o estado dos artistas, meditadores experientes e do chamado "estado de fluxo".'},
   {min:12, ph:'teta',    ev:'Rede de Modo Padrão silenciando',     desc:'A Default Mode Network (DMN) — responsável pelo ego e ruminação mental — começa a silenciar. Menos pensamentos automáticos e autocrítica.'},
   {min:15, ph:'teta',    ev:'GABA em pico — relaxamento profundo', desc:'O ácido gama-aminobutírico (GABA) atinge seu pico. É o principal neurotransmissor inibitório do cérebro — reduz a ansiedade de forma mais eficaz do que benzodiazepínicos leves.'},
   {min:20, ph:'delta',   ev:'Ondas Delta — limiar do profundo',    desc:'Com FC abaixo de 60 bpm e respiração abaixo de 5 resp/min, o cérebro entra em Delta consciente — estado raramente atingido. A regeneração celular tem início.'},
   {min:25, ph:'delta',   ev:'Hormônio do Crescimento liberado',    desc:'Após 20 minutos em estados profundos, o hipotálamo libera o hormônio do crescimento (GH). Reparação muscular, consolidação da memória e longevidade celular são estimuladas.'},
-  {min:30, ph:'delta',   ev:'Autofagia profunda',                  desc:'30 minutos em ondas Teta e Delta ativa a autofagia — limpeza de proteínas celulares danificadas. O mesmo processo estimulado pelo jejum prolongado.'},
+  {min:30, ph:'delta',   ev:'Autofagia profunda',                  desc:'30 minutos em ondas Theta e Delta ativa a autofagia — limpeza de proteínas celulares danificadas. O mesmo processo estimulado pelo jejum prolongado.'},
   {min:40, ph:'insight', ev:'Neuroplasticidade elevada',           desc:'Sessões acima de 40 minutos aumentam a densidade de massa cinzenta no córtex pré-frontal e na ínsula. Mudanças estruturais mensuráveis em ressonância magnética após 8 semanas de prática.'},
 ];
 
-// ══ MODOS DE RESPIRAÇÃO ════════════════════════════════
+// ══ SOM BINAURAL ═══════════════════════════════════════
+// Neurociência: batimentos binaurais induzem ondas cerebrais
+// Alfa=10Hz, Theta=6Hz, Delta=2Hz, Gamma=40Hz
+const BIN = {
+  alfa:  {freq:10, base:200, label:'Alfa 10Hz'},
+  teta:  {freq:6,  base:180, label:'Theta 6Hz'},
+  delta: {freq:2,  base:160, label:'Delta 2Hz'},
+};
+let binCtx=null, binL=null, binR=null, binGain=null, binOn=false;
+
+document.getElementById('bin-btn').addEventListener('click',()=>{
+  if(binOn){stopBinaural();return;}
+  startBinaural(S.phase);
+});
+
+function startBinaural(phase){
+  try{
+    if(!binCtx) binCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(binCtx.state==='suspended') binCtx.resume();
+    stopBinaural(true);
+    const b=BIN[phase]||BIN.alfa;
+    // Canal esquerdo
+    binL=binCtx.createOscillator();
+    binL.frequency.value=b.base;
+    binL.type='sine';
+    // Canal direito (frequência base + batimento binaural)
+    binR=binCtx.createOscillator();
+    binR.frequency.value=b.base+b.freq;
+    binR.type='sine';
+    // Gain suave
+    binGain=binCtx.createGain();
+    binGain.gain.setValueAtTime(0,binCtx.currentTime);
+    binGain.gain.linearRampToValueAtTime(0.12,binCtx.currentTime+2);
+    // Merger estéreo
+    const merger=binCtx.createChannelMerger(2);
+    const gainL=binCtx.createGain(); gainL.gain.value=1;
+    const gainR=binCtx.createGain(); gainR.gain.value=1;
+    binL.connect(gainL); binR.connect(gainR);
+    gainL.connect(merger,0,0); gainR.connect(merger,0,1);
+    merger.connect(binGain); binGain.connect(binCtx.destination);
+    binL.start(); binR.start();
+    binOn=true; updateBinUI(phase);
+  }catch(e){console.log('Binaural:',e);}
+}
+
+function stopBinaural(silent=false){
+  if(binL){try{binL.stop();}catch(e){} binL=null;}
+  if(binR){try{binR.stop();}catch(e){} binR=null;}
+  if(!silent){binOn=false; updateBinUI(null);}
+}
+
+function updateBinUI(phase){
+  const b=document.getElementById('bin-btn'),l=document.getElementById('bin-lbl');
+  b.className='pill'+(binOn?' bin-on':'');
+  l.textContent=binOn?(BIN[phase||S.phase]?.label||'♪'):'♪';
+}
+
+// Muda binaural quando fase muda
+function updateBinPhase(phase){
+  if(binOn) startBinaural(phase);
+}
+
+// ══ TELA ESCURA ════════════════════════════════════════
+let dimTimer=null, dimOn=false;
+
+function startDimTimer(){
+  clearTimeout(dimTimer);
+  // Só apaga tela no modo livre — durante respiração guiada o usuário precisa ver
+  if(S.breathMode !== 'livre') return;
+  dimTimer=setTimeout(()=>{
+    if(S.ticker){
+      dimOn=true;
+      document.getElementById('screen-dim').classList.add('visible');
+    }
+  },30000);
+}
+
+function resetDim(){
+  dimOn=false;
+  document.getElementById('screen-dim').classList.remove('visible');
+  startDimTimer();
+}
+
+document.getElementById('screen-dim').addEventListener('click',resetDim);
+document.getElementById('screen-dim').addEventListener('touchstart',resetDim);
+
+// ══ GAMMA — DETECÇÃO ══════════════════════════════════
+// Gamma (30-100Hz) é detectado indiretamente:
+// FC muito estável + respiração muito lenta + sessão longa = indicador de estado avançado
+function checkGamma(totalMin, pcts, hrLog, rrLog){
+  if(totalMin < 20) return false;
+  // FC estável (baixo desvio padrão) em sessão longa
+  if(hrLog.length < 10) return false;
+  const bpms=hrLog.map(x=>x.bpm);
+  const avg=bpms.reduce((a,b)=>a+b,0)/bpms.length;
+  const std=Math.sqrt(bpms.map(x=>(x-avg)**2).reduce((a,b)=>a+b,0)/bpms.length);
+  // FC muito estável (std < 4) + delta significativo + sessão longa
+  return std < 4 && pcts.delta > 15 && totalMin >= 25;
+}
+
+
 const BREATH = {
   wake:  {name:'ACORDAR', sub:'Energize o sistema nervoso',        color:'#fb923c',
           phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
@@ -628,6 +845,7 @@ document.getElementById('mic-btn').addEventListener('click',async()=>{
     S.micAnalyser.smoothingTimeConstant=0.8;
     src.connect(S.micAnalyser);
     S.micOn=true;S.rrBuf=[];S.rrLastPeak=0;
+    S.rrEnvelope=0;S.rrNoiseFloor=0;S.rrInPeak=false;
     updateMicUI();
     detectBreath();
   }catch(e){alert('Erro ao acessar o microfone: '+e.message);}
@@ -646,28 +864,68 @@ function updateMicUI(){
 }
 function detectBreath(){
   if(!S.micOn||!S.micAnalyser){return;}
+
   const buf=new Uint8Array(S.micAnalyser.frequencyBinCount);
   S.micAnalyser.getByteTimeDomainData(buf);
+
+  // RMS da amplitude
   let sum=0;
   for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
   const rms=Math.sqrt(sum/buf.length);
+
   const now=Date.now();
-  if(rms>0.015&&now-S.rrLastPeak>1500){
-    S.rrLastPeak=now;
+
+  // Envelope: suaviza o sinal para evitar múltiplos picos por respiração
+  S.rrEnvelope = S.rrEnvelope===undefined ? rms :
+    rms > S.rrEnvelope
+      ? S.rrEnvelope * 0.7 + rms * 0.3   // ataque rápido
+      : S.rrEnvelope * 0.97 + rms * 0.03; // decaimento lento
+
+  // Threshold adaptativo: média móvel do envelope + margem
+  S.rrNoiseFloor = S.rrNoiseFloor===undefined ? rms :
+    S.rrNoiseFloor * 0.995 + rms * 0.005;
+  const threshold = Math.max(0.035, S.rrNoiseFloor * 2.8);
+
+  // Detecta pico real: envelope acima do threshold
+  // Refractory de 3.5s — impossível respirar mais rápido que ~17/min
+  // (2 expirações por ciclo normal = 1 por ~3s a 10 resp/min)
+  const REFRACTORY = 3500; // ms
+
+  if(S.rrEnvelope > threshold && !S.rrInPeak && now - S.rrLastPeak > REFRACTORY){
+    S.rrInPeak = true;
+    S.rrLastPeak = now;
     S.rrBuf.push(now);
-    S.rrBuf=S.rrBuf.filter(t=>now-t<60000);
-    if(S.rrBuf.length>=2){
+
+    // Janela de 90s para média mais estável
+    S.rrBuf = S.rrBuf.filter(t => now - t < 90000);
+
+    if(S.rrBuf.length >= 3){
+      // Usa mediana dos intervalos para ignorar outliers
       const intervals=[];
       for(let i=1;i<S.rrBuf.length;i++) intervals.push(S.rrBuf[i]-S.rrBuf[i-1]);
-      const avg=intervals.reduce((a,b)=>a+b,0)/intervals.length;
-      const rr=Math.round(60000/avg);
-      if(rr>=1&&rr<=30){
-        S.rrLog.push({t:now,rr});
-        document.getElementById('bio-rr').textContent=rr;
+      intervals.sort((a,b)=>a-b);
+      const mid=Math.floor(intervals.length/2);
+      const median=intervals.length%2===0
+        ?(intervals[mid-1]+intervals[mid])/2
+        :intervals[mid];
+
+      const rr=Math.round(60000/median);
+
+      // Aceita só valores fisiologicamente possíveis: 1–20 resp/min
+      if(rr>=1&&rr<=20){
+        // Suaviza com média ponderada da leitura anterior
+        const prev=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:rr;
+        const smoothed=Math.round(prev*0.4+rr*0.6);
+        S.rrLog.push({t:now,rr:smoothed});
+        document.getElementById('bio-rr').textContent=smoothed;
         if(!S.manual) autoDetect();
       }
     }
   }
+
+  // Reset do pico quando envelope cai abaixo do threshold
+  if(S.rrEnvelope < threshold * 0.5) S.rrInPeak=false;
+
   requestAnimationFrame(detectBreath);
 }
 
@@ -693,7 +951,7 @@ function autoDetect(){
 
   const best=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
   const el=document.getElementById('bio-auto');
-  el.textContent={alfa:'ALFA',teta:'TETA',delta:'DELTA'}[best];
+  el.textContent={alfa:'ALFA',teta:'THETA',delta:'DELTA'}[best];
   el.style.color=PHASES[best].color;
 
   ['alfa','teta','delta'].forEach(ph=>{
@@ -745,7 +1003,14 @@ function runBGPhase(){
     const offset=ph.a==='INSPIRE'?circ*(1-pct):circ*pct;
     bgc.style.transition='stroke-dashoffset 0.1s linear';
     bgc.style.strokeDashoffset=Math.max(0,Math.min(circ,offset));
-    if(elapsed>=dur*1000){clearInterval(S.bgTimer);S.bgIdx++;runBGPhase();}
+    if(elapsed>=dur*1000){
+      clearInterval(S.bgTimer);
+      S.bgIdx++;
+      // A cada ciclo completo, verifica se pode escurecer
+      // (usuário já viu o guia, pode fechar os olhos)
+      if(S.bgIdx % mode.phases.length === 0) startDimTimer();
+      runBGPhase();
+    }
   },100);
 }
 
@@ -768,6 +1033,7 @@ document.getElementById('btn-start').addEventListener('click',()=>{
   S.log=[{phase:'alfa',start:Date.now()}];
   S.hrLog=[];S.rrLog=[];
   S.rrBuf=[];S.rrLastPeak=0;
+  S.rrEnvelope=0;S.rrNoiseFloor=0;S.rrInPeak=false;
   document.getElementById('bio-hr').textContent='--';
   document.getElementById('bio-rr').textContent='--';
   document.getElementById('bio-auto').textContent='AUTO';
@@ -781,6 +1047,10 @@ document.getElementById('btn-start').addEventListener('click',()=>{
   if(S.ticker) clearInterval(S.ticker);
   S.ticker=setInterval(tick,1000);
   startBreathGuide();
+  startDimTimer(); // inicia timer da tela escura
+  // Adiciona listener de toque para resetar tela escura
+  document.addEventListener('touchstart', resetDim);
+  document.addEventListener('click', resetDim);
 });
 
 // ══ FASE ═══════════════════════════════════════════════
@@ -793,6 +1063,7 @@ function setPhase(phase,isManual=true){
   S.log.push({phase,start:now});
   S.phase=phase;S.phaseStart=now;
   updateArena();
+  updateBinPhase(phase);
   if(isManual) setTimeout(()=>{S.manual=false;},180000);
 }
 function manualPhase(ph){setPhase(ph,true);}
@@ -827,10 +1098,21 @@ function tick(){
 document.getElementById('btn-end').addEventListener('click',()=>{
   if(!confirm('Encerrar a meditação?')) return;
   clearInterval(S.ticker);clearInterval(S.bgTimer);S.ticker=null;
+  stopBinaural();
+  clearTimeout(dimTimer);
+  resetDim();
+  document.removeEventListener('touchstart',resetDim);
+  document.removeEventListener('click',resetDim);
   const now=Date.now();
   S.phaseTimes[S.phase]+=now-S.phaseStart;
   if(S.log.length) S.log[S.log.length-1].end=now;
   buildReport();
+  // Salvar no histórico
+  const totMin=Math.floor((Date.now()-S.startTime)/60000);
+  const T2=S.phaseTimes, tot2=T2.alfa+T2.teta+T2.delta||1;
+  const pcts2={alfa:Math.round(T2.alfa/tot2*100),teta:Math.round(T2.teta/tot2*100),delta:Math.round(T2.delta/tot2*100)};
+  const sc2=Math.min(100,Math.round((pcts2.alfa*0.5+pcts2.teta*1.6+pcts2.delta*2.4)/1.5));
+  saveSession(totMin, pcts2, sc2);
   showScreen('sc-rep');
 });
 
@@ -863,7 +1145,7 @@ function buildReport(){
   document.getElementById('srn').textContent=score;
   const grades=[
     [85,'Excelente 🧠','Estados profundos atingidos. Autofagia, hormônio do crescimento e GABA em alta.'],
-    [65,'Muito Boa 🌊','Boa profundidade. Ondas Teta dominantes. Continue praticando.'],
+    [65,'Muito Boa 🌊','Boa profundidade. Ondas Theta dominantes. Continue praticando.'],
     [40,'Boa ✨','Relaxamento sólido. Cortisol reduzido, serotonina elevada.'],
     [0, 'Início 🌱','Cada sessão reconfigura o cérebro. Continue praticando.'],
   ];
@@ -920,7 +1202,69 @@ function buildReport(){
   } else ['rr-avg','rr-max','rr-min'].forEach(id=>document.getElementById(id).textContent='--');
 
   buildMural(totalMin,pcts);
+
+  // ── GAMMA ──
+  const gammaDetected = checkGamma(totalMin, pcts, S.hrLog, S.rrLog);
+  const gammaBadge = document.getElementById('gamma-badge');
+  if(gammaDetected){
+    gammaBadge.classList.add('show');
+    document.getElementById('gamma-desc').textContent=
+      'Sua FC apresentou estabilidade excepcional combinada com Delta prolongado — padrão associado a ondas Gamma em meditadores experientes. Gamma (30–100Hz) é a onda de maior frequência, ligada a estados de consciência expandida, compaixão e insight profundo.';
+  } else {
+    gammaBadge.classList.remove('show');
+  }
+
+  // ── RESUMO POR IA ──
+  generateAISummary(totalMin, pcts, score, S.hrLog, S.rrLog, gammaDetected);
 }
+
+async function generateAISummary(totalMin, pcts, score, hrLog, rrLog, gamma){
+  const aiBody = document.getElementById('ai-body');
+  aiBody.innerHTML=`<div class="ai-loading"><div class="ai-dots"><span></span><span></span><span></span></div> Analisando sua sessão...</div>`;
+
+  const hrAvg = hrLog.length ? Math.round(hrLog.map(x=>x.bpm).reduce((a,b)=>a+b,0)/hrLog.length) : null;
+  const hrMin = hrLog.length ? Math.min(...hrLog.map(x=>x.bpm)) : null;
+  const rrAvg = rrLog.length ? Math.round(rrLog.map(x=>x.rr).reduce((a,b)=>a+b,0)/rrLog.length) : null;
+
+  const prompt = `Você é um neurocientista especialista em meditação. Analise esta sessão e escreva um parágrafo único de 4-6 linhas em português brasileiro, personalizado, direto ao ponto, sem listas, sem títulos. Use linguagem acessível mas científica. Seja específico com os dados fornecidos.
+
+Dados da sessão:
+- Duração total: ${totalMin} minutos
+- Alfa: ${pcts.alfa}% do tempo (${Math.round(totalMin*pcts.alfa/100)} min)
+- Theta: ${pcts.teta}% do tempo (${Math.round(totalMin*pcts.teta/100)} min)  
+- Delta: ${pcts.delta}% do tempo (${Math.round(totalMin*pcts.delta/100)} min)
+- Score: ${score}/100
+${hrAvg ? `- FC média: ${hrAvg} bpm, mínima: ${hrMin} bpm` : '- FC: não medida'}
+${rrAvg ? `- Respiração média: ${rrAvg} resp/min` : '- Respiração: não medida'}
+${gamma ? '- Padrão Gamma detectado: FC excepcionalmente estável com Delta prolongado' : ''}
+
+Explique o que aconteceu no cérebro e corpo dessa pessoa nessa sessão específica, mencionando os neurotransmissores e processos ativados proporcionalmente ao tempo em cada fase. Termine com uma observação motivadora baseada nos dados.`;
+
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.map(c=>c.text||'').join('').trim();
+    if(text){
+      aiBody.style.opacity='0';
+      aiBody.style.transition='opacity 0.5s ease';
+      setTimeout(()=>{
+        aiBody.textContent=text;
+        aiBody.style.opacity='1';
+      },300);
+    } else {
+      aiBody.textContent='Sessão registrada. Continue praticando para obter análises mais detalhadas.';
+    }
+  }catch(e){
+    aiBody.textContent='Análise indisponível no momento. Seus dados foram salvos.';
+  }
 
 function buildMural(totalMin,pcts){
   const list=document.getElementById('mural-list');
@@ -930,7 +1274,7 @@ function buildMural(totalMin,pcts){
   if(pcts.delta>20)
     events.push({min:totalMin,ph:'insight',ev:'Delta atingido — regeneração ativa',desc:'Você atingiu ondas Delta conscientes — estado alcançado por menos de 5% dos meditadores. Hormônio do crescimento e autofagia em plena ação.'});
   else if(pcts.teta>40)
-    events.push({min:totalMin,ph:'insight',ev:'Teta dominante — subconsciente acessado',desc:'Mais de 40% do tempo em ondas Teta indica meditação profunda. GABA e dopamina elevados. Memória e criatividade reforçadas.'});
+    events.push({min:totalMin,ph:'insight',ev:'Theta dominante — subconsciente acessado',desc:'Mais de 40% do tempo em ondas Theta indica meditação profunda. GABA e dopamina elevados. Memória e criatividade reforçadas.'});
   else
     events.push({min:totalMin,ph:'insight',ev:'Ondas Alfa consolidadas',desc:'Sessão de relaxamento sólido. Cortisol reduzido, serotonina elevada. Base para aprofundar nas próximas sessões.'});
 
@@ -983,8 +1327,125 @@ function drawChart(id,data,startTime,color){
   ctx.strokeStyle=color;ctx.lineWidth=3;ctx.lineJoin='round';ctx.stroke();
 }
 
+// ══ HISTÓRICO ══════════════════════════════════════════
+function saveSession(totalMin, pcts, score){
+  try{
+    const sessions = JSON.parse(localStorage.getItem('mw_sessions')||'[]');
+    sessions.unshift({
+      date: Date.now(),
+      dur: totalMin,
+      pcts,
+      score,
+      mode: S.breathMode,
+    });
+    // Manter só últimas 30
+    localStorage.setItem('mw_sessions', JSON.stringify(sessions.slice(0,30)));
+  }catch(e){}
+}
+
+function loadHistory(){
+  try{ return JSON.parse(localStorage.getItem('mw_sessions')||'[]'); }
+  catch(e){ return []; }
+}
+
+function renderHistory(){
+  const list = document.getElementById('hist-list');
+  if(!list) return;
+  const sessions = loadHistory();
+  if(!sessions.length){
+    list.innerHTML='<div class="hist-empty">Nenhuma sessão ainda.<br>Complete sua primeira meditação!</div>';
+    return;
+  }
+  list.innerHTML='';
+  sessions.forEach(s=>{
+    const d = new Date(s.date);
+    const day = String(d.getDate()).padStart(2,'0');
+    const mon = d.toLocaleDateString('pt-BR',{month:'short'}).toUpperCase();
+    const time = String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    const dur = s.dur >= 60 ? Math.floor(s.dur/60)+'h '+( s.dur%60 ? s.dur%60+'min' : '') : s.dur+'min';
+    const sc = s.score>=80?'s-great':s.score>=55?'s-good':'s-ok';
+    const scLbl = s.score>=80?'Excelente':s.score>=55?'Muito Boa':s.score>=40?'Boa':'Início';
+    const item = document.createElement('div');
+    item.className='hist-item';
+    item.innerHTML=`
+      <div class="hi-date"><div class="hi-d">${day}</div><div class="hi-m">${mon}</div></div>
+      <div class="hi-bar">
+        <div class="hi-strip">
+          <div class="hi-seg alfa" style="width:${s.pcts.alfa}%"></div>
+          <div class="hi-seg teta" style="width:${s.pcts.teta}%"></div>
+          <div class="hi-seg delta" style="width:${s.pcts.delta}%"></div>
+        </div>
+        <div class="hi-meta">${time} · α${s.pcts.alfa}% θ${s.pcts.teta}% δ${s.pcts.delta}%</div>
+      </div>
+      <div class="hi-right">
+        <div class="hi-dur">${dur}</div>
+        <div class="hi-score ${sc}">${scLbl} ${s.score}</div>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function calcStreak(){
+  const sessions = loadHistory();
+  if(!sessions.length) return {streak:0, best:0, days:[]};
+
+  // Dias únicos com sessão (formato YYYY-MM-DD)
+  const daySet = new Set(sessions.map(s=>{
+    const d=new Date(s.date);
+    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  }));
+
+  // Streak atual (de hoje para trás)
+  let streak=0;
+  const now=new Date();
+  for(let i=0;i<365;i++){
+    const d=new Date(now);
+    d.setDate(d.getDate()-i);
+    const key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    if(daySet.has(key)) streak++;
+    else if(i>0) break;
+  }
+
+  // Melhor streak
+  const sortedDays=[...daySet].sort();
+  let best=1, cur=1;
+  for(let i=1;i<sortedDays.length;i++){
+    const prev=new Date(sortedDays[i-1].replace(/-/g,'/'));
+    const curr=new Date(sortedDays[i].replace(/-/g,'/'));
+    const diff=(curr-prev)/(1000*60*60*24);
+    if(diff===1){ cur++; best=Math.max(best,cur); }
+    else cur=1;
+  }
+
+  // Últimos 7 dias para os pontos
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);
+    d.setDate(d.getDate()-i);
+    const key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    days.push(daySet.has(key));
+  }
+
+  return {streak, best, days};
+}
+
+function renderStreak(){
+  const {streak, best, days} = calcStreak();
+  const numEl=document.getElementById('streak-num');
+  const dotsEl=document.getElementById('streak-dots');
+  const bestEl=document.getElementById('streak-best');
+  if(!numEl) return;
+  numEl.textContent = streak;
+  bestEl.innerHTML = `Melhor<br><strong style="font-family:'Lilita One',cursive;font-size:1rem;color:var(--org)">${best}</strong>`;
+  dotsEl.innerHTML = days.map(d=>`<div class="sd${d?' done':''}"></div>`).join('');
+}
+
 // ══ NOVA SESSÃO ════════════════════════════════════════
-document.getElementById('btn-new').addEventListener('click',()=>showScreen('sc-home'));
+document.getElementById('btn-new').addEventListener('click',()=>{
+  renderStreak();
+  renderHistory();
+  showScreen('sc-home');
+});
 
 // ══ TELA CHEIA ═════════════════════════════════════════
 const appEl=document.getElementById('main-app');
@@ -1027,6 +1488,8 @@ window.addEventListener('load',()=>{
 });
 
 showScreen('sc-home');
+renderStreak();
+renderHistory();
 </script>
 </body>
 </html>
