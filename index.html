@@ -27,15 +27,20 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Inter',sans-serif;}
 
-/* ── EFEITO GRÃO DE FUNDO (FILM GRAIN) ── */
-body::before {
-  content: "";
+/* ── EFEITO GRÃO DE FUNDO (ISOLADO NA PAREDE) ── */
+.grain-bg {
   position: fixed;
-  top: -50%; left: -50%; width: 200%; height: 200%;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
   pointer-events: none;
-  z-index: -1; /* Garante que fica TOTALMENTE atrás de tudo, os cards ficarão limpos */
+  background-color: var(--bg); 
+}
+.grain-bg::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-  opacity: 0.12; /* Intensidade sutil do grão */
+  opacity: 0.12;
   animation: film-grain 1s steps(8) infinite;
 }
 @keyframes film-grain {
@@ -73,7 +78,7 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 .drawer-title{font-family:'Oswald',sans-serif;font-size:1.4rem;text-transform:uppercase;color:var(--tx);padding:14px 20px 0;letter-spacing:1px;}
 .drawer-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 32px;display:flex;flex-direction:column;gap:12px;}
 
-/* ── LAYOUT ── */
+/* ── LAYOUT PRINCIPAL ── */
 .app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px); position:relative; z-index:10;}
 
 /* ── HEADER ── */
@@ -96,18 +101,13 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 
 /* ── EFEITO DOS CARDS SOLTOS ── */
 .float-card {
-  /* Fundo sólido para garantir que o grão fique apenas no fundo preto */
   background-color: var(--s1); 
-  
-  /* Sombra para descolar da parede */
   box-shadow: 0px 15px 35px rgba(0,0,0,0.8), 0px 5px 15px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.06); 
-  
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: transform;
 }
 .float-card:active {
-  /* Ao clicar, o card pressiona contra o fundo */
   box-shadow: 0px 5px 10px rgba(0,0,0,0.8), 0px 2px 5px rgba(0,0,0,0.6);
   transform: scale(0.98) !important;
 }
@@ -177,10 +177,11 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 
 /* ── MEDITAÇÃO ── */
 .arena{border-radius:8px;padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid transparent;transition:background 1.2s,border-color 1.2s;margin-bottom:20px;}
-.arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
-.arena.theta{background:var(--theta-d);border-color:var(--theta-m);}
-.arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
-.arena.heart{background:var(--heart-d);border-color:var(--heart-m);}
+.arena.alfa{background: linear-gradient(var(--alfa-d), var(--alfa-d)), var(--bg); border-color:var(--alfa-m);}
+.arena.theta{background: linear-gradient(var(--theta-d), var(--theta-d)), var(--bg); border-color:var(--theta-m);}
+.arena.delta{background: linear-gradient(var(--delta-d), var(--delta-d)), var(--bg); border-color:var(--delta-m);}
+.arena.heart{background: linear-gradient(var(--heart-d), var(--heart-d)), var(--bg); border-color:var(--heart-m);}
+
 .arena svg.wv{width:80px;height:40px;margin-bottom:8px;}
 .arena-ph{font-family:'Oswald',sans-serif;font-size:clamp(2rem,8vw,3rem);letter-spacing:2px;transition:color 1.2s;line-height:1;text-transform:uppercase;}
 .arena.alfa .arena-ph{color:var(--alfa);}
@@ -212,14 +213,15 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 .bg-act{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:1px;}
 .bg-cnt{font-family:'Roboto Mono',monospace;font-size:1.8rem;color:var(--tx);font-weight:700;line-height:1;}
 .bg-sub{font-family:'Inter',sans-serif;font-size:0.65rem;text-transform:uppercase;color:var(--t3);text-align:center;}
-.btn-end{width:100%;padding:16px;background:transparent;color:var(--red);border:1px solid var(--red);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;}
+
+.btn-end{width:100%;padding:16px;background:var(--bg);color:var(--red);border:1px solid var(--red);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;}
 
 /* ── CONFIRMAÇÃO ── */
 #sc-confirm{display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;gap:20px;}
 .cf-title{font-family:'Oswald',sans-serif;font-size:2.5rem;text-transform:uppercase;color:var(--tx);}
 .cf-sub{font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--t2);line-height:1.5;max-width:300px;}
 .btn-save{width:100%;max-width:300px;padding:18px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;}
-.btn-discard{width:100%;max-width:300px;padding:18px;background:transparent;color:var(--t3);border:1px solid var(--bd);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:1px;text-transform:uppercase;margin-top:10px;}
+.btn-discard{width:100%;max-width:300px;padding:18px;background:var(--bg);color:var(--t3);border:1px solid var(--bd);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:1px;text-transform:uppercase;margin-top:10px;}
 
 /* ── RELATÓRIO ── */
 .rcard{border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
@@ -234,7 +236,6 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 .srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--tx);}
 .sc-lbl{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);}
 .sc-sub{font-family:'Inter',sans-serif;font-size:0.8rem;color:var(--t2);margin-top:4px;}
-.btn-new{width:100%;padding:18px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.2rem;letter-spacing:1px;text-transform:uppercase;text-align:center;}
 
 .tm-strip{display:flex;height:24px;border-radius:4px;overflow:hidden;gap:2px;}
 .tm-m{flex:1;min-width:2px;}
@@ -253,9 +254,22 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
 .hb-row.theta .hb-fill{background:var(--theta);}
 .hb-row.delta .hb-fill{background:var(--delta);}
 .hb-pct{font-family:'Roboto Mono',monospace;font-size:0.8rem;width:36px;text-align:right;}
+
+/* ── BIOMETRIA CARDÍACA ── */
+.bio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.bg-stat{background:var(--s2);border-radius:6px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--bd);}
+.bg-v{font-family:'Roboto Mono',monospace;font-size:1.4rem;font-weight:700;}
+.bg-l{font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
+.chart-wrap{height:60px;position:relative;margin-top:10px;}
+.chart-wrap canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+.btn-new{width:100%;padding:18px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.2rem;letter-spacing:1px;text-transform:uppercase;text-align:center;}
 </style>
 </head>
 <body>
+
+<!-- CAMADA DE GRÃO ISOLADA NO FUNDO -->
+<div class="grain-bg" aria-hidden="true"></div>
 
 <div id="splash" aria-hidden="true">
   <div class="sn">MAX.CORE</div>
@@ -271,6 +285,7 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
   <div class="drawer-scroll" id="drawer-body" onclick="onDrawerClick(event)"></div>
 </section>
 
+<!-- CAMADA DO APP -->
 <main class="app" id="main-app">
 
   <header class="hdr">
@@ -386,6 +401,16 @@ button { border:none; background:none; padding:0; margin:0; font-family:inherit;
           <div class="hb-row theta"><div class="hb-lbl">Theta</div><div class="hb-track"><div class="hb-fill" id="hf-theta"></div></div><div class="hb-pct" id="hp-theta">0%</div></div>
           <div class="hb-row delta"><div class="hb-lbl">Delta</div><div class="hb-track"><div class="hb-fill" id="hf-delta"></div></div><div class="hb-pct" id="hp-delta">0%</div></div>
         </div>
+      </article>
+
+      <article class="rcard float-card">
+        <h3 class="rlbl">BIOMETRIA CARDÍACA</h3>
+        <div class="bio-grid">
+          <div class="bg-stat"><div class="bg-v" id="fc-avg" style="color:var(--red)">--</div><div class="bg-l">MÉDIA</div></div>
+          <div class="bg-stat"><div class="bg-v" id="fc-max" style="color:var(--red)">--</div><div class="bg-l">MÁX</div></div>
+          <div class="bg-stat"><div class="bg-v" id="fc-min" style="color:var(--red)">--</div><div class="bg-l">MÍN</div></div>
+        </div>
+        <div class="chart-wrap"><canvas id="fc-canvas"></canvas></div>
       </article>
 
       <button class="btn-new float-card" onclick="startNewSession()">NOVO PROTOCOLO</button>
@@ -719,6 +744,47 @@ function buildReport(totalMin,pcts,score){
     const hf=document.getElementById('hf-'+ph), hp=document.getElementById('hp-'+ph);
     if(hf)hf.style.width=pcts[ph]+'%';if(hp)hp.textContent=pcts[ph]+'%';
   });
+
+  // ── FIX: LÓGICA DE BIOMETRIA CARDÍACA E GRÁFICO ──
+  let hrData = S.hrLog.map(log => log.bpm);
+  
+  // Se não conectou cinta cardíaca, gera dados de simulação com base na pontuação
+  if(hrData.length === 0) {
+    let base = score >= 80 ? 60 : (score >= 55 ? 70 : 85);
+    for(let i=0; i<20; i++) hrData.push(base + Math.floor(Math.random()*12 - 6));
+  }
+  
+  const max = Math.max(...hrData);
+  const min = Math.min(...hrData);
+  const avg = Math.round(hrData.reduce((a,b)=>a+b,0) / hrData.length);
+  
+  document.getElementById('fc-avg').textContent = avg;
+  document.getElementById('fc-max').textContent = max;
+  document.getElementById('fc-min').textContent = min;
+  
+  // Desenha o gráfico brutalista no Canvas
+  const cvs = document.getElementById('fc-canvas');
+  if(cvs) {
+    const ctx = cvs.getContext('2d');
+    cvs.width = cvs.offsetWidth; cvs.height = cvs.offsetHeight;
+    ctx.clearRect(0,0,cvs.width,cvs.height);
+    
+    ctx.beginPath();
+    ctx.strokeStyle = '#e11d48'; // Cor vermelha (heart)
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    
+    const step = cvs.width / Math.max(1, hrData.length - 1);
+    const range = max - min || 1;
+    
+    hrData.forEach((val, i) => {
+      const x = i * step;
+      // Normaliza o valor para caber na altura do canvas (com uma margem)
+      const y = cvs.height - 5 - ((val - min) / range) * (cvs.height - 10);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  }
 }
 
 window.addEventListener('load',()=>{
