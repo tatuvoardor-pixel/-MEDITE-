@@ -1,51 +1,67 @@
-# 🌊 MindWave — Meditação com Neurociência
+# MAX.CORE // OVERRIDE IRRATIONALITY
 
-App de meditação baseado em neurociência moderna. Gratuito, sem anúncios, funciona offline.
+Sistema de contenção de impulsos primatas e *down-regulation* do sistema nervoso através de neurociência aplicada. Operação 100% offline. Zero anúncios. Zero distrações.
 
-## Funcionalidades
+---
 
-**Durante a meditação:**
-- 🎙️ Voz suave guiando a respiração em português
-- 📡 Bluetooth para frequência cardíaca (CooSpo, Polar, Garmin, Wahoo)
-- 🎤 Microfone para detecção automática de respiração
-- 🧠 Detecção automática de fase por FC + respiração
-- 🎵 Som binaural por fase (Alpha 10Hz · Theta 6Hz · Delta 2Hz)
-- 🌑 Tela escura automática — ideal com tapa-olho
-- ❤️ Coerência Coração-Cérebro em tempo real
+## // ESPECIFICAÇÕES DO SISTEMA
 
-**6 modos científicos:**
-- 🌅 Acordar — Respiração Energizante
-- 🎯 Foco — Respiração de Alto Desempenho
-- 🌊 Profundo — Coerente 5 resp/min
-- 🌙 Dormir — Respiração 4-7-8
-- ❤️ Coerência Coração-Cérebro
-- 🔮 Livre — sem guia
+**TELEMETRIA E OPERAÇÃO (SESSÃO ATIVA):**
+* `[GUIA]` Comandos de áudio para sincronização respiratória imediata.
+* `[BLUETOOTH]` Conexão com hardware de frequência cardíaca (CooSpo, Polar, Garmin, Wahoo).
+* `[MIC]` Monitoramento de áudio local para detecção autônoma de RPM (Respiração).
+* `[ALGORITMO]` Detecção automática de fase neural através do cruzamento de FC + RPM.
+* `[BINAURAL]` Injeção de frequências de indução (Alpha 10Hz · Theta 6Hz · Delta 2Hz).
+* `[BLACKOUT]` Extinção automática de tela (Otimizado para bloqueio visual/tapa-olho).
+* `[HRV]` Cálculo de Coerência Coração-Cérebro em tempo real.
 
-**Ondas cerebrais rastreadas:**
-- Alpha (α) 8–14 Hz — relaxamento e criatividade
-- Theta (θ) 3–7 Hz — subconsciente e cura
-- Delta (δ) 0.5–3 Hz — regeneração profunda
-- ✨ Gamma — conquista especial para sessões avançadas
+---
 
-**Relatório ao final:**
-- Score 0–100
-- Hipograma minuto a minuto
-- FC e respiração com gráfico
-- Análise personalizada por IA
+## // PROTOCOLOS DE COMANDO (6 MODOS)
 
-**Histórico:**
-- Streak de dias consecutivos
-- Últimas 7 sessões com barras de fase
+1. **PRIME NEURAL:** Ativação Simpática (Respiração hiperventilada para ignição do dia).
+2. **ESTADO DE FLOW:** Isolamento do Córtex Pré-Frontal (Foco extremo e trabalho profundo).
+3. **RECUP. PROFUNDA:** Down-Regulation / 5 resp/min (Coerência e reparo).
+4. **INDUÇÃO AO SONO:** Desativação do estado de alerta (Protocolo 4-7-8).
+5. **COERÊNCIA VAGAL:** Sincronização do ritmo cardíaco para estabilidade executiva.
+6. **MODO LIVRE:** Operação sem guias (Apenas telemetria de background).
 
-## Como instalar no celular
+---
 
-**Android (Chrome):** Banner aparece automaticamente → toque Instalar
+## // RASTREAMENTO NEURAL
 
-**iPhone (Safari):** Compartilhar → Adicionar à Tela de Início
+O sistema mapeia as seguintes frequências cerebrais com base na sua biometria:
+* `[ALFA: 8-14 Hz]` Estado de relaxamento alerta e processamento lógico.
+* `[THETA: 3-7 Hz]` Estado de transição, cura e acesso subconsciente.
+* `[DELTA: 0.5-3 Hz]` Down-regulation absoluto e regeneração profunda.
+* `[GAMMA]` *[UNLOCK]* Acesso especial alcançado apenas em sessões de alta performance.
 
-## Como subir no GitHub Pages
+---
 
-1. Crie um repositório no GitHub
-2. Faça upload dos 3 arquivos: `index.html` · `sw.js` · `README.md`
-3. Vá em **Settings → Pages → Branch: main → Save**
-4. Acesse: `https://SEU-USUARIO.github.io/NOME-DO-REPO`
+## // LOGS E RELATÓRIOS (PÓS-OPERAÇÃO)
+
+Ao encerrar um protocolo, o sistema gera os seguintes dados de performance:
+* **Score Executivo:** Avaliação de 0 a 100 da sua contenção irracional.
+* **Hipograma Neural:** Mapeamento tático minuto a minuto da sessão.
+* **Gráficos Biométricos:** Análise visual de Frequência Cardíaca (FC) e Respiração.
+* **Análise IA:** Avaliação personalizada dos dados obtidos.
+* **Banco de Dados Local:** Histórico com *streak* de operações consecutivas e as últimas 7 sessões com barras de fase.
+
+---
+
+## // INSTRUÇÕES DE INSTALAÇÃO (PWA)
+
+O **MAX.CORE** é um sistema web progressivo (PWA) e opera nativamente após a instalação.
+
+* **Android (Chrome):** Aguarde o *prompt* do sistema na parte inferior da tela e confirme em `Instalar`.
+* **iOS (Safari):** Acesse o menu `Compartilhar` e selecione `Adicionar à Tela de Início`.
+
+---
+
+## // DEPLOYMENT (GITHUB PAGES)
+
+1. Inicie um novo repositório na sua conta do GitHub.
+2. Faça o upload restrito dos 3 arquivos do núcleo: `index.html` · `sw.js` · `manifest.json`.
+3. Adicione este `README.md`.
+4. Acesse: **Settings** > **Pages** > **Branch: main** > **Save**.
+5. O sistema estará operacional em: `https://SEU-USUARIO.github.io/NOME-DO-REPO`
