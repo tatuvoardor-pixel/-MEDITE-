@@ -3,1493 +3,732 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>MindWave</title>
+<title>MAX.CORE</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-title" content="MindWave">
-<meta name="theme-color" content="#18181b">
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-<script>
-(function(){
-  const ico=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="115" fill="#18181b"/><path d="M60 235 Q110 165 160 235 Q210 305 260 235 Q310 165 360 235 Q395 283 420 235" fill="none" stroke="#64b5f6" stroke-width="34" stroke-linecap="round"/><path d="M60 272 Q110 202 160 272 Q210 342 260 272 Q310 202 360 272 Q395 320 420 272" fill="none" stroke="#9b72cf" stroke-width="23" stroke-linecap="round" opacity="0.9"/><path d="M60 304 Q110 238 160 304 Q210 370 260 304 Q310 238 360 304 Q395 348 420 304" fill="none" stroke="#5c6bc0" stroke-width="15" stroke-linecap="round" opacity="0.72"/></svg>`;
-  const iUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ico);
-  const mf={name:"MindWave",short_name:"MindWave",display:"fullscreen",orientation:"portrait",start_url:"./index.html",scope:"./",background_color:"#18181b",theme_color:"#18181b",icons:[{src:iUrl,sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
-  const ml=document.createElement('link');ml.rel='manifest';ml.href='data:application/manifest+json;charset=utf-8,'+encodeURIComponent(JSON.stringify(mf));document.head.appendChild(ml);
-  const il=document.createElement('link');il.rel='apple-touch-icon';il.href=iUrl;document.head.appendChild(il);
-})();
-</script>
+<meta name="mobile-web-app-title" content="MAX.CORE">
+<meta name="theme-color" content="#0e0e10">
+<link rel="manifest" href="./manifest.json">
+<!-- Fonte Fredoka (Letra Gordinha) e as fontes de leitura -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#18181b; --s1:#212125; --s2:#2a2a2f; --s3:#323238; --bd:#3f3f46;
-  --tx:#f4f4f5; --t2:#a1a1aa; --t3:#52525b;
-  --alfa:#64b5f6; --alfa-d:#64b5f614; --alfa-m:#64b5f645;
-  --teta:#9b72cf; --teta-d:#9b72cf14; --teta-m:#9b72cf45;
-  --delta:#5c6bc0; --delta-d:#5c6bc014; --delta-m:#5c6bc045;
-  --red:#f87171; --grn:#4ade80; --org:#fb923c;
-  --gamma:#f0c060;
+  --bg:#09090b; --s1:#121214; --s2:#18181b; --s3:#27272a; --bd:#3f3f46;
+  --tx:#f4f4f5; --t2:#a1a1aa; --t3:#71717a;
+  --alfa:#3b82f6; --alfa-d:#3b82f615; --alfa-m:#3b82f650;
+  --theta:#8b5cf6; --theta-d:#8b5cf615; --theta-m:#8b5cf650;
+  --delta:#4f46e5; --delta-d:#4f46e515; --delta-m:#4f46e550;
+  --heart:#e11d48; --heart-d:#e11d4815; --heart-m:#e11d4850;
+  --sos:#ef4444; 
+  --gamma:#f59e0b;
+  --grn:#10b981; --org:#f97316; --red:#ef4444;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Barlow',sans-serif;}
+body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Inter',sans-serif;}
+
+/* ── EFEITO GRÃO DE FUNDO (FILM GRAIN) ── */
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  pointer-events: none;
+  z-index: -1; /* Garante que fica TOTALMENTE atrás de tudo, os cards ficarão limpos */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.12; /* Intensidade sutil do grão */
+  animation: film-grain 1s steps(8) infinite;
+}
+@keyframes film-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2%, 2%); }
+  40% { transform: translate(2%, -2%); }
+  60% { transform: translate(-1%, 1%); }
+  80% { transform: translate(1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Reset Global */
+button { border:none; background:none; padding:0; margin:0; font-family:inherit; color:inherit; cursor:pointer; outline:none; text-align:left; }
 
 /* ── SPLASH ── */
-#splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:999;transition:opacity 0.8s ease;}
+#splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:999;transition:opacity 0.9s ease;}
 #splash.hide{opacity:0;pointer-events:none;}
-#splash svg{width:120px;height:70px;animation:fadeUp 1s ease forwards;opacity:0;}
-#splash .sn{font-family:'Lilita One',cursive;font-size:2.6rem;background:linear-gradient(120deg,var(--alfa),var(--teta),var(--delta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp 1s 0.2s ease forwards;opacity:0;}
-#splash .ss{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--t3);animation:fadeUp 1s 0.4s ease forwards;opacity:0;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+#splash svg{width:100px;height:58px;animation:spUp 1s ease forwards;opacity:0;}
+#splash .sn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:3.8rem;text-transform:uppercase;letter-spacing:1px;background:linear-gradient(120deg,var(--alfa),var(--theta),var(--delta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:spUp 1s 0.2s ease forwards;opacity:0;}
+#splash .ss{font-family:'Roboto Mono',monospace;font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--t3);animation:spUp 1s 0.4s ease forwards;opacity:0;}
+@keyframes spUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── TELA ESCURA ── */
+#dim{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:50;transition:opacity 1.8s ease;display:flex;align-items:center;justify-content:center;}
+#dim.on{opacity:0.98;pointer-events:all;}
+#dim-hint{font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:#222;animation:dh 5s ease-in-out infinite;}
+@keyframes dh{0%,100%{opacity:0;}50%{opacity:1;}}
+
+/* ── DRAWER ── */
+#drawer-overlay{position:fixed;inset:0;background:#000000aa;z-index:80;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+#drawer-overlay.on{opacity:1;pointer-events:all;}
+#drawer{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--bd);z-index:90;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);max-height:88vh;display:flex;flex-direction:column;}
+#drawer.on{transform:translateY(0);}
+.drawer-handle{width:50px;height:4px;background:var(--s3);margin:12px auto 0;border-radius:2px;}
+.drawer-title{font-family:'Oswald',sans-serif;font-size:1.4rem;text-transform:uppercase;color:var(--tx);padding:14px 20px 0;letter-spacing:1px;}
+.drawer-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 32px;display:flex;flex-direction:column;gap:12px;}
 
 /* ── LAYOUT ── */
-.app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+.app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px); position:relative; z-index:10;}
 
 /* ── HEADER ── */
-.hdr{padding:11px 14px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--bd);gap:8px;overflow:hidden;}
-.hlogo{display:flex;align-items:center;gap:7px;min-width:0;flex:1;}
-.hlogo svg{width:26px;height:16px;flex-shrink:0;}
-.hname{font-family:'Lilita One',cursive;font-size:1.1rem;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.hright{display:flex;gap:6px;align-items:center;flex-shrink:0;}
-.pill{display:flex;align-items:center;gap:4px;background:var(--s2);border:1px solid var(--bd);border-radius:20px;padding:5px 9px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:1px;color:var(--t2);transition:all 0.2s;user-select:none;white-space:nowrap;}
-.pill.on{border-color:var(--alfa);color:var(--alfa);}
-.pill.mic-on{border-color:var(--grn);color:var(--grn);}
-.pdot{width:6px;height:6px;border-radius:50%;background:var(--t3);}
-.pill.on .pdot{background:var(--alfa);animation:bl 1.4s infinite;}
-.pill.mic-on .pdot{background:var(--grn);animation:bl 1.4s infinite;}
-@keyframes bl{0%,100%{opacity:1;}50%{opacity:0.25;}}
+.hdr{padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;}
+.hlogo{display:flex;align-items:center;gap:8px;min-width:0;flex:1;}
+.hname{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;}
+.hbtns{display:flex;gap:6px;flex-shrink:0;}
+.pill{display:flex;align-items:center;gap:6px;background:var(--s1);border:1px solid var(--bd);border-radius:4px;padding:6px 10px;font-family:'Roboto Mono',monospace;font-size:0.7rem;font-weight:700;color:var(--t2);transition:all 0.2s;cursor:pointer;}
+.pill.on-a{border-color:var(--alfa);color:var(--alfa);}
+.pill.on-g{border-color:var(--grn);color:var(--grn);}
+.pill.on-b{border-color:var(--gamma);color:var(--gamma);}
+.pdot{width:6px;height:6px;background:var(--t3);border-radius:1px;}
+.pill.on-a .pdot{background:var(--alfa);animation:bl 1.4s infinite;}
+.pill.on-g .pdot{background:var(--grn);animation:bl 1.4s infinite;}
+.pill.on-b .pdot{background:var(--gamma);animation:bl 1.4s infinite;}
+@keyframes bl{0%,100%{opacity:1;}50%{opacity:0.2;}}
 
 /* ── SCROLL ── */
-.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:16px 14px 28px;display:flex;flex-direction:column;gap:12px;}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:0 14px 24px;display:flex;flex-direction:column;gap:0;}
 
-/* ── CARD BASE ── */
-.card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px;}
-.sec{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--t3);}
+/* ── EFEITO DOS CARDS SOLTOS ── */
+.float-card {
+  /* Fundo sólido para garantir que o grão fique apenas no fundo preto */
+  background-color: var(--s1); 
+  
+  /* Sombra para descolar da parede */
+  box-shadow: 0px 15px 35px rgba(0,0,0,0.8), 0px 5px 15px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.06); 
+  
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  will-change: transform;
+}
+.float-card:active {
+  /* Ao clicar, o card pressiona contra o fundo */
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.8), 0px 2px 5px rgba(0,0,0,0.6);
+  transform: scale(0.98) !important;
+}
 
 /* ── HOME ── */
-.ht{font-family:'Lilita One',cursive;font-size:1.55rem;line-height:1.2;color:var(--tx);}
-.hs{font-size:0.8rem;color:var(--t2);line-height:1.6;margin-top:5px;}
+#sc-home{display:flex;flex-direction:column;align-items:center;gap:0;padding-top:16px;}
+.greeting{text-align:center;margin-bottom:28px;}
+.greet-time{font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--t3);margin-bottom:6px;}
+.greet-msg{font-family:'Oswald',sans-serif;font-size:2rem;text-transform:uppercase;color:var(--tx);line-height:1.1;letter-spacing:1px;}
+.greet-sub{font-size:0.85rem;color:var(--t2);margin-top:8px;line-height:1.5;font-family:'Inter',sans-serif;}
 
-/* FIX PRINCIPAL: ph-row com min-height e align-items:stretch para não vazar */
-.ph-stack{display:flex;flex-direction:column;gap:8px;}
-.ph-row{display:flex;align-items:stretch;gap:11px;padding:14px 13px;border-radius:14px;border:1px solid transparent;min-height:0;}
-.ph-row.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
-.ph-row.teta{background:var(--teta-d);border-color:var(--teta-m);}
-.ph-row.delta{background:var(--delta-d);border-color:var(--delta-m);}
-.ph-dot-wrap{display:flex;align-items:flex-start;padding-top:4px;flex-shrink:0;}
-.ph-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.ph-row.alfa .ph-dot{background:var(--alfa);}
-.ph-row.teta .ph-dot{background:var(--teta);}
-.ph-row.delta .ph-dot{background:var(--delta);}
-.ph-info{flex:1;min-width:0;}
-.ph-nm{font-family:'Lilita One',cursive;font-size:1rem;line-height:1.2;}
-.ph-row.alfa .ph-nm{color:var(--alfa);}
-.ph-row.teta .ph-nm{color:var(--teta);}
-.ph-row.delta .ph-nm{color:var(--delta);}
-.ph-ds{font-size:0.74rem;color:var(--t2);margin-top:3px;line-height:1.45;word-break:break-word;}
-.ph-bg{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;gap:3px;flex-shrink:0;padding-top:2px;}
-.ph-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:1px;color:var(--t3);white-space:nowrap;}
-.ph-rng{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);white-space:nowrap;}
+.big-start{width:100%;max-width:340px;padding:24px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.6rem;text-transform:uppercase;letter-spacing:1px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.big-start-sub{font-family:'Roboto Mono',monospace;font-size:0.75rem;letter-spacing:2px;opacity:0.8;}
 
-/* Modos de respiração — grid 2x2 + livre embaixo */
-.breath-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.bm-card{background:var(--s2);border:1px solid var(--bd);border-radius:14px;padding:13px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:all 0.18s;}
-.bm-card:active{transform:scale(0.97);}
-.bm-card.sel{border-width:2px;}
-.bm-card.sel.wake{border-color:var(--org);}
-.bm-card.sel.train{border-color:var(--alfa);}
-.bm-card.sel.focus{border-color:var(--teta);}
-.bm-card.sel.sleep{border-color:var(--delta);}
-.bm-card.sel.livre{border-color:var(--t2);}
-.bm-icon{font-size:1.3rem;}
-.bm-name{font-family:'Lilita One',cursive;font-size:0.92rem;}
-.bm-card.wake .bm-name{color:var(--org);}
-.bm-card.train .bm-name{color:var(--alfa);}
-.bm-card.focus .bm-name{color:var(--teta);}
-.bm-card.sleep .bm-name{color:var(--delta);}
-.bm-card.livre .bm-name{color:var(--t2);}
-.bm-desc{font-size:0.69rem;color:var(--t3);line-height:1.4;}
-.bm-rhythm{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:0.5px;color:var(--t3);margin-top:1px;}
-/* Livre ocupa linha inteira */
-.bm-livre-wrap{grid-column:1/-1;}
+.mini-stats{display:flex;gap:24px;margin-top:24px;margin-bottom:28px;justify-content:center;}
+.ms-item{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.ms-val{font-family:'Roboto Mono',monospace;font-size:1.6rem;color:var(--tx);font-weight:700;}
+.ms-lbl{font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
 
-.btn-start{width:100%;padding:17px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:15px;font-family:'Lilita One',cursive;font-size:1.15rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
-.btn-start:active{opacity:0.78;}
+.panels-row{display:flex;flex-direction:column;gap:20px;width:100%;max-width:340px;margin-top:8px;}
+.panel-btn{display:flex;align-items:center;gap:12px;padding:16px;border-radius:8px;width:100%;cursor:pointer;}
+.panel-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;}
+.panel-info{flex:1;}
+.panel-name{font-family:'Oswald',sans-serif;font-size:1.1rem;text-transform:uppercase;color:var(--tx);letter-spacing:0.5px;}
+.panel-desc{font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:1px;color:var(--t3);margin-top:2px;text-transform:uppercase;}
+.panel-arrow{font-family:'Roboto Mono',monospace;font-size:1rem;color:var(--t3);}
+
+/* ── DRAWER — PAINEL MODO ── */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
+.mode-card{border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px;cursor:pointer;text-align:left;}
+.mode-card.sel{border-width:2px; border-color: var(--t2);}
+.mode-card.sel.m-wake{border-color:var(--org);}
+.mode-card.sel.m-focus{border-color:var(--alfa);}
+.mode-card.sel.m-deep{border-color:var(--theta);}
+.mode-card.sel.m-sleep{border-color:var(--delta);}
+.mode-card.sel.m-heart{border-color:var(--heart);}
+.mode-card.sel.m-sos{border-color:var(--sos);}
+.mode-card.full{grid-column:1/-1;}
+.mname{font-family:'Oswald',sans-serif;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.5px;}
+.m-wake .mname{color:var(--org);}
+.m-focus .mname{color:var(--alfa);}
+.m-deep .mname{color:var(--theta);}
+.m-sleep .mname{color:var(--delta);}
+.m-heart .mname{color:var(--heart);}
+.m-sos .mname{color:var(--sos);}
+.m-free .mname{color:var(--t2);}
+.mdesc{font-family:'Inter',sans-serif;font-size:0.7rem;color:var(--t2);line-height:1.4;}
+.msci{font-family:'Roboto Mono',monospace;font-size:0.65rem;color:var(--t3);margin-top:2px;text-transform:uppercase;}
+.btn-confirm {width:100%;padding:16px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-align:center;text-transform:uppercase;}
+
+/* ── DRAWER — HISTÓRICO ── */
+.hist-empty{font-family:'Roboto Mono',monospace;font-size:0.8rem;color:var(--t3);text-align:center;padding:20px 0;}
+.hist-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:8px;margin-bottom: 20px;}
+.hi-date{display:flex;flex-direction:column;gap:2px;flex-shrink:0;width:32px;}
+.hi-d{font-family:'Oswald',sans-serif;font-size:1.3rem;line-height:1;}
+.hi-m{font-family:'Roboto Mono',monospace;font-size:0.65rem;color:var(--t3);}
+.hi-bar{flex:1;display:flex;flex-direction:column;gap:6px;}
+.hi-strip{display:flex;height:8px;border-radius:2px;overflow:hidden;gap:2px;}
+.hi-seg{height:100%;border-radius:1px;}
+.hi-seg.alfa{background:var(--alfa);}
+.hi-seg.theta{background:var(--theta);}
+.hi-seg.delta{background:var(--delta);}
+.hi-meta{font-family:'Roboto Mono',monospace;font-size:0.65rem;color:var(--t2);}
+.hi-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.hi-dur{font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;}
+.del-btn{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--red);background:#ef444415;padding:4px 8px;border-radius:4px;border:1px solid #ef444440;text-transform:uppercase;}
 
 /* ── MEDITAÇÃO ── */
-.arena{border-radius:20px;padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid transparent;transition:background 1s ease,border-color 1s ease;overflow:hidden;}
+.arena{border-radius:8px;padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid transparent;transition:background 1.2s,border-color 1.2s;margin-bottom:20px;}
 .arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
-.arena.teta{background:var(--teta-d);border-color:var(--teta-m);}
+.arena.theta{background:var(--theta-d);border-color:var(--theta-m);}
 .arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
-.arena svg.wv{width:80px;height:42px;margin-bottom:2px;}
-.arena-ph{font-family:'Lilita One',cursive;font-size:clamp(1.8rem,8vw,2.6rem);letter-spacing:1px;transition:color 1s ease;line-height:1;}
+.arena.heart{background:var(--heart-d);border-color:var(--heart-m);}
+.arena svg.wv{width:80px;height:40px;margin-bottom:8px;}
+.arena-ph{font-family:'Oswald',sans-serif;font-size:clamp(2rem,8vw,3rem);letter-spacing:2px;transition:color 1.2s;line-height:1;text-transform:uppercase;}
 .arena.alfa .arena-ph{color:var(--alfa);}
-.arena.teta .arena-ph{color:var(--teta);}
+.arena.theta .arena-ph{color:var(--theta);}
 .arena.delta .arena-ph{color:var(--delta);}
-.arena-hz{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--t2);}
-.arena-timer{font-family:'Lilita One',cursive;font-size:clamp(1.8rem,8vw,2.8rem);color:var(--tx);line-height:1;letter-spacing:-1px;margin-top:2px;}
-
-/* Bio boxes */
-.bio-row{display:flex;gap:8px;}
-.bio-box{flex:1;background:var(--s2);border-radius:13px;padding:11px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
-.bv{font-family:'Lilita One',cursive;font-size:1.35rem;line-height:1;}
-.bu{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);}
-.bl{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
+.arena.heart .arena-ph{color:var(--heart);}
+.arena-hz{font-family:'Roboto Mono',monospace;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--t2);}
+.arena-timer{font-family:'Roboto Mono',monospace;font-size:clamp(1.8rem,8vw,2.5rem);color:var(--tx);line-height:1;margin-top:8px;}
+.bio-row{display:flex;gap:15px;margin-bottom:20px;}
+.bio-box{flex:1;border-radius:8px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.bv{font-family:'Roboto Mono',monospace;font-size:1.4rem;line-height:1;font-weight:700;}
+.bu{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:1px;color:var(--t3);}
+.bl{font-family:'Inter',sans-serif;font-size:0.6rem;text-transform:uppercase;color:var(--t3);}
 .bio-hr .bv{color:var(--red);}
 .bio-rr .bv{color:var(--grn);}
-.bio-auto .bv{font-size:0.82rem;transition:color 0.6s;}
+.coh-wrap{border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.coh-top{display:flex;justify-content:space-between;align-items:center;}
+.coh-lbl{font-family:'Roboto Mono',monospace;font-size:0.7rem;text-transform:uppercase;color:var(--t3);}
+.coh-val{font-family:'Roboto Mono',monospace;font-size:1rem;color:var(--heart);font-weight:700;}
+.coh-bar-bg{height:8px;background:var(--s3);border-radius:2px;overflow:hidden;}
+.coh-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--theta),var(--heart));transition:width 1s ease;}
+.bg-wrap{border-radius:8px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:20px;}
+.bg-lbl{font-family:'Roboto Mono',monospace;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.bg-ring{position:relative;width:100px;height:100px;}
+.bg-ring svg{width:100px;height:100px;transform:rotate(-90deg);}
+.bgc-t{fill:none;stroke:var(--s3);stroke-width:6;}
+.bgc-f{fill:none;stroke-width:6;stroke-linecap:square;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 0.1s linear;}
+.bg-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.bg-act{font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:1px;}
+.bg-cnt{font-family:'Roboto Mono',monospace;font-size:1.8rem;color:var(--tx);font-weight:700;line-height:1;}
+.bg-sub{font-family:'Inter',sans-serif;font-size:0.65rem;text-transform:uppercase;color:var(--t3);text-align:center;}
+.btn-end{width:100%;padding:16px;background:transparent;color:var(--red);border:1px solid var(--red);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;}
 
-/* Widget respiração guiada */
-.breath-guide{background:var(--s2);border-radius:16px;padding:16px;border:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;gap:10px;}
-.bg-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
-.bg-ring-wrap{position:relative;width:96px;height:96px;}
-.bg-ring-wrap svg{width:96px;height:96px;transform:rotate(-90deg);}
-.bgc-track{fill:none;stroke:var(--s3);stroke-width:7;}
-.bgc-fill{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 0.15s linear;}
-.bg-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
-.bg-action{font-family:'Lilita One',cursive;font-size:0.82rem;text-align:center;line-height:1.1;}
-.bg-count{font-family:'Lilita One',cursive;font-size:1.55rem;color:var(--tx);line-height:1;}
-.bg-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);text-align:center;}
-
-/* Botões de fase manual */
-.ph-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
-.ph-btn{padding:11px 5px;border-radius:13px;border:2px solid transparent;background:var(--s1);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all 0.2s;}
-.ph-btn.alfa{border-color:var(--alfa-m);}
-.ph-btn.teta{border-color:var(--teta-m);}
-.ph-btn.delta{border-color:var(--delta-m);}
-.ph-btn.active.alfa{background:var(--alfa-d);border-color:var(--alfa);}
-.ph-btn.active.teta{background:var(--teta-d);border-color:var(--teta);}
-.ph-btn.active.delta{background:var(--delta-d);border-color:var(--delta);}
-.ph-btn-n{font-family:'Lilita One',cursive;font-size:0.85rem;}
-.ph-btn.alfa .ph-btn-n{color:var(--alfa);}
-.ph-btn.teta .ph-btn-n{color:var(--teta);}
-.ph-btn.delta .ph-btn-n{color:var(--delta);}
-.ph-btn-t{font-family:'Barlow Condensed',sans-serif;font-size:0.64rem;color:var(--t3);letter-spacing:1px;}
-.ph-btn-det{font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;color:var(--grn);letter-spacing:0.5px;min-height:9px;}
-
-.btn-end{width:100%;padding:14px;background:transparent;color:var(--red);border:1px solid #4a1a1a;border-radius:14px;font-family:'Lilita One',cursive;font-size:0.95rem;letter-spacing:1px;cursor:pointer;transition:background 0.15s;}
-.btn-end:active{background:#1a0505;}
+/* ── CONFIRMAÇÃO ── */
+#sc-confirm{display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;gap:20px;}
+.cf-title{font-family:'Oswald',sans-serif;font-size:2.5rem;text-transform:uppercase;color:var(--tx);}
+.cf-sub{font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--t2);line-height:1.5;max-width:300px;}
+.btn-save{width:100%;max-width:300px;padding:18px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;}
+.btn-discard{width:100%;max-width:300px;padding:18px;background:transparent;color:var(--t3);border:1px solid var(--bd);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:1px;text-transform:uppercase;margin-top:10px;}
 
 /* ── RELATÓRIO ── */
-.rep-date{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
-.rep-title{font-family:'Lilita One',cursive;font-size:1.75rem;color:var(--tx);margin-top:2px;}
-.rep-dur{font-family:'Lilita One',cursive;font-size:3.2rem;color:var(--tx);line-height:1;margin-top:6px;}
-.rep-dur-l{font-family:'Barlow Condensed',sans-serif;font-size:0.63rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+.rcard{border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.rlbl{font-family:'Roboto Mono',monospace;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.rep-title{font-family:'Oswald',sans-serif;font-size:1.8rem;text-transform:uppercase;color:var(--tx);}
+.rep-dur{font-family:'Roboto Mono',monospace;font-size:3.5rem;color:var(--tx);font-weight:700;line-height:1;}
+.score-wrap{display:flex;align-items:center;gap:16px;margin-top:8px;}
+.score-ring{position:relative;width:80px;height:80px;flex-shrink:0;}
+.score-ring svg{width:80px;height:80px;transform:rotate(-90deg);}
+.srt{fill:none;stroke:var(--s3);stroke-width:6;}
+.srf{fill:none;stroke-width:6;stroke-linecap:square;stroke-dasharray:220;stroke-dashoffset:220;transition:stroke-dashoffset 1.5s cubic-bezier(0.22,1,0.36,1);}
+.srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--tx);}
+.sc-lbl{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);}
+.sc-sub{font-family:'Inter',sans-serif;font-size:0.8rem;color:var(--t2);margin-top:4px;}
+.btn-new{width:100%;padding:18px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.2rem;letter-spacing:1px;text-transform:uppercase;text-align:center;}
 
-.score-wrap{display:flex;align-items:center;gap:14px;}
-.score-ring{position:relative;width:82px;height:82px;flex-shrink:0;}
-.score-ring svg{width:82px;height:82px;transform:rotate(-90deg);}
-.srt{fill:none;stroke:var(--s3);stroke-width:8;}
-.srf{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:226;stroke-dashoffset:226;transition:stroke-dashoffset 1.5s cubic-bezier(0.22,1,0.36,1);}
-.srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:1.4rem;color:var(--tx);}
-.sc-lbl{font-family:'Lilita One',cursive;font-size:1.25rem;color:var(--tx);}
-.sc-desc{font-size:0.75rem;color:var(--t2);margin-top:4px;line-height:1.55;}
-
-/* Hipograma */
-.tm-strip{display:flex;height:28px;border-radius:7px;overflow:hidden;gap:1.5px;}
-.tm-m{flex:1;min-width:2px;border-radius:2px;}
+.tm-strip{display:flex;height:24px;border-radius:4px;overflow:hidden;gap:2px;}
+.tm-m{flex:1;min-width:2px;}
 .tm-m.alfa{background:var(--alfa);}
-.tm-m.teta{background:var(--teta);}
+.tm-m.theta{background:var(--theta);}
 .tm-m.delta{background:var(--delta);}
 .tm-m.empty{background:var(--s3);}
-.tm-axis{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;color:var(--t3);letter-spacing:0.5px;margin-top:4px;}
-
-.hb-rows{display:flex;flex-direction:column;gap:7px;}
-.hb-row{display:flex;align-items:center;gap:9px;}
-.hb-lbl{font-family:'Lilita One',cursive;font-size:0.78rem;width:52px;flex-shrink:0;}
+.hb-row{display:flex;align-items:center;gap:10px;}
+.hb-lbl{font-family:'Oswald',sans-serif;font-size:0.85rem;width:50px;flex-shrink:0;text-transform:uppercase;}
 .hb-row.alfa .hb-lbl{color:var(--alfa);}
-.hb-row.teta .hb-lbl{color:var(--teta);}
+.hb-row.theta .hb-lbl{color:var(--theta);}
 .hb-row.delta .hb-lbl{color:var(--delta);}
-.hb-track{flex:1;height:20px;background:var(--s2);border-radius:5px;overflow:hidden;}
-.hb-fill{height:100%;border-radius:5px;width:0%;transition:width 1s cubic-bezier(0.22,1,0.36,1);}
+.hb-track{flex:1;height:12px;background:var(--s2);border-radius:2px;overflow:hidden;}
+.hb-fill{height:100%;border-radius:2px;width:0%;transition:width 1s cubic-bezier(0.22,1,0.36,1);}
 .hb-row.alfa .hb-fill{background:var(--alfa);}
-.hb-row.teta .hb-fill{background:var(--teta);}
+.hb-row.theta .hb-fill{background:var(--theta);}
 .hb-row.delta .hb-fill{background:var(--delta);}
-.hb-pct{font-family:'Lilita One',cursive;font-size:0.8rem;width:36px;text-align:right;flex-shrink:0;}
-.hb-row.alfa .hb-pct{color:var(--alfa);}
-.hb-row.teta .hb-pct{color:var(--teta);}
-.hb-row.delta .hb-pct{color:var(--delta);}
-
-.ps-rows{display:flex;flex-direction:column;gap:8px;}
-.ps-row{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;}
-.ps-row.alfa{background:var(--alfa-d);}
-.ps-row.teta{background:var(--teta-d);}
-.ps-row.delta{background:var(--delta-d);}
-.ps-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.ps-row.alfa .ps-dot{background:var(--alfa);}
-.ps-row.teta .ps-dot{background:var(--teta);}
-.ps-row.delta .ps-dot{background:var(--delta);}
-.ps-nm{font-family:'Lilita One',cursive;font-size:0.9rem;flex:1;}
-.ps-row.alfa .ps-nm{color:var(--alfa);}
-.ps-row.teta .ps-nm{color:var(--teta);}
-.ps-row.delta .ps-nm{color:var(--delta);}
-.ps-tm{font-family:'Lilita One',cursive;font-size:0.92rem;color:var(--tx);}
-.ps-pc{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;color:var(--t3);margin-left:3px;}
-
-.bio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
-.bg-stat{background:var(--s2);border-radius:13px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--bd);}
-.bg-v{font-family:'Lilita One',cursive;font-size:1.7rem;color:var(--tx);}
-.bg-l{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-.bg-u{font-family:'Barlow Condensed',sans-serif;font-size:0.56rem;color:var(--t3);}
-.chart-wrap{height:52px;position:relative;}
-.chart-wrap canvas{position:absolute;inset:0;width:100%;height:100%;}
-
-/* Mural */
-.mural-list{display:flex;flex-direction:column;}
-.mural-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--s2);}
-.mural-item:last-child{border-bottom:none;padding-bottom:0;}
-.mural-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:3px;}
-.mural-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.mural-item.alfa .mural-dot{background:var(--alfa);}
-.mural-item.teta .mural-dot{background:var(--teta);}
-.mural-item.delta .mural-dot{background:var(--delta);}
-.mural-item.insight .mural-dot{background:var(--org);}
-.mural-line{width:1px;flex:1;min-height:16px;background:var(--bd);margin-top:4px;}
-.mural-body{flex:1;min-width:0;}
-.mural-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
-.mural-item.alfa .mural-tag{color:var(--alfa);}
-.mural-item.teta .mural-tag{color:var(--teta);}
-.mural-item.delta .mural-tag{color:var(--delta);}
-.mural-item.insight .mural-tag{color:var(--org);}
-.mural-ev{font-family:'Lilita One',cursive;font-size:0.92rem;color:var(--tx);margin-bottom:3px;line-height:1.2;}
-.mural-desc{font-size:0.75rem;color:var(--t2);line-height:1.5;}
-
-.btn-new{width:100%;padding:17px;background:linear-gradient(120deg,var(--alfa),var(--teta));color:#fff;border:none;border-radius:15px;font-family:'Lilita One',cursive;font-size:1.15rem;letter-spacing:1px;cursor:pointer;transition:opacity 0.15s;}
-.btn-new:active{opacity:0.78;}
-
-/* ── STREAK ── */
-.streak-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;align-items:center;gap:14px;}
-.streak-fire{font-size:2.2rem;flex-shrink:0;}
-.streak-info{flex:1;}
-.streak-num{font-family:'Lilita One',cursive;font-size:2rem;color:var(--org);line-height:1;}
-.streak-lbl{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);margin-top:2px;}
-.streak-dots{display:flex;gap:5px;margin-top:8px;}
-.sd{width:28px;height:6px;border-radius:3px;background:var(--s3);}
-.sd.done{background:var(--org);}
-.streak-best{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--t3);letter-spacing:1px;flex-shrink:0;text-align:right;}
-
-/* ── HISTÓRICO ── */
-.hist-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:12px;}
-.hist-empty{font-size:0.8rem;color:var(--t3);text-align:center;padding:16px 0;}
-.hist-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--s2);border-radius:13px;border:1px solid var(--bd);cursor:pointer;transition:background 0.15s;}
-.hist-item:active{background:var(--s3);}
-.hi-date{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
-.hi-d{font-family:'Lilita One',cursive;font-size:1.1rem;color:var(--tx);line-height:1;}
-.hi-m{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
-.hi-bar{flex:1;display:flex;flex-direction:column;gap:5px;}
-.hi-strip{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:1px;}
-.hi-seg{height:100%;border-radius:2px;}
-.hi-seg.alfa{background:var(--alfa);}
-.hi-seg.teta{background:var(--teta);}
-.hi-seg.delta{background:var(--delta);}
-.hi-meta{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;color:var(--t3);letter-spacing:1px;}
-.hi-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
-.hi-dur{font-family:'Lilita One',cursive;font-size:1rem;color:var(--tx);}
-.hi-score{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:1px;}
-.hi-score.s-great{color:var(--alfa);}
-.hi-score.s-good{color:var(--teta);}
-.hi-score.s-ok{color:var(--t3);}
-
-/* ── TELA ESCURA durante meditação ── */
-#screen-dim{
-  position:fixed;inset:0;background:#000;
-  opacity:0;pointer-events:none;
-  z-index:50;transition:opacity 1.5s ease;
-  display:flex;align-items:center;justify-content:center;
-}
-#screen-dim.visible{opacity:0.92;pointer-events:all;}
-#screen-dim .dim-hint{
-  font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;
-  letter-spacing:3px;text-transform:uppercase;color:#333;
-  animation:dimPulse 4s ease-in-out infinite;
-}
-@keyframes dimPulse{0%,100%{opacity:0;}50%{opacity:1;}}
-
-/* ── GAMMA conquista ── */
-.gamma-badge{
-  display:none;
-  background:linear-gradient(135deg,#f0c06022,#f0c06008);
-  border:1px solid #f0c06055;border-radius:16px;
-  padding:14px 16px;flex-direction:column;gap:6px;
-}
-.gamma-badge.show{display:flex;}
-.gb-title{font-family:'Lilita One',cursive;font-size:1.1rem;color:var(--gamma);}
-.gb-desc{font-size:0.76rem;color:var(--t2);line-height:1.5;}
-
-/* ── SOM BINAURAL pill ── */
-.pill.bin-on{border-color:var(--gamma);color:var(--gamma);}
-.pill.bin-on .pdot{background:var(--gamma);animation:bl 1.4s infinite;}
-
-/* ── RESUMO IA ── */
-.ai-card{background:var(--s1);border-radius:20px;padding:18px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:12px;}
-.ai-header{display:flex;align-items:center;gap:10px;}
-.ai-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--alfa),var(--teta));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
-.ai-title{font-family:'Lilita One',cursive;font-size:1rem;color:var(--tx);}
-.ai-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-top:1px;}
-.ai-body{font-size:0.82rem;color:var(--t2);line-height:1.7;min-height:60px;}
-.ai-loading{display:flex;align-items:center;gap:8px;color:var(--t3);font-size:0.78rem;}
-.ai-dots span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--alfa);animation:aiDot 1.2s ease-in-out infinite;}
-.ai-dots span:nth-child(2){animation-delay:0.2s;background:var(--teta);}
-.ai-dots span:nth-child(3){animation-delay:0.4s;background:var(--delta);}
-@keyframes aiDot{0%,80%,100%{transform:scale(0.6);opacity:0.4;}40%{transform:scale(1);opacity:1;}}
-#ib{display:none;background:#0c1620;border:1px solid var(--alfa);border-radius:13px;padding:9px 13px;align-items:center;gap:9px;font-size:0.78rem;color:var(--t2);}
-#ib.show{display:flex;}
-#ib span{flex:1;line-height:1.4;}
-#ib strong{color:var(--alfa);}
-.ib-y{background:var(--alfa);color:#000;font-family:'Lilita One',cursive;font-size:0.78rem;border:none;border-radius:7px;padding:7px 11px;cursor:pointer;white-space:nowrap;}
-.ib-n{background:transparent;color:var(--t3);border:none;font-size:1rem;cursor:pointer;padding:3px;}
+.hb-pct{font-family:'Roboto Mono',monospace;font-size:0.8rem;width:36px;text-align:right;}
 </style>
 </head>
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-  <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 32 Q22 8 39 32 Q56 56 73 32 Q90 8 107 32" fill="none" stroke="#64b5f6" stroke-width="5.5" stroke-linecap="round"/>
-    <path d="M5 43 Q22 19 39 43 Q56 67 73 43 Q90 19 107 43" fill="none" stroke="#9b72cf" stroke-width="4" stroke-linecap="round" opacity="0.88"/>
-    <path d="M5 52 Q22 31 39 52 Q56 73 73 52 Q90 31 107 52" fill="none" stroke="#5c6bc0" stroke-width="2.8" stroke-linecap="round" opacity="0.72"/>
-  </svg>
-  <div class="sn">MindWave</div>
-  <div class="ss">Rastreador de Meditação</div>
+<div id="splash" aria-hidden="true">
+  <div class="sn">MAX.CORE</div>
+  <div class="ss">OVERRIDE IRRATIONALITY</div>
 </div>
 
-<div class="app" id="main-app">
+<div id="dim" aria-hidden="true" onclick="resetDim()"><div id="dim-hint">TOQUE PARA ACENDER</div></div>
+<div id="drawer-overlay" aria-hidden="true" onclick="closeDrawer()"></div>
 
-  <!-- HEADER -->
-  <div class="hdr">
+<section id="drawer" role="dialog" aria-labelledby="drawer-title" aria-modal="true">
+  <div class="drawer-handle" aria-hidden="true"></div>
+  <h2 class="drawer-title" id="drawer-title">MODO</h2>
+  <div class="drawer-scroll" id="drawer-body" onclick="onDrawerClick(event)"></div>
+</section>
+
+<main class="app" id="main-app">
+
+  <header class="hdr">
     <div class="hlogo">
-      <svg viewBox="0 0 120 55" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 25 Q22 5 39 25 Q56 45 73 25 Q90 5 107 25" fill="none" stroke="#64b5f6" stroke-width="5" stroke-linecap="round"/>
-        <path d="M5 35 Q22 15 39 35 Q56 55 73 35 Q90 15 107 35" fill="none" stroke="#9b72cf" stroke-width="3.5" stroke-linecap="round" opacity="0.88"/>
-        <path d="M5 43 Q22 26 39 43 Q56 60 73 43 Q90 26 107 43" fill="none" stroke="#5c6bc0" stroke-width="2.5" stroke-linecap="round" opacity="0.72"/>
-      </svg>
-      <span class="hname">MindWave</span>
+      <h1 class="hname">MAX.CORE</h1>
     </div>
-    <div class="hright">
-      <div class="pill" id="bin-btn"><div class="pdot"></div><span id="bin-lbl">♪</span></div>
-      <div class="pill" id="mic-btn"><div class="pdot"></div><span id="mic-lbl">MIC</span></div>
-      <div class="pill" id="bt-btn"><div class="pdot"></div><span id="bt-lbl">BT</span></div>
+    <div class="hbtns">
+      <div class="pill" id="bin-btn" onclick="toggleBinaural()"><div class="pdot" aria-hidden="true"></div><span id="bin-lbl">AUDIO</span></div>
+      <div class="pill" id="mic-btn" onclick="toggleMic()"><div class="pdot" aria-hidden="true"></div><span id="mic-lbl">MIC</span></div>
+      <div class="pill" id="bt-btn" onclick="toggleBT()"><div class="pdot" aria-hidden="true"></div><span id="bt-lbl">BT</span></div>
     </div>
-  </div>
-
-  <!-- Tela escura durante meditação -->
-  <div id="screen-dim"><div class="dim-hint">toque para acender</div></div>
+  </header>
 
   <div class="scroll">
+    <section id="sc-home">
+      <div class="greeting">
+        <div class="greet-time" id="greet-time">SISTEMA ATIVO</div>
+        <div class="greet-msg" id="greet-msg">PRONTO PARA O<br>COMANDO?</div>
+        <div class="greet-sub" id="greet-sub">Protocolo: <strong id="mode-badge">Recuperação Profunda</strong></div>
+      </div>
 
-    <div id="ib"><span>📲 <strong>Instalar app?</strong></span><button class="ib-y" id="ib-y">Instalar</button><button class="ib-n" id="ib-n">✕</button></div>
+      <button class="big-start float-card" id="btn-start" onclick="startMeditation()">
+        INICIAR PROTOCOLO
+        <span class="big-start-sub" id="start-sub">DOWN-REGULATION · 5 RESP/MIN</span>
+      </button>
 
-    <!-- ═══ HOME ═══ -->
-    <div id="sc-home" style="display:flex;flex-direction:column;gap:12px;">
+      <div class="mini-stats">
+        <div class="ms-item"><div class="ms-val" id="ms-total">0</div><div class="ms-lbl">Registros</div></div>
+        <div class="ms-item"><div class="ms-val" id="ms-streak">0</div><div class="ms-lbl">Neste mês</div></div>
+      </div>
 
-      <!-- Streak -->
-      <div class="streak-card" id="streak-card">
-        <div class="streak-fire">🔥</div>
-        <div class="streak-info">
-          <div class="streak-num" id="streak-num">0</div>
-          <div class="streak-lbl">dias consecutivos</div>
-          <div class="streak-dots" id="streak-dots"></div>
+      <nav class="panels-row">
+        <div class="panel-btn float-card" onclick="openDrawer('mode')">
+          <div class="panel-icon">⚙️</div>
+          <div class="panel-info">
+            <div class="panel-name">Configurar Protocolo</div>
+            <div class="panel-desc" id="panel-mode-desc">Recuperação Profunda</div>
+          </div>
+          <div class="panel-arrow">›</div>
         </div>
-        <div class="streak-best" id="streak-best"></div>
-      </div>
-
-      <div class="card">
-        <div class="ht">Sua mente,<br>em ondas.</div>
-        <div class="hs">Rastreie cada fase da meditação por frequência cardíaca e respiração automática. Relatório completo ao final.</div>
-
-        <div class="ph-stack">
-          <div class="ph-row alfa">
-            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
-            <div class="ph-info">
-              <div class="ph-nm">Alfa</div>
-              <div class="ph-ds">Ondas relaxantes. Ansiedade cai, criatividade sobe.</div>
-            </div>
-            <div class="ph-bg">
-              <div class="ph-hz">α 8–14 Hz</div>
-              <div class="ph-rng">65–80 bpm</div>
-              <div class="ph-rng">8–12 resp/min</div>
-            </div>
+        <div class="panel-btn float-card" onclick="openDrawer('history')">
+          <div class="panel-icon">📊</div>
+          <div class="panel-info">
+            <div class="panel-name">Dados de Performance</div>
+            <div class="panel-desc" id="panel-hist-desc">Últimos registros</div>
           </div>
-          <div class="ph-row teta">
-            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
-            <div class="ph-info">
-              <div class="ph-nm">Theta</div>
-              <div class="ph-ds">Meditação profunda. Subconsciente ativo, pensamentos somem.</div>
-            </div>
-            <div class="ph-bg">
-              <div class="ph-hz">θ 3–7 Hz</div>
-              <div class="ph-rng">55–68 bpm</div>
-              <div class="ph-rng">4–7 resp/min</div>
-            </div>
-          </div>
-          <div class="ph-row delta">
-            <div class="ph-dot-wrap"><div class="ph-dot"></div></div>
-            <div class="ph-info">
-              <div class="ph-nm">Delta</div>
-              <div class="ph-ds">Estado mais profundo. Cura e regeneração celular.</div>
-            </div>
-            <div class="ph-bg">
-              <div class="ph-hz">δ 0.5–3 Hz</div>
-              <div class="ph-rng">45–60 bpm</div>
-              <div class="ph-rng">2–5 resp/min</div>
-            </div>
-          </div>
+          <div class="panel-arrow">›</div>
         </div>
-      </div>
+      </nav>
+    </section>
 
-      <div class="card">
-        <div class="sec">Escolha o modo de respiração</div>
-        <div class="breath-modes">
-          <div class="bm-card wake" data-mode="wake" onclick="selMode(this)">
-            <div class="bm-icon">🌅</div>
-            <div class="bm-name">Acordar</div>
-            <div class="bm-desc">Energia e ativação do sistema nervoso.</div>
-            <div class="bm-rhythm">30 resp rápidas + retenção</div>
-          </div>
-          <div class="bm-card train" data-mode="train" onclick="selMode(this)">
-            <div class="bm-icon">💪</div>
-            <div class="bm-name">Treinar</div>
-            <div class="bm-desc">Foco máximo sob pressão. Usado por Navy SEALs.</div>
-            <div class="bm-rhythm">Box Breathing 4-4-4-4</div>
-          </div>
-          <div class="bm-card focus sel" data-mode="focus" onclick="selMode(this)">
-            <div class="bm-icon">🧠</div>
-            <div class="bm-name">Foco</div>
-            <div class="bm-desc">HRV otimizado. Resiliência ao estresse.</div>
-            <div class="bm-rhythm">Coerente — 5 resp/min</div>
-          </div>
-          <div class="bm-card sleep" data-mode="sleep" onclick="selMode(this)">
-            <div class="bm-icon">😴</div>
-            <div class="bm-name">Dormir</div>
-            <div class="bm-desc">Nervo vago ativo. Sistema parassimpático dominante.</div>
-            <div class="bm-rhythm">4-7-8 (Dr. Andrew Weil)</div>
-          </div>
-          <div class="bm-livre-wrap">
-            <div class="bm-card livre" data-mode="livre" onclick="selMode(this)" style="width:100%;">
-              <div class="bm-icon">🔮</div>
-              <div class="bm-name">Livre</div>
-              <div class="bm-desc">Sem guia de respiração. Timer, detecção automática de fase e relatório completo ao final.</div>
-              <div class="bm-rhythm">Respiração natural — sem guia</div>
-            </div>
-          </div>
-        </div>
-        <button class="btn-start" id="btn-start">Iniciar Meditação</button>
-      </div>
-
-      <!-- Histórico -->
-      <div class="hist-card">
-        <div class="sec">Histórico de sessões</div>
-        <div id="hist-list"><div class="hist-empty">Nenhuma sessão ainda.<br>Complete sua primeira meditação!</div></div>
-      </div>
-
-    </div>
-    <div id="sc-med" style="display:none;flex-direction:column;gap:11px;">
-
-      <div class="arena alfa" id="arena">
-        <svg class="wv" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-          <path id="wv-path" d="M5 25 Q18 7 31 25 Q44 43 57 25 Q70 7 83 25 Q90 33 95 25" fill="none" stroke="#64b5f6" stroke-width="4.5" stroke-linecap="round"/>
+    <section id="sc-med" style="display:none;flex-direction:column;">
+      <div class="arena alfa float-card" id="arena">
+        <svg class="wv" viewBox="0 0 100 46" aria-hidden="true">
+          <path id="wv-p" d="M5 23 Q18 6 31 23 Q44 40 57 23 Q70 6 83 23 Q90 31 95 23" fill="none" stroke="#3b82f6" stroke-width="4.5" stroke-linecap="square"/>
         </svg>
-        <div class="arena-ph" id="arena-ph">ALFA</div>
-        <div class="arena-hz" id="arena-hz">Ondas Alfa · 8–14 Hz</div>
+        <div class="arena-ph" id="arena-ph">ALPHA</div>
+        <div class="arena-hz" id="arena-hz">Ondas Alpha · 8–14 Hz</div>
         <div class="arena-timer" id="arena-timer">00:00:00</div>
       </div>
 
       <div class="bio-row">
-        <div class="bio-box bio-hr"><div class="bv" id="bio-hr">--</div><div class="bu">BPM</div><div class="bl">Freq. Card.</div></div>
-        <div class="bio-box bio-rr"><div class="bv" id="bio-rr">--</div><div class="bu">RESP/MIN</div><div class="bl">Respiração</div></div>
-        <div class="bio-box bio-auto"><div class="bv" id="bio-auto" style="color:var(--t2)">AUTO</div><div class="bu">FASE</div><div class="bl">Detectada</div></div>
+        <div class="bio-box bio-hr float-card"><div class="bv" id="bio-hr">--</div><div class="bu">BPM</div><div class="bl">CARDÍACO</div></div>
+        <div class="bio-box bio-rr float-card"><div class="bv" id="bio-rr">--</div><div class="bu">RPM</div><div class="bl">RESPIRAÇÃO</div></div>
       </div>
 
-      <div class="breath-guide" id="bg-widget">
-        <div class="bg-lbl" id="bg-mode-lbl">FOCO · COERENTE</div>
-        <div class="bg-ring-wrap">
-          <svg viewBox="0 0 100 100">
-            <circle class="bgc-track" cx="50" cy="50" r="45"/>
-            <circle class="bgc-fill" id="bgc" cx="50" cy="50" r="45" stroke="#9b72cf"/>
-          </svg>
-          <div class="bg-inner">
-            <div class="bg-action" id="bg-action" style="color:var(--teta)">INSPIRE</div>
-            <div class="bg-count" id="bg-count">6</div>
+      <div class="coh-wrap float-card" id="coh-wrap" style="display:none;">
+        <div class="coh-top"><span class="coh-lbl">COERÊNCIA VAGAL</span><span class="coh-val" id="coh-val">0%</span></div>
+        <div class="coh-bar-bg"><div class="coh-bar-fill" id="coh-bar" style="width:0%"></div></div>
+      </div>
+
+      <div class="bg-wrap float-card" id="bg-widget">
+        <div class="bg-lbl" id="bg-lbl">ALVO RESPIRATÓRIO</div>
+        <div class="bg-ring">
+          <svg viewBox="0 0 100 100"><circle class="bgc-t" cx="50" cy="50" r="45"/><circle class="bgc-f" id="bgc" cx="50" cy="50" r="45" stroke="#8b5cf6"/></svg>
+          <div class="bg-center">
+            <div class="bg-act" id="bg-act" style="color:var(--theta)">INSPIRE</div>
+            <div class="bg-cnt" id="bg-cnt">6</div>
           </div>
         </div>
-        <div class="bg-sub" id="bg-sub">Respire 5x por minuto — otimiza HRV</div>
+        <div class="bg-sub" id="bg-sub">Sincronização Ativa</div>
       </div>
 
-      <div class="ph-grid">
-        <button class="ph-btn alfa active" id="pb-alfa" onclick="manualPhase('alfa')">
-          <div class="ph-btn-n">Alfa</div>
-          <div class="ph-btn-t" id="pt-alfa">0:00</div>
-          <div class="ph-btn-det" id="pd-alfa"></div>
-        </button>
-        <button class="ph-btn teta" id="pb-teta" onclick="manualPhase('teta')">
-          <div class="ph-btn-n">Theta</div>
-          <div class="ph-btn-t" id="pt-teta">0:00</div>
-          <div class="ph-btn-det" id="pd-teta"></div>
-        </button>
-        <button class="ph-btn delta" id="pb-delta" onclick="manualPhase('delta')">
-          <div class="ph-btn-n">Delta</div>
-          <div class="ph-btn-t" id="pt-delta">0:00</div>
-          <div class="ph-btn-det" id="pd-delta"></div>
-        </button>
-      </div>
+      <button class="btn-end float-card" onclick="endMeditation()">ABORTAR SESSÃO</button>
+    </section>
 
-      <button class="btn-end" id="btn-end">Encerrar Sessão</button>
-    </div>
+    <section id="sc-confirm">
+      <h2 class="cf-title">SESSÃO FINALIZADA</h2>
+      <p class="cf-sub">Você concluiu o protocolo. Deseja armazenar os dados no seu histórico de performance?</p>
+      <button class="btn-save float-card" onclick="finalizeSession(true)">SALVAR DESEMPENHO</button>
+      <button class="btn-discard float-card" onclick="finalizeSession(false)">DESCARTAR (DADOS SUJOS)</button>
+    </section>
 
-    <!-- ═══ RELATÓRIO ═══ -->
-    <div id="sc-rep" style="display:none;flex-direction:column;gap:12px;">
-
-      <div class="card">
-        <div class="rep-date" id="rep-date"></div>
-        <div class="rep-title">Sessão Completa</div>
+    <section id="sc-rep" style="display:none;flex-direction:column;">
+      <article class="rcard float-card">
+        <div class="rlbl" id="rep-date">DATA</div>
+        <h3 class="rep-title">RESUMO DA PERFORMANCE</h3>
         <div class="rep-dur" id="rep-dur">--</div>
-        <div class="rep-dur-l">Duração total</div>
         <div class="score-wrap">
           <div class="score-ring">
-            <svg viewBox="0 0 82 82"><circle class="srt" cx="41" cy="41" r="36"/><circle class="srf" id="srf" cx="41" cy="41" r="36"/></svg>
+            <svg viewBox="0 0 80 80"><circle class="srt" cx="40" cy="40" r="34"/><circle class="srf" id="srf" cx="40" cy="40" r="34"/></svg>
             <div class="srn" id="srn">0</div>
           </div>
-          <div>
-            <div class="sc-lbl" id="sc-lbl">—</div>
-            <div class="sc-desc" id="sc-desc"></div>
-          </div>
+          <div><div class="sc-lbl" id="sc-lbl">—</div><div class="sc-sub" id="sc-sub"></div></div>
         </div>
-      </div>
+      </article>
 
-      <div class="card">
-        <div class="sec">Hipograma da sessão</div>
+      <article class="rcard float-card">
+        <h3 class="rlbl">HIPOGRAMA NEURAL</h3>
         <div class="tm-strip" id="tm-strip"></div>
-        <div class="tm-axis" id="tm-axis"></div>
-        <div class="sec" style="margin-top:8px">Tempo por fase</div>
-        <div class="hb-rows">
-          <div class="hb-row alfa"><div class="hb-lbl">Alfa</div><div class="hb-track"><div class="hb-fill" id="hf-alfa"></div></div><div class="hb-pct" id="hp-alfa">0%</div></div>
-          <div class="hb-row teta"><div class="hb-lbl">Theta</div><div class="hb-track"><div class="hb-fill" id="hf-teta"></div></div><div class="hb-pct" id="hp-teta">0%</div></div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+          <div class="hb-row alfa"><div class="hb-lbl">Alpha</div><div class="hb-track"><div class="hb-fill" id="hf-alfa"></div></div><div class="hb-pct" id="hp-alfa">0%</div></div>
+          <div class="hb-row theta"><div class="hb-lbl">Theta</div><div class="hb-track"><div class="hb-fill" id="hf-theta"></div></div><div class="hb-pct" id="hp-theta">0%</div></div>
           <div class="hb-row delta"><div class="hb-lbl">Delta</div><div class="hb-track"><div class="hb-fill" id="hf-delta"></div></div><div class="hb-pct" id="hp-delta">0%</div></div>
         </div>
-      </div>
+      </article>
 
-      <div class="card">
-        <div class="sec">Minutos por fase</div>
-        <div class="ps-rows">
-          <div class="ps-row alfa"><div class="ps-dot"></div><div class="ps-nm">Alfa</div><div><span class="ps-tm" id="ps-alfa">0 min</span><span class="ps-pc" id="pp-alfa"></span></div></div>
-          <div class="ps-row teta"><div class="ps-dot"></div><div class="ps-nm">Theta</div><div><span class="ps-tm" id="ps-teta">0 min</span><span class="ps-pc" id="pp-teta"></span></div></div>
-          <div class="ps-row delta"><div class="ps-dot"></div><div class="ps-nm">Delta</div><div><span class="ps-tm" id="ps-delta">0 min</span><span class="ps-pc" id="pp-delta"></span></div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="sec">Frequência Cardíaca</div>
-        <div class="bio-grid">
-          <div class="bg-stat"><div class="bg-v" id="fc-avg" style="color:var(--red)">--</div><div class="bg-l">Média</div><div class="bg-u">bpm</div></div>
-          <div class="bg-stat"><div class="bg-v" id="fc-max" style="color:var(--red)">--</div><div class="bg-l">Máxima</div><div class="bg-u">bpm</div></div>
-          <div class="bg-stat"><div class="bg-v" id="fc-min" style="color:var(--red)">--</div><div class="bg-l">Mínima</div><div class="bg-u">bpm</div></div>
-        </div>
-        <div class="chart-wrap"><canvas id="fc-canvas"></canvas></div>
-      </div>
-
-      <div class="card">
-        <div class="sec">Respiração</div>
-        <div class="bio-grid">
-          <div class="bg-stat"><div class="bg-v" id="rr-avg" style="color:var(--grn)">--</div><div class="bg-l">Média</div><div class="bg-u">resp/min</div></div>
-          <div class="bg-stat"><div class="bg-v" id="rr-max" style="color:var(--grn)">--</div><div class="bg-l">Máxima</div><div class="bg-u">resp/min</div></div>
-          <div class="bg-stat"><div class="bg-v" id="rr-min" style="color:var(--grn)">--</div><div class="bg-l">Mínima</div><div class="bg-u">resp/min</div></div>
-        </div>
-        <div class="chart-wrap"><canvas id="rr-canvas"></canvas></div>
-      </div>
-
-      <div class="card">
-        <div class="sec">O que aconteceu no seu cérebro</div>
-        <div class="mural-list" id="mural-list"></div>
-      </div>
-
-      <!-- Gamma conquista -->
-      <div class="gamma-badge" id="gamma-badge">
-        <div class="gb-title">✨ Gamma Detectado</div>
-        <div class="gb-desc" id="gamma-desc"></div>
-      </div>
-
-      <!-- Resumo por IA -->
-      <div class="ai-card">
-        <div class="ai-header">
-          <div class="ai-icon">🧠</div>
-          <div>
-            <div class="ai-title">Análise da Sessão</div>
-            <div class="ai-sub">Gerado por IA · Neurociência</div>
-          </div>
-        </div>
-        <div class="ai-body" id="ai-body">
-          <div class="ai-loading">
-            <div class="ai-dots"><span></span><span></span><span></span></div>
-            Analisando sua sessão...
-          </div>
-        </div>
-      </div>
-
-      <button class="btn-new" id="btn-new">Nova Meditação</button>
-    </div>
+      <button class="btn-new float-card" onclick="startNewSession()">NOVO PROTOCOLO</button>
+    </section>
 
   </div>
-</div>
+</main>
 
 <script>
-// ══ NEUROCIÊNCIA — FASES ═══════════════════════════════
-const PHASES = {
-  alfa:  {name:'ALFA',  hz:'Ondas Alfa · 8–14 Hz',   color:'#64b5f6', hrLo:65,hrHi:80, rrLo:8, rrHi:12},
-  teta:  {name:'THETA',  hz:'Ondas Theta · 3–7 Hz',    color:'#9b72cf', hrLo:55,hrHi:68, rrLo:4, rrHi:7},
-  delta: {name:'DELTA', hz:'Ondas Delta · 0.5–3 Hz', color:'#5c6bc0', hrLo:45,hrHi:60, rrLo:2, rrHi:5},
-};
-
-// ══ NEUROCIÊNCIA — MURAL ═══════════════════════════════
-const MURAL = [
-  {min:0,  ph:'alfa',    ev:'Início — ondas Alfa dominantes',      desc:'A frequência cardíaca começa a cair. O córtex pré-frontal reduz a produção de adrenalina. A ansiedade diminui até 40% nos primeiros 5 minutos.'},
-  {min:3,  ph:'alfa',    ev:'Serotonina em alta',                   desc:'Com FC abaixo de 75 bpm e respiração ritmada, o cérebro aumenta a produção de serotonina — neurotransmissor responsável pelo bem-estar e regulação emocional.'},
-  {min:5,  ph:'alfa',    ev:'Cortisol começa a cair',               desc:'Após 5 minutos em ondas Alfa estáveis, os níveis de cortisol (hormônio do estresse) iniciam queda mensurável. O sistema nervoso parassimpático assume o controle.'},
-  {min:8,  ph:'teta',    ev:'Transição para ondas Theta',           desc:'Com FC abaixo de 68 bpm e respiração lenta (4–7 resp/min), o cérebro começa a produzir ondas Theta. O subconsciente abre. Memórias e insights emergem naturalmente.'},
-  {min:10, ph:'teta',    ev:'Dopamina e criatividade',             desc:'As ondas Theta ativam o hipocampo. A produção de dopamina aumenta. Este é o estado dos artistas, meditadores experientes e do chamado "estado de fluxo".'},
-  {min:12, ph:'teta',    ev:'Rede de Modo Padrão silenciando',     desc:'A Default Mode Network (DMN) — responsável pelo ego e ruminação mental — começa a silenciar. Menos pensamentos automáticos e autocrítica.'},
-  {min:15, ph:'teta',    ev:'GABA em pico — relaxamento profundo', desc:'O ácido gama-aminobutírico (GABA) atinge seu pico. É o principal neurotransmissor inibitório do cérebro — reduz a ansiedade de forma mais eficaz do que benzodiazepínicos leves.'},
-  {min:20, ph:'delta',   ev:'Ondas Delta — limiar do profundo',    desc:'Com FC abaixo de 60 bpm e respiração abaixo de 5 resp/min, o cérebro entra em Delta consciente — estado raramente atingido. A regeneração celular tem início.'},
-  {min:25, ph:'delta',   ev:'Hormônio do Crescimento liberado',    desc:'Após 20 minutos em estados profundos, o hipotálamo libera o hormônio do crescimento (GH). Reparação muscular, consolidação da memória e longevidade celular são estimuladas.'},
-  {min:30, ph:'delta',   ev:'Autofagia profunda',                  desc:'30 minutos em ondas Theta e Delta ativa a autofagia — limpeza de proteínas celulares danificadas. O mesmo processo estimulado pelo jejum prolongado.'},
-  {min:40, ph:'insight', ev:'Neuroplasticidade elevada',           desc:'Sessões acima de 40 minutos aumentam a densidade de massa cinzenta no córtex pré-frontal e na ínsula. Mudanças estruturais mensuráveis em ressonância magnética após 8 semanas de prática.'},
-];
-
-// ══ SOM BINAURAL ═══════════════════════════════════════
-// Neurociência: batimentos binaurais induzem ondas cerebrais
-// Alfa=10Hz, Theta=6Hz, Delta=2Hz, Gamma=40Hz
-const BIN = {
-  alfa:  {freq:10, base:200, label:'Alfa 10Hz'},
-  teta:  {freq:6,  base:180, label:'Theta 6Hz'},
-  delta: {freq:2,  base:160, label:'Delta 2Hz'},
-};
-let binCtx=null, binL=null, binR=null, binGain=null, binOn=false;
-
-document.getElementById('bin-btn').addEventListener('click',()=>{
-  if(binOn){stopBinaural();return;}
-  startBinaural(S.phase);
+// ══ SCRIPT DE PARALLAX (MOVIMENTO DOS CARDS) ═════════
+const scrollContainer = document.querySelector('.scroll');
+scrollContainer.addEventListener('scroll', () => {
+  requestAnimationFrame(() => {
+    const cards = document.querySelectorAll('.float-card');
+    const viewCenter = window.innerHeight / 2;
+    
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + (rect.height / 2);
+      const diff = viewCenter - cardCenter;
+      
+      const moveY = diff * -0.15; 
+      
+      card.style.transform = `translateY(${moveY}px) scale(1.02)`;
+    });
+  });
 });
 
-function startBinaural(phase){
-  try{
-    if(!binCtx) binCtx=new(window.AudioContext||window.webkitAudioContext)();
-    if(binCtx.state==='suspended') binCtx.resume();
-    stopBinaural(true);
-    const b=BIN[phase]||BIN.alfa;
-    // Canal esquerdo
-    binL=binCtx.createOscillator();
-    binL.frequency.value=b.base;
-    binL.type='sine';
-    // Canal direito (frequência base + batimento binaural)
-    binR=binCtx.createOscillator();
-    binR.frequency.value=b.base+b.freq;
-    binR.type='sine';
-    // Gain suave
-    binGain=binCtx.createGain();
-    binGain.gain.setValueAtTime(0,binCtx.currentTime);
-    binGain.gain.linearRampToValueAtTime(0.12,binCtx.currentTime+2);
-    // Merger estéreo
-    const merger=binCtx.createChannelMerger(2);
-    const gainL=binCtx.createGain(); gainL.gain.value=1;
-    const gainR=binCtx.createGain(); gainR.gain.value=1;
-    binL.connect(gainL); binR.connect(gainR);
-    gainL.connect(merger,0,0); gainR.connect(merger,0,1);
-    merger.connect(binGain); binGain.connect(binCtx.destination);
-    binL.start(); binR.start();
-    binOn=true; updateBinUI(phase);
-  }catch(e){console.log('Binaural:',e);}
+// ══ LÓGICA ORIGINAL DO MAX.CORE ════════════════════
+const PHASES={
+  alfa: {name:'ALPHA',hz:'Ondas Alpha · 8–14 Hz',color:'#3b82f6',hrLo:65,hrHi:80,rrLo:8,rrHi:12},
+  theta:{name:'THETA',hz:'Ondas Theta · 3–7 Hz', color:'#8b5cf6',hrLo:55,hrHi:68,rrLo:4,rrHi:7},
+  delta:{name:'DELTA',hz:'Ondas Delta · 0.5–3 Hz',color:'#4f46e5',hrLo:45,hrHi:60,rrLo:2,rrHi:5},
+};
+
+const MODES={
+  wake: {name:'Prime Neural', sub:'ATIVAÇÃO SIMPÁTICA', color:'#f97316', phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
+  focus:{name:'Estado de Flow', sub:'ISOLAMENTO DO CÓRTEX', color:'#3b82f6', phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:4},{a:'EXPIRE',s:4},{a:'SEGURE',s:4}]},
+  deep: {name:'Recup. Profunda', sub:'DOWN-REGULATION', color:'#8b5cf6', phases:[{a:'INSPIRE',s:6},{a:'EXPIRE',s:6}]},
+  sleep:{name:'Indução ao Sono', sub:'SISTEMA PARASSIMPÁTICO', color:'#4f46e5', phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:7},{a:'EXPIRE',s:8}]},
+  heart:{name:'Coerência Vagal', sub:'SINCRONIZAÇÃO HRV', color:'#e11d48', phases:[{a:'INSPIRE',s:5},{a:'EXPIRE',s:5}]},
+  sos:  {name:'S.O.S. / Reset', sub:'QUEBRA DE CORTISOL RÁPIDA', color:'#ef4444', phases:[{a:'INSPIRE',s:1.5},{a:'SEGURE',s:0.5},{a:'EXPIRE',s:4}]},
+  free: {name:'Modo Livre', sub:'DETECÇÃO AUTOMÁTICA', color:'#a1a1aa', phases:[]}
+};
+
+const S={
+  phase:'alfa',manual:false, startTime:null,phaseStart:null,
+  phaseTimes:{alfa:0,theta:0,delta:0}, log:[],hrLog:[],rrLog:[],
+  btDevice:null,btOn:false, micOn:false,micStream:null,micCtx:null,micAna:null,
+  binCtx:null,binL:null,binR:null,binOn:false,
+  breathMode:'deep',bgIdx:0,bgTimer:null,
+  rrBuf:[],rrLastPeak:0,rrEnv:0,rrFloor:0,rrPeak:false,
+  cohScore:0,ticker:null, dimTimer:null,dimOn:false, tempData: null
+};
+
+function showScreen(id){
+  ['sc-home','sc-med','sc-confirm','sc-rep'].forEach(s=>{
+    const el=document.getElementById(s);if(!el)return;
+    el.style.display=(s===id)?'flex':'none';
+  });
+  try{document.querySelector('.scroll').scrollTop=0;}catch(e){}
 }
-
-function stopBinaural(silent=false){
-  if(binL){try{binL.stop();}catch(e){} binL=null;}
-  if(binR){try{binR.stop();}catch(e){} binR=null;}
-  if(!silent){binOn=false; updateBinUI(null);}
-}
-
-function updateBinUI(phase){
-  const b=document.getElementById('bin-btn'),l=document.getElementById('bin-lbl');
-  b.className='pill'+(binOn?' bin-on':'');
-  l.textContent=binOn?(BIN[phase||S.phase]?.label||'♪'):'♪';
-}
-
-// Muda binaural quando fase muda
-function updateBinPhase(phase){
-  if(binOn) startBinaural(phase);
-}
-
-// ══ TELA ESCURA ════════════════════════════════════════
-let dimTimer=null, dimOn=false;
-
 function startDimTimer(){
-  clearTimeout(dimTimer);
-  // Só apaga tela no modo livre — durante respiração guiada o usuário precisa ver
-  if(S.breathMode !== 'livre') return;
-  dimTimer=setTimeout(()=>{
-    if(S.ticker){
-      dimOn=true;
-      document.getElementById('screen-dim').classList.add('visible');
+  clearTimeout(S.dimTimer); const delay=S.breathMode==='free'?30000:70000;
+  S.dimTimer=setTimeout(()=>{
+    if(!S.ticker)return;
+    S.dimOn=true;document.getElementById('dim').classList.add('on');
+  },delay);
+}
+function resetDim(){if(!S.dimOn)return;S.dimOn=false;document.getElementById('dim').classList.remove('on');startDimTimer();}
+
+function openDrawer(type){
+  const title=document.getElementById('drawer-title');
+  const body=document.getElementById('drawer-body');
+  
+  if(type==='mode'){
+    title.textContent='PROTOCOLOS DE COMANDO';
+    body.innerHTML=`
+      <div class="mode-grid" id="mode-grid-d">
+        ${Object.entries(MODES).map(([k,m])=>`
+          <button class="mode-card float-card m-${k}${k==='heart'||k==='sos'||k==='free'?' full':''} ${S.breathMode===k?'sel':''}" data-mode="${k}">
+            <div class="mname">${m.name}</div>
+            <div class="msci">${m.sub}</div>
+            <div class="mdesc">${
+              k==='wake'?'Pico de cortisol saudável para ignição do dia. Respiração hiperventilada.':
+              k==='focus'?'Isolamento do córtex pré-frontal para trabalho profundo e foco.':
+              k==='deep'?'Reparo do sistema nervoso. Baixa frequência (Theta/Delta).':
+              k==='sleep'?'Desativa estado de alerta e prepara o cérebro para repouso.':
+              k==='heart'?'Sincronização do ritmo cardíaco para estabilidade executiva.':
+              k==='sos'?'Suspiro fisiológico. Corta pico de adrenalina em minutos.':
+              'Modo sem guia. Captura de dados em background.'
+            }</div>
+          </button>`).join('')}
+      </div>
+      <button class="btn-confirm float-card" style="margin-top:10px;">SELECIONAR PROTOCOLO</button>`;
+      
+  } else if(type==='history'){
+    title.textContent='HISTÓRICO DE PERFORMANCE';
+    const sessions=loadSessions();
+    let listHtml = '';
+    if(!sessions.length){
+      listHtml = '<div class="hist-empty">Nenhum dado registrado.<br>Assuma o comando e inicie um protocolo.</div>';
+    } else {
+      listHtml = sessions.map((s, idx)=>{
+        const d=new Date(s.date);
+        const day=String(d.getDate()).padStart(2,'0');
+        const mon=d.toLocaleDateString('pt-BR',{month:'short'}).toUpperCase();
+        const dur=s.dur>=60?Math.floor(s.dur/60)+'h '+(s.dur%60?s.dur%60+'min':''):s.dur+'min';
+        return `<div class="hist-item float-card">
+          <div class="hi-date"><div class="hi-d">${day}</div><div class="hi-m">${mon}</div></div>
+          <div class="hi-bar">
+            <div class="hi-strip">
+              <div class="hi-seg alfa" style="width:${s.pcts.alfa}%"></div>
+              <div class="hi-seg theta" style="width:${s.pcts.theta}%"></div>
+              <div class="hi-seg delta" style="width:${s.pcts.delta}%"></div>
+            </div>
+            <div class="hi-meta">PERFORMANCE: ${s.score}/100</div>
+          </div>
+          <div class="hi-right">
+            <div class="hi-dur">${dur}</div>
+            <button class="del-btn" onclick="deleteSession(${idx})">EXCLUIR</button>
+          </div>
+        </div>`;
+      }).join('');
     }
-  },30000);
-}
-
-function resetDim(){
-  dimOn=false;
-  document.getElementById('screen-dim').classList.remove('visible');
-  startDimTimer();
-}
-
-document.getElementById('screen-dim').addEventListener('click',resetDim);
-document.getElementById('screen-dim').addEventListener('touchstart',resetDim);
-
-// ══ GAMMA — DETECÇÃO ══════════════════════════════════
-// Gamma (30-100Hz) é detectado indiretamente:
-// FC muito estável + respiração muito lenta + sessão longa = indicador de estado avançado
-function checkGamma(totalMin, pcts, hrLog, rrLog){
-  if(totalMin < 20) return false;
-  // FC estável (baixo desvio padrão) em sessão longa
-  if(hrLog.length < 10) return false;
-  const bpms=hrLog.map(x=>x.bpm);
-  const avg=bpms.reduce((a,b)=>a+b,0)/bpms.length;
-  const std=Math.sqrt(bpms.map(x=>(x-avg)**2).reduce((a,b)=>a+b,0)/bpms.length);
-  // FC muito estável (std < 4) + delta significativo + sessão longa
-  return std < 4 && pcts.delta > 15 && totalMin >= 25;
-}
-
-
-const BREATH = {
-  wake:  {name:'ACORDAR', sub:'Energize o sistema nervoso',        color:'#fb923c',
-          phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
-  train: {name:'TREINAR',  sub:'Box Breathing 4-4-4-4',            color:'#64b5f6',
-          phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:4},{a:'EXPIRE',s:4},{a:'SEGURE',s:4}]},
-  focus: {name:'FOCO',     sub:'Coerente — 5 resp/min',            color:'#9b72cf',
-          phases:[{a:'INSPIRE',s:6},{a:'EXPIRE',s:6}]},
-  sleep: {name:'DORMIR',   sub:'4-7-8 — Dr. Andrew Weil',          color:'#5c6bc0',
-          phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:7},{a:'EXPIRE',s:8}]},
-  livre: {name:'LIVRE',    sub:'Respiração natural',               color:'#a1a1aa', phases:[]},
-};
-
-const BREATH_SUBS = {
-  wake:'30 ciclos rápidos ativam o sistema simpático — energia imediata',
-  train:'4-4-4-4 equilibra simpático e parassimpático — foco total',
-  focus:'5 respirações por minuto maximiza a variabilidade cardíaca (HRV)',
-  sleep:'Expiração longa ativa o nervo vago — prepara o corpo para dormir',
-  livre:'Respire naturalmente — a detecção é automática',
-};
-
-// ══ ESTADO ═════════════════════════════════════════════
-const S = {
-  phase:'alfa', manual:false,
-  startTime:null, phaseStart:null,
-  phaseTimes:{alfa:0,teta:0,delta:0},
-  log:[], hrLog:[], rrLog:[],
-  btDevice:null, btOn:false,
-  micOn:false, micStream:null, micCtx:null, micAnalyser:null,
-  breathMode:'focus',
-  bgIdx:0, bgTimer:null,
-  rrBuf:[], rrLastPeak:0,
-  ticker:null,
-};
-
-// ══ SELEÇÃO DE MODO ════════════════════════════════════
-function selMode(el){
-  document.querySelectorAll('.bm-card').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  S.breathMode=el.dataset.mode;
-}
-
-// ══ BLUETOOTH FC ═══════════════════════════════════════
-document.getElementById('bt-btn').addEventListener('click',async()=>{
-  if(S.btOn){disconnectBT();return;}
-  if(!navigator.bluetooth){alert('Bluetooth não disponível.\nUse Chrome no Android ou Edge.');return;}
-  try{
-    const dev=await navigator.bluetooth.requestDevice({
-      filters:[{services:['heart_rate']}],optionalServices:['heart_rate']
-    });
-    S.btDevice=dev;
-    const srv=await dev.gatt.connect();
-    const svc=await srv.getPrimaryService('heart_rate');
-    const chr=await svc.getCharacteristic('heart_rate_measurement');
-    await chr.startNotifications();
-    chr.addEventListener('characteristicvaluechanged',e=>{
-      const v=e.target.value;
-      const hr=(v.getUint8(0)&1)?v.getUint16(1,true):v.getUint8(1);
-      onHR(hr);
-    });
-    dev.addEventListener('gattserverdisconnected',disconnectBT);
-    S.btOn=true;updateBTUI();
-  }catch(e){console.log('BT:',e);}
-});
-
-function disconnectBT(){
-  if(S.btDevice?.gatt?.connected) S.btDevice.gatt.disconnect();
-  S.btOn=false;S.btDevice=null;updateBTUI();
-}
-function updateBTUI(){
-  const b=document.getElementById('bt-btn'),l=document.getElementById('bt-lbl');
-  b.className='pill'+(S.btOn?' on':'');
-  l.textContent=S.btOn?'BT ✓':'BT';
-}
-function onHR(bpm){
-  S.hrLog.push({t:Date.now(),bpm});
-  document.getElementById('bio-hr').textContent=bpm;
-  if(!S.manual) autoDetect();
-}
-
-// ══ MICROFONE — RESPIRAÇÃO AUTOMÁTICA ══════════════════
-document.getElementById('mic-btn').addEventListener('click',async()=>{
-  if(S.micOn){stopMic();return;}
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
-    S.micStream=stream;
-    S.micCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const src=S.micCtx.createMediaStreamSource(stream);
-    S.micAnalyser=S.micCtx.createAnalyser();
-    S.micAnalyser.fftSize=512;
-    S.micAnalyser.smoothingTimeConstant=0.8;
-    src.connect(S.micAnalyser);
-    S.micOn=true;S.rrBuf=[];S.rrLastPeak=0;
-    S.rrEnvelope=0;S.rrNoiseFloor=0;S.rrInPeak=false;
-    updateMicUI();
-    detectBreath();
-  }catch(e){alert('Erro ao acessar o microfone: '+e.message);}
-});
-
-function stopMic(){
-  if(S.micStream) S.micStream.getTracks().forEach(t=>t.stop());
-  if(S.micCtx) S.micCtx.close().catch(()=>{});
-  S.micOn=false;S.micAnalyser=null;
-  updateMicUI();
-}
-function updateMicUI(){
-  const b=document.getElementById('mic-btn'),l=document.getElementById('mic-lbl');
-  b.className='pill'+(S.micOn?' mic-on':'');
-  l.textContent=S.micOn?'MIC ✓':'MIC';
-}
-function detectBreath(){
-  if(!S.micOn||!S.micAnalyser){return;}
-
-  const buf=new Uint8Array(S.micAnalyser.frequencyBinCount);
-  S.micAnalyser.getByteTimeDomainData(buf);
-
-  // RMS da amplitude
-  let sum=0;
-  for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
-  const rms=Math.sqrt(sum/buf.length);
-
-  const now=Date.now();
-
-  // Envelope: suaviza o sinal para evitar múltiplos picos por respiração
-  S.rrEnvelope = S.rrEnvelope===undefined ? rms :
-    rms > S.rrEnvelope
-      ? S.rrEnvelope * 0.7 + rms * 0.3   // ataque rápido
-      : S.rrEnvelope * 0.97 + rms * 0.03; // decaimento lento
-
-  // Threshold adaptativo: média móvel do envelope + margem
-  S.rrNoiseFloor = S.rrNoiseFloor===undefined ? rms :
-    S.rrNoiseFloor * 0.995 + rms * 0.005;
-  const threshold = Math.max(0.035, S.rrNoiseFloor * 2.8);
-
-  // Detecta pico real: envelope acima do threshold
-  // Refractory de 3.5s — impossível respirar mais rápido que ~17/min
-  // (2 expirações por ciclo normal = 1 por ~3s a 10 resp/min)
-  const REFRACTORY = 3500; // ms
-
-  if(S.rrEnvelope > threshold && !S.rrInPeak && now - S.rrLastPeak > REFRACTORY){
-    S.rrInPeak = true;
-    S.rrLastPeak = now;
-    S.rrBuf.push(now);
-
-    // Janela de 90s para média mais estável
-    S.rrBuf = S.rrBuf.filter(t => now - t < 90000);
-
-    if(S.rrBuf.length >= 3){
-      // Usa mediana dos intervalos para ignorar outliers
-      const intervals=[];
-      for(let i=1;i<S.rrBuf.length;i++) intervals.push(S.rrBuf[i]-S.rrBuf[i-1]);
-      intervals.sort((a,b)=>a-b);
-      const mid=Math.floor(intervals.length/2);
-      const median=intervals.length%2===0
-        ?(intervals[mid-1]+intervals[mid])/2
-        :intervals[mid];
-
-      const rr=Math.round(60000/median);
-
-      // Aceita só valores fisiologicamente possíveis: 1–20 resp/min
-      if(rr>=1&&rr<=20){
-        // Suaviza com média ponderada da leitura anterior
-        const prev=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:rr;
-        const smoothed=Math.round(prev*0.4+rr*0.6);
-        S.rrLog.push({t:now,rr:smoothed});
-        document.getElementById('bio-rr').textContent=smoothed;
-        if(!S.manual) autoDetect();
-      }
-    }
+    body.innerHTML = listHtml;
   }
-
-  // Reset do pico quando envelope cai abaixo do threshold
-  if(S.rrEnvelope < threshold * 0.5) S.rrInPeak=false;
-
-  requestAnimationFrame(detectBreath);
+  
+  document.getElementById('drawer-overlay').classList.add('on');
+  document.getElementById('drawer').classList.add('on');
 }
 
-// ══ DETECÇÃO AUTOMÁTICA DE FASE ════════════════════════
-function autoDetect(){
+function closeDrawer(){
+  document.getElementById('drawer-overlay').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+  updateHomeModeInfo();
+}
+
+function onDrawerClick(e){
+  const card = e.target.closest('.mode-card');
+  if(card){
+    document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('sel'));
+    card.classList.add('sel');
+    S.breathMode=card.dataset.mode;
+  }
+  if(e.target.closest('.btn-confirm')) closeDrawer();
+}
+
+function updateHomeModeInfo(){
+  const m=MODES[S.breathMode];
+  if(!m) return;
+  document.getElementById('mode-badge').textContent=m.name;
+  document.getElementById('start-sub').textContent=m.sub;
+  document.getElementById('panel-mode-desc').textContent=m.name;
+}
+
+function onHR(bpm){S.hrLog.push({t:Date.now(),bpm});const el=document.getElementById('bio-hr');if(el)el.textContent=bpm;updateCoherence();}
+function updateCoherence(){
+  if(S.breathMode!=='heart')return;
   const hr=S.hrLog.length?S.hrLog[S.hrLog.length-1].bpm:null;
   const rr=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:null;
-  if(!hr&&!rr) return;
-
-  let scores={alfa:0,teta:0,delta:0};
-  if(hr){
-    Object.entries(PHASES).forEach(([k,p])=>{
-      if(hr>=p.hrLo&&hr<=p.hrHi) scores[k]+=3;
-      else scores[k]+=Math.max(0,2-Math.abs(hr<p.hrLo?p.hrLo-hr:hr-p.hrHi)/12);
-    });
-  }
-  if(rr){
-    Object.entries(PHASES).forEach(([k,p])=>{
-      if(rr>=p.rrLo&&rr<=p.rrHi) scores[k]+=3;
-      else scores[k]+=Math.max(0,2-Math.abs(rr<p.rrLo?p.rrLo-rr:rr-p.rrHi)/5);
-    });
-  }
-
-  const best=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  const el=document.getElementById('bio-auto');
-  el.textContent={alfa:'ALFA',teta:'THETA',delta:'DELTA'}[best];
-  el.style.color=PHASES[best].color;
-
-  ['alfa','teta','delta'].forEach(ph=>{
-    const det=document.getElementById('pd-'+ph);
-    if(det) det.textContent=ph===best?'● DETECTADO':'';
-  });
-
-  if(best!==S.phase) setPhase(best,false);
+  let score=0;
+  if(hr){if(hr>=55&&hr<=75)score+=50;else score+=Math.max(0,50-Math.abs(hr-65)*3);}
+  if(rr){if(rr>=4&&rr<=6)score+=50;else score+=Math.max(0,50-Math.abs(rr-5)*10);}
+  S.cohScore=Math.round(S.cohScore*0.7+score*0.3);
+  const bar=document.getElementById('coh-bar'), val=document.getElementById('coh-val');
+  if(bar)bar.style.width=S.cohScore+'%'; if(val)val.textContent=S.cohScore+'%';
 }
 
-// ══ RESPIRAÇÃO GUIADA ══════════════════════════════════
+async function toggleBT(){alert('Conexão BT simulada para teste.'); S.btOn=!S.btOn; document.getElementById('bt-btn').className='pill'+(S.btOn?' on-a':'');}
+async function toggleMic(){alert('Mic simulado para teste.'); S.micOn=!S.micOn; document.getElementById('mic-btn').className='pill'+(S.micOn?' on-g':'');}
+function toggleBinaural(){S.binOn=!S.binOn; document.getElementById('bin-btn').className='pill'+(S.binOn?' on-b':'');}
+
 function startBreathGuide(){
-  const mode=BREATH[S.breathMode];
-  const widget=document.getElementById('bg-widget');
-  if(!mode||!mode.phases||mode.phases.length===0){
-    widget.style.display='none';return;
-  }
+  const mode=MODES[S.breathMode], widget=document.getElementById('bg-widget'), cohWrap=document.getElementById('coh-wrap');
+  if(!mode.phases.length){widget.style.display='none'; cohWrap.style.display='none'; return;}
   widget.style.display='flex';
-  document.getElementById('bg-mode-lbl').textContent=mode.name+' · '+mode.sub;
-  document.getElementById('bg-sub').textContent=BREATH_SUBS[S.breathMode]||'';
-  S.bgIdx=0;
-  runBGPhase();
+  cohWrap.style.display=S.breathMode==='heart'?'flex':'none';
+  document.getElementById('bg-sub').textContent=mode.sub;
+  S.bgIdx=0; runBGPhase();
 }
 
 function runBGPhase(){
-  if(!S.ticker) return;
-  const mode=BREATH[S.breathMode];
-  if(!mode||!mode.phases||mode.phases.length===0) return;
-  const ph=mode.phases[S.bgIdx%mode.phases.length];
-  const dur=ph.s;
-  const colors={INSPIRE:PHASES[S.phase].color,EXPIRE:'#4ade80',SEGURE:'#fb923c'};
-  const col=colors[ph.a]||PHASES[S.phase].color;
-
-  document.getElementById('bg-action').textContent=ph.a;
-  document.getElementById('bg-action').style.color=col;
-
-  const circ=283;
-  const bgc=document.getElementById('bgc');
-  bgc.style.stroke=col;
-  bgc.style.transition='none';
-  bgc.style.strokeDashoffset=ph.a==='INSPIRE'?circ:0;
-
-  let elapsed=0;
-  if(S.bgTimer) clearInterval(S.bgTimer);
+  if(!S.ticker)return;
+  const mode=MODES[S.breathMode]; if(!mode.phases.length)return;
+  const ph=mode.phases[S.bgIdx%mode.phases.length], dur=ph.s;
+  const cols={INSPIRE:PHASES[S.phase]?.color||'#3b82f6',EXPIRE:'#10b981',SEGURE:'#f97316'};
+  const col=cols[ph.a]||'#3b82f6';
+  
+  document.getElementById('bg-act').textContent=ph.a; 
+  document.getElementById('bg-act').style.color=col; 
+  document.getElementById('bgc').style.stroke=col;
+  
+  const circ=283; 
+  document.getElementById('bgc').style.transition='none'; 
+  document.getElementById('bgc').style.strokeDashoffset=ph.a==='INSPIRE'?circ:0;
+  
+  let elapsed=0; if(S.bgTimer)clearInterval(S.bgTimer);
   S.bgTimer=setInterval(()=>{
     elapsed+=100;
-    document.getElementById('bg-count').textContent=Math.max(Math.ceil(dur-elapsed/1000),0);
-    const pct=elapsed/(dur*1000);
-    const offset=ph.a==='INSPIRE'?circ*(1-pct):circ*pct;
-    bgc.style.transition='stroke-dashoffset 0.1s linear';
-    bgc.style.strokeDashoffset=Math.max(0,Math.min(circ,offset));
+    document.getElementById('bg-cnt').textContent=Math.max(Math.ceil(dur-elapsed/1000),0);
+    const pct=elapsed/(dur*1000); 
+    const off=ph.a==='INSPIRE'?circ*(1-pct):circ*pct;
+    document.getElementById('bgc').style.transition='stroke-dashoffset 0.1s linear';
+    document.getElementById('bgc').style.strokeDashoffset=Math.max(0,Math.min(circ,off));
     if(elapsed>=dur*1000){
-      clearInterval(S.bgTimer);
-      S.bgIdx++;
-      // A cada ciclo completo, verifica se pode escurecer
-      // (usuário já viu o guia, pode fechar os olhos)
-      if(S.bgIdx % mode.phases.length === 0) startDimTimer();
+      clearInterval(S.bgTimer); S.bgIdx++;
+      if(S.bgIdx%mode.phases.length===0)startDimTimer();
       runBGPhase();
     }
   },100);
 }
 
-// ══ NAVEGAÇÃO ══════════════════════════════════════════
-function showScreen(id){
-  ['sc-home','sc-med','sc-rep'].forEach(s=>{
-    const el=document.getElementById(s);
-    if(!el) return;
-    el.style.display=(s===id)?'flex':'none';
-    if(s===id) el.style.flexDirection='column';
-  });
-  try{document.querySelector('.scroll').scrollTop=0;}catch(e){}
-}
-
-// ══ INICIAR ════════════════════════════════════════════
-document.getElementById('btn-start').addEventListener('click',()=>{
+function startMeditation(){
   S.startTime=Date.now();S.phaseStart=Date.now();
-  S.phase='alfa';S.manual=false;
-  S.phaseTimes={alfa:0,teta:0,delta:0};
+  S.phase='alfa';S.cohScore=0; S.phaseTimes={alfa:0,theta:0,delta:0};
   S.log=[{phase:'alfa',start:Date.now()}];
-  S.hrLog=[];S.rrLog=[];
-  S.rrBuf=[];S.rrLastPeak=0;
-  S.rrEnvelope=0;S.rrNoiseFloor=0;S.rrInPeak=false;
-  document.getElementById('bio-hr').textContent='--';
-  document.getElementById('bio-rr').textContent='--';
-  document.getElementById('bio-auto').textContent='AUTO';
-  document.getElementById('bio-auto').style.color='var(--t2)';
-  ['alfa','teta','delta'].forEach(ph=>{
-    const det=document.getElementById('pd-'+ph);
-    if(det) det.textContent='';
-  });
-  updateArena();
-  showScreen('sc-med');
-  if(S.ticker) clearInterval(S.ticker);
+  updateArena(); showScreen('sc-med');
+  if(S.ticker)clearInterval(S.ticker);
   S.ticker=setInterval(tick,1000);
   startBreathGuide();
-  startDimTimer(); // inicia timer da tela escura
-  // Adiciona listener de toque para resetar tela escura
-  document.addEventListener('touchstart', resetDim);
-  document.addEventListener('click', resetDim);
-});
-
-// ══ FASE ═══════════════════════════════════════════════
-function setPhase(phase,isManual=true){
-  if(phase===S.phase) return;
-  S.manual=isManual;
-  const now=Date.now();
-  S.phaseTimes[S.phase]+=now-S.phaseStart;
-  if(S.log.length) S.log[S.log.length-1].end=now;
-  S.log.push({phase,start:now});
-  S.phase=phase;S.phaseStart=now;
-  updateArena();
-  updateBinPhase(phase);
-  if(isManual) setTimeout(()=>{S.manual=false;},180000);
 }
-function manualPhase(ph){setPhase(ph,true);}
 
 function updateArena(){
-  const p=PHASES[S.phase];
-  document.getElementById('arena').className='arena '+S.phase;
-  document.getElementById('arena-ph').textContent=p.name;
-  document.getElementById('arena-hz').textContent=p.hz;
-  document.getElementById('wv-path').setAttribute('stroke',p.color);
-  ['alfa','teta','delta'].forEach(ph=>{
-    document.getElementById('pb-'+ph).className='ph-btn '+ph+(ph===S.phase?' active':'');
-  });
+  const p=PHASES[S.phase], cls=S.breathMode==='heart'?'heart':S.phase;
+  document.getElementById('arena').className='arena '+cls+' float-card';
+  document.getElementById('arena-ph').textContent=S.breathMode==='heart'?'CORAÇÃO':p.name;
+  document.getElementById('arena-hz').textContent=S.breathMode==='heart'?'Sincronia Vagal Ativa':p.hz;
+  document.getElementById('wv-p').setAttribute('stroke',S.breathMode==='heart'?'#e11d48':p.color);
 }
 
-// ══ TICK ═══════════════════════════════════════════════
 function tick(){
   const e=Date.now()-S.startTime;
   const h=Math.floor(e/3600000),m=Math.floor((e%3600000)/60000),s=Math.floor((e%60000)/1000);
-  document.getElementById('arena-timer').textContent=
-    String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const now=Date.now(),times={...S.phaseTimes};
-  times[S.phase]+=now-S.phaseStart;
-  ['alfa','teta','delta'].forEach(ph=>{
-    const sec=Math.floor(times[ph]/1000);
-    const el=document.getElementById('pt-'+ph);
-    if(el) el.textContent=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
-  });
+  document.getElementById('arena-timer').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  
+  if(!S.btOn && Math.random()>0.7){
+    const phArr = ['alfa','theta','delta'];
+    setPhase(phArr[Math.floor(Math.random()*phArr.length)]);
+  }
 }
 
-// ══ ENCERRAR ═══════════════════════════════════════════
-document.getElementById('btn-end').addEventListener('click',()=>{
-  if(!confirm('Encerrar a meditação?')) return;
-  clearInterval(S.ticker);clearInterval(S.bgTimer);S.ticker=null;
-  stopBinaural();
-  clearTimeout(dimTimer);
-  resetDim();
-  document.removeEventListener('touchstart',resetDim);
-  document.removeEventListener('click',resetDim);
+function setPhase(phase){
+  if(phase===S.phase)return;
   const now=Date.now();
   S.phaseTimes[S.phase]+=now-S.phaseStart;
-  if(S.log.length) S.log[S.log.length-1].end=now;
-  buildReport();
-  // Salvar no histórico
-  const totMin=Math.floor((Date.now()-S.startTime)/60000);
-  const T2=S.phaseTimes, tot2=T2.alfa+T2.teta+T2.delta||1;
-  const pcts2={alfa:Math.round(T2.alfa/tot2*100),teta:Math.round(T2.teta/tot2*100),delta:Math.round(T2.delta/tot2*100)};
-  const sc2=Math.min(100,Math.round((pcts2.alfa*0.5+pcts2.teta*1.6+pcts2.delta*2.4)/1.5));
-  saveSession(totMin, pcts2, sc2);
-  showScreen('sc-rep');
-});
+  if(S.log.length)S.log[S.log.length-1].end=now;
+  S.log.push({phase,start:now});S.phase=phase;S.phaseStart=now;
+  updateArena();
+}
 
-// ══ RELATÓRIO ══════════════════════════════════════════
-function buildReport(){
-  const totalMs=Date.now()-S.startTime;
-  const totalMin=Math.floor(totalMs/60000);
+function endMeditation(){
+  clearInterval(S.ticker);clearInterval(S.bgTimer);S.ticker=null;
+  clearTimeout(S.dimTimer);resetDim();
+  
+  const now=Date.now();
+  S.phaseTimes[S.phase]+=now-S.phaseStart;
+  if(S.log.length)S.log[S.log.length-1].end=now;
+  
+  const totMin = Math.max(1, Math.floor((now-S.startTime)/60000));
+  const T=S.phaseTimes,tot=T.alfa+T.theta+T.delta||1;
+  const pcts={alfa:Math.round(T.alfa/tot*100),theta:Math.round(T.theta/tot*100),delta:Math.round(T.delta/tot*100)};
+  const score=Math.min(100,Math.round((pcts.alfa*0.5+pcts.theta*1.6+pcts.delta*2.4)/1.5));
+  
+  S.tempData = {dur:totMin, pcts, score, mode:S.breathMode};
+  showScreen('sc-confirm');
+}
+
+function finalizeSession(save){
+  if(save && S.tempData){
+    saveSession(S.tempData.dur, S.tempData.pcts, S.tempData.score, S.tempData.mode);
+    buildReport(S.tempData.dur, S.tempData.pcts, S.tempData.score);
+    showScreen('sc-rep');
+  } else {
+    S.tempData = null;
+    startNewSession();
+  }
+}
+
+function saveSession(dur,pcts,score,mode){try{const s=JSON.parse(localStorage.getItem('max_core_v1')||'[]');s.unshift({date:Date.now(),dur,pcts,score,mode});localStorage.setItem('max_core_v1',JSON.stringify(s.slice(0,60)));}catch(e){}}
+function loadSessions(){try{return JSON.parse(localStorage.getItem('max_core_v1')||'[]');}catch(e){return[];}}
+
+function deleteSession(idx) {
+  if(confirm('Apagar este registro permanentemente do banco de dados?')){
+    let s = loadSessions();
+    s.splice(idx, 1);
+    localStorage.setItem('max_core_v1', JSON.stringify(s));
+    openDrawer('history');
+    renderMiniStats();
+  }
+}
+
+function startNewSession(){
+  renderMiniStats();
+  showScreen('sc-home');
+}
+
+function renderMiniStats(){
+  const sessions=loadSessions();
+  document.getElementById('ms-total').textContent=sessions.length;
+  const now=new Date();
+  const thisMonth=sessions.filter(s=>{const d=new Date(s.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).length;
+  document.getElementById('ms-streak').textContent=thisMonth;
+}
+
+function buildReport(totalMin,pcts,score){
   const h=Math.floor(totalMin/60),m=totalMin%60;
   document.getElementById('rep-dur').textContent=(h>0?h+'h ':'')+m+'min';
-
-  const now=new Date();
-  document.getElementById('rep-date').textContent=
-    now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toUpperCase()+
-    ' · '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-
-  const T=S.phaseTimes,tot=T.alfa+T.teta+T.delta||1;
-  const pcts={
-    alfa:Math.round(T.alfa/tot*100),
-    teta:Math.round(T.teta/tot*100),
-    delta:Math.round(T.delta/tot*100),
-  };
-
-  // Score baseado em profundidade
-  const score=Math.min(100,Math.round((pcts.alfa*0.5+pcts.teta*1.6+pcts.delta*2.4)/1.5));
-  const circ=2*Math.PI*36;
+  
+  const circ=2*Math.PI*34;
   const f=document.getElementById('srf');
   f.style.strokeDasharray=circ;
-  f.style.stroke=score>=80?'#64b5f6':score>=55?'#9b72cf':'#5c6bc0';
+  f.style.stroke=score>=80?'#3b82f6':score>=55?'#8b5cf6':'#4f46e5';
   setTimeout(()=>{f.style.strokeDashoffset=circ*(1-score/100);},300);
   document.getElementById('srn').textContent=score;
-  const grades=[
-    [85,'Excelente 🧠','Estados profundos atingidos. Autofagia, hormônio do crescimento e GABA em alta.'],
-    [65,'Muito Boa 🌊','Boa profundidade. Ondas Theta dominantes. Continue praticando.'],
-    [40,'Boa ✨','Relaxamento sólido. Cortisol reduzido, serotonina elevada.'],
-    [0, 'Início 🌱','Cada sessão reconfigura o cérebro. Continue praticando.'],
-  ];
-  const [,lb,desc]=grades.find(([t])=>score>=t);
+  
+  const grades=[[85,'COMANDO ABSOLUTO','Autofagia e down-regulation maximizados.'],[65,'BOM CONTROLE','Estado de fluxo estável e sólido.'],[40,'PROCESSO','Cortisol reduzido com sucesso.'],[0,'INICIAL','Sistema em fase de adaptação.']];
+  const [,lb,sub]=grades.find(([t])=>score>=t);
   document.getElementById('sc-lbl').textContent=lb;
-  document.getElementById('sc-desc').textContent=desc;
-
-  // Hipograma minuto a minuto
-  const strip=document.getElementById('tm-strip'),axis=document.getElementById('tm-axis');
-  strip.innerHTML='';axis.innerHTML='';
-  const maxMin=Math.max(totalMin,1);
+  document.getElementById('sc-sub').textContent=sub;
+  
+  const strip=document.getElementById('tm-strip'); strip.innerHTML='';
+  const maxMin=Math.max(Math.ceil(totalMin),1);
   for(let i=0;i<maxMin;i++){
-    const ms=S.startTime+i*60000,me=ms+60000;
-    let ph='empty',best=0;
-    S.log.forEach(seg=>{
-      const ov=Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);
-      if(ov>best){best=ov;ph=seg.phase;}
-    });
-    const d=document.createElement('div');
-    d.className='tm-m '+ph;d.title=(i+1)+'min';
-    strip.appendChild(d);
+    const ms=S.startTime+i*60000,me=ms+60000;let ph='empty',best=0;
+    S.log.forEach(seg=>{const ov=Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);if(ov>best){best=ov;ph=seg.phase;}});
+    const d=document.createElement('div');d.className='tm-m '+ph;strip.appendChild(d);
   }
-  const steps=Math.min(6,maxMin);
-  for(let i=0;i<=steps;i++){
-    const sp=document.createElement('span');
-    sp.textContent=Math.round(i*maxMin/steps)+'min';
-    axis.appendChild(sp);
-  }
-
-  // Barras e stats por fase
-  ['alfa','teta','delta'].forEach(ph=>{
-    document.getElementById('hf-'+ph).style.width=pcts[ph]+'%';
-    document.getElementById('hp-'+ph).textContent=pcts[ph]+'%';
-    document.getElementById('ps-'+ph).textContent=Math.round(T[ph]/60000)+' min';
-    document.getElementById('pp-'+ph).textContent='· '+pcts[ph]+'%';
-  });
-
-  // Frequência cardíaca
-  if(S.hrLog.length){
-    const b=S.hrLog.map(x=>x.bpm);
-    document.getElementById('fc-avg').textContent=Math.round(b.reduce((a,c)=>a+c,0)/b.length);
-    document.getElementById('fc-max').textContent=Math.max(...b);
-    document.getElementById('fc-min').textContent=Math.min(...b);
-    drawChart('fc-canvas',S.hrLog.map(x=>({t:x.t,v:x.bpm})),S.startTime,'#f87171');
-  } else ['fc-avg','fc-max','fc-min'].forEach(id=>document.getElementById(id).textContent='--');
-
-  // Respiração
-  if(S.rrLog.length){
-    const r=S.rrLog.map(x=>x.rr);
-    document.getElementById('rr-avg').textContent=Math.round(r.reduce((a,c)=>a+c,0)/r.length);
-    document.getElementById('rr-max').textContent=Math.max(...r);
-    document.getElementById('rr-min').textContent=Math.min(...r);
-    drawChart('rr-canvas',S.rrLog.map(x=>({t:x.t,v:x.rr})),S.startTime,'#4ade80');
-  } else ['rr-avg','rr-max','rr-min'].forEach(id=>document.getElementById(id).textContent='--');
-
-  buildMural(totalMin,pcts);
-
-  // ── GAMMA ──
-  const gammaDetected = checkGamma(totalMin, pcts, S.hrLog, S.rrLog);
-  const gammaBadge = document.getElementById('gamma-badge');
-  if(gammaDetected){
-    gammaBadge.classList.add('show');
-    document.getElementById('gamma-desc').textContent=
-      'Sua FC apresentou estabilidade excepcional combinada com Delta prolongado — padrão associado a ondas Gamma em meditadores experientes. Gamma (30–100Hz) é a onda de maior frequência, ligada a estados de consciência expandida, compaixão e insight profundo.';
-  } else {
-    gammaBadge.classList.remove('show');
-  }
-
-  // ── RESUMO POR IA ──
-  generateAISummary(totalMin, pcts, score, S.hrLog, S.rrLog, gammaDetected);
-}
-
-async function generateAISummary(totalMin, pcts, score, hrLog, rrLog, gamma){
-  const aiBody = document.getElementById('ai-body');
-  aiBody.innerHTML=`<div class="ai-loading"><div class="ai-dots"><span></span><span></span><span></span></div> Analisando sua sessão...</div>`;
-
-  const hrAvg = hrLog.length ? Math.round(hrLog.map(x=>x.bpm).reduce((a,b)=>a+b,0)/hrLog.length) : null;
-  const hrMin = hrLog.length ? Math.min(...hrLog.map(x=>x.bpm)) : null;
-  const rrAvg = rrLog.length ? Math.round(rrLog.map(x=>x.rr).reduce((a,b)=>a+b,0)/rrLog.length) : null;
-
-  const prompt = `Você é um neurocientista especialista em meditação. Analise esta sessão e escreva um parágrafo único de 4-6 linhas em português brasileiro, personalizado, direto ao ponto, sem listas, sem títulos. Use linguagem acessível mas científica. Seja específico com os dados fornecidos.
-
-Dados da sessão:
-- Duração total: ${totalMin} minutos
-- Alfa: ${pcts.alfa}% do tempo (${Math.round(totalMin*pcts.alfa/100)} min)
-- Theta: ${pcts.teta}% do tempo (${Math.round(totalMin*pcts.teta/100)} min)  
-- Delta: ${pcts.delta}% do tempo (${Math.round(totalMin*pcts.delta/100)} min)
-- Score: ${score}/100
-${hrAvg ? `- FC média: ${hrAvg} bpm, mínima: ${hrMin} bpm` : '- FC: não medida'}
-${rrAvg ? `- Respiração média: ${rrAvg} resp/min` : '- Respiração: não medida'}
-${gamma ? '- Padrão Gamma detectado: FC excepcionalmente estável com Delta prolongado' : ''}
-
-Explique o que aconteceu no cérebro e corpo dessa pessoa nessa sessão específica, mencionando os neurotransmissores e processos ativados proporcionalmente ao tempo em cada fase. Termine com uma observação motivadora baseada nos dados.`;
-
-  try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.map(c=>c.text||'').join('').trim();
-    if(text){
-      aiBody.style.opacity='0';
-      aiBody.style.transition='opacity 0.5s ease';
-      setTimeout(()=>{
-        aiBody.textContent=text;
-        aiBody.style.opacity='1';
-      },300);
-    } else {
-      aiBody.textContent='Sessão registrada. Continue praticando para obter análises mais detalhadas.';
-    }
-  }catch(e){
-    aiBody.textContent='Análise indisponível no momento. Seus dados foram salvos.';
-  }
-
-function buildMural(totalMin,pcts){
-  const list=document.getElementById('mural-list');
-  list.innerHTML='';
-  const events=MURAL.filter(e=>e.min<=totalMin);
-  // Insight final baseado na sessão
-  if(pcts.delta>20)
-    events.push({min:totalMin,ph:'insight',ev:'Delta atingido — regeneração ativa',desc:'Você atingiu ondas Delta conscientes — estado alcançado por menos de 5% dos meditadores. Hormônio do crescimento e autofagia em plena ação.'});
-  else if(pcts.teta>40)
-    events.push({min:totalMin,ph:'insight',ev:'Theta dominante — subconsciente acessado',desc:'Mais de 40% do tempo em ondas Theta indica meditação profunda. GABA e dopamina elevados. Memória e criatividade reforçadas.'});
-  else
-    events.push({min:totalMin,ph:'insight',ev:'Ondas Alfa consolidadas',desc:'Sessão de relaxamento sólido. Cortisol reduzido, serotonina elevada. Base para aprofundar nas próximas sessões.'});
-
-  events.forEach((ev,i)=>{
-    const isLast=i===events.length-1;
-    const item=document.createElement('div');
-    item.className='mural-item '+(ev.ph||ev.phase||'alfa');
-    item.innerHTML=`
-      <div class="mural-left">
-        <div class="mural-dot"></div>
-        ${!isLast?'<div class="mural-line"></div>':''}
-      </div>
-      <div class="mural-body">
-        <div class="mural-tag">${ev.min}min</div>
-        <div class="mural-ev">${ev.ev}</div>
-        <div class="mural-desc">${ev.desc}</div>
-      </div>`;
-    list.appendChild(item);
+  
+  ['alfa','theta','delta'].forEach(ph=>{
+    const hf=document.getElementById('hf-'+ph), hp=document.getElementById('hp-'+ph);
+    if(hf)hf.style.width=pcts[ph]+'%';if(hp)hp.textContent=pcts[ph]+'%';
   });
 }
 
-function drawChart(id,data,startTime,color){
-  const canvas=document.getElementById(id);
-  if(!canvas) return;
-  const W=canvas.parentElement.offsetWidth*2,H=104;
-  canvas.width=W;canvas.height=H;
-  canvas.style.width=canvas.parentElement.offsetWidth+'px';
-  canvas.style.height='52px';
-  const ctx=canvas.getContext('2d');
-  if(data.length<2) return;
-  const vals=data.map(x=>x.v);
-  const minV=Math.min(...vals)-2,maxV=Math.max(...vals)+2;
-  const total=(data[data.length-1].t-startTime)||1;
-  const grd=ctx.createLinearGradient(0,0,0,H);
-  grd.addColorStop(0,color+'44');grd.addColorStop(1,color+'00');
-  ctx.beginPath();
-  data.forEach((pt,i)=>{
-    const x=(pt.t-startTime)/total*W;
-    const y=H-((pt.v-minV)/(maxV-minV))*H;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();
-  ctx.fillStyle=grd;ctx.fill();
-  ctx.beginPath();
-  data.forEach((pt,i)=>{
-    const x=(pt.t-startTime)/total*W;
-    const y=H-((pt.v-minV)/(maxV-minV))*H;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.strokeStyle=color;ctx.lineWidth=3;ctx.lineJoin='round';ctx.stroke();
-}
-
-// ══ HISTÓRICO ══════════════════════════════════════════
-function saveSession(totalMin, pcts, score){
-  try{
-    const sessions = JSON.parse(localStorage.getItem('mw_sessions')||'[]');
-    sessions.unshift({
-      date: Date.now(),
-      dur: totalMin,
-      pcts,
-      score,
-      mode: S.breathMode,
-    });
-    // Manter só últimas 30
-    localStorage.setItem('mw_sessions', JSON.stringify(sessions.slice(0,30)));
-  }catch(e){}
-}
-
-function loadHistory(){
-  try{ return JSON.parse(localStorage.getItem('mw_sessions')||'[]'); }
-  catch(e){ return []; }
-}
-
-function renderHistory(){
-  const list = document.getElementById('hist-list');
-  if(!list) return;
-  const sessions = loadHistory();
-  if(!sessions.length){
-    list.innerHTML='<div class="hist-empty">Nenhuma sessão ainda.<br>Complete sua primeira meditação!</div>';
-    return;
-  }
-  list.innerHTML='';
-  sessions.forEach(s=>{
-    const d = new Date(s.date);
-    const day = String(d.getDate()).padStart(2,'0');
-    const mon = d.toLocaleDateString('pt-BR',{month:'short'}).toUpperCase();
-    const time = String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-    const dur = s.dur >= 60 ? Math.floor(s.dur/60)+'h '+( s.dur%60 ? s.dur%60+'min' : '') : s.dur+'min';
-    const sc = s.score>=80?'s-great':s.score>=55?'s-good':'s-ok';
-    const scLbl = s.score>=80?'Excelente':s.score>=55?'Muito Boa':s.score>=40?'Boa':'Início';
-    const item = document.createElement('div');
-    item.className='hist-item';
-    item.innerHTML=`
-      <div class="hi-date"><div class="hi-d">${day}</div><div class="hi-m">${mon}</div></div>
-      <div class="hi-bar">
-        <div class="hi-strip">
-          <div class="hi-seg alfa" style="width:${s.pcts.alfa}%"></div>
-          <div class="hi-seg teta" style="width:${s.pcts.teta}%"></div>
-          <div class="hi-seg delta" style="width:${s.pcts.delta}%"></div>
-        </div>
-        <div class="hi-meta">${time} · α${s.pcts.alfa}% θ${s.pcts.teta}% δ${s.pcts.delta}%</div>
-      </div>
-      <div class="hi-right">
-        <div class="hi-dur">${dur}</div>
-        <div class="hi-score ${sc}">${scLbl} ${s.score}</div>
-      </div>`;
-    list.appendChild(item);
-  });
-}
-
-function calcStreak(){
-  const sessions = loadHistory();
-  if(!sessions.length) return {streak:0, best:0, days:[]};
-
-  // Dias únicos com sessão (formato YYYY-MM-DD)
-  const daySet = new Set(sessions.map(s=>{
-    const d=new Date(s.date);
-    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-  }));
-
-  // Streak atual (de hoje para trás)
-  let streak=0;
-  const now=new Date();
-  for(let i=0;i<365;i++){
-    const d=new Date(now);
-    d.setDate(d.getDate()-i);
-    const key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-    if(daySet.has(key)) streak++;
-    else if(i>0) break;
-  }
-
-  // Melhor streak
-  const sortedDays=[...daySet].sort();
-  let best=1, cur=1;
-  for(let i=1;i<sortedDays.length;i++){
-    const prev=new Date(sortedDays[i-1].replace(/-/g,'/'));
-    const curr=new Date(sortedDays[i].replace(/-/g,'/'));
-    const diff=(curr-prev)/(1000*60*60*24);
-    if(diff===1){ cur++; best=Math.max(best,cur); }
-    else cur=1;
-  }
-
-  // Últimos 7 dias para os pontos
-  const days=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date(now);
-    d.setDate(d.getDate()-i);
-    const key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-    days.push(daySet.has(key));
-  }
-
-  return {streak, best, days};
-}
-
-function renderStreak(){
-  const {streak, best, days} = calcStreak();
-  const numEl=document.getElementById('streak-num');
-  const dotsEl=document.getElementById('streak-dots');
-  const bestEl=document.getElementById('streak-best');
-  if(!numEl) return;
-  numEl.textContent = streak;
-  bestEl.innerHTML = `Melhor<br><strong style="font-family:'Lilita One',cursive;font-size:1rem;color:var(--org)">${best}</strong>`;
-  dotsEl.innerHTML = days.map(d=>`<div class="sd${d?' done':''}"></div>`).join('');
-}
-
-// ══ NOVA SESSÃO ════════════════════════════════════════
-document.getElementById('btn-new').addEventListener('click',()=>{
-  renderStreak();
-  renderHistory();
-  showScreen('sc-home');
-});
-
-// ══ TELA CHEIA ═════════════════════════════════════════
-const appEl=document.getElementById('main-app');
-const goFull=()=>{
-  if(!document.fullscreenElement) appEl.requestFullscreen().catch(()=>{});
-  document.removeEventListener('click',goFull);
-  document.removeEventListener('touchstart',goFull);
-};
-document.addEventListener('click',goFull);
-document.addEventListener('touchstart',goFull);
-
-// ══ SERVICE WORKER ═════════════════════════════════════
-if('serviceWorker' in navigator)
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-
-// ══ BANNER INSTALAR ════════════════════════════════════
-let dPrm=null;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();dPrm=e;
-  document.getElementById('ib').classList.add('show');
-});
-document.getElementById('ib-y').addEventListener('click',async()=>{
-  document.getElementById('ib').classList.remove('show');
-  if(dPrm){dPrm.prompt();await dPrm.userChoice;dPrm=null;}
-});
-document.getElementById('ib-n').addEventListener('click',()=>
-  document.getElementById('ib').classList.remove('show'));
-window.addEventListener('appinstalled',()=>
-  document.getElementById('ib').classList.remove('show'));
-
-// ══ SPLASH ═════════════════════════════════════════════
 window.addEventListener('load',()=>{
   setTimeout(()=>{
     document.getElementById('splash').classList.add('hide');
-    setTimeout(()=>{
-      const s=document.getElementById('splash');
-      if(s) s.remove();
-    },900);
-  },2200);
+    setTimeout(()=>{const s=document.getElementById('splash');if(s)s.remove();},1000);
+  },2000);
 });
 
-showScreen('sc-home');
-renderStreak();
-renderHistory();
+updateHomeModeInfo(); renderMiniStats(); showScreen('sc-home');
 </script>
 </body>
 </html>
