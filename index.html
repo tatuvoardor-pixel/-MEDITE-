@@ -1300,32 +1300,63 @@ function buildReport(totalMin,pcts,score){
   generateAI(totalMin,pcts,score,gamma);
 }
 
-async function generateAI(totalMin,pcts,score,gamma){
-  const body=document.getElementById('ai-body');if(!body)return;
-  body.innerHTML='<div class="ai-load"><div class="ai-dots"><span></span><span></span><span></span></div> Processando dados neurais...</div>';
-  const hrAvg=S.hrLog.length?Math.round(S.hrLog.map(x=>x.bpm).reduce((a,b)=>a+b,0)/S.hrLog.length):null;
-  const hrMin=S.hrLog.length?Math.min(...S.hrLog.map(x=>x.bpm)):null;
-  const rrAvg=S.rrLog.length?Math.round(S.rrLog.map(x=>x.rr).reduce((a,b)=>a+b,0)/S.rrLog.length):null;
-  const mNm={wake:'Prime Neural',focus:'Estado de Flow',deep:'Recuperação Profunda',sleep:'Indução ao Sono',heart:'Coerência Vagal',free:'Livre',sos:'S.O.S. Reset'};
-  const prompt=`Você é um neurocientista especialista em meditação e performance cognitiva. Escreva um parágrafo único de 5-6 linhas em português brasileiro. Tom direto, científico e motivador — como um coach de alta performance. Sem listas, sem títulos, sem markdown.
+// ══ ANÁLISE "IA" LOCAL E OFFLINE ════════════════════════════
+function generateAI(totalMin, pcts, score, gamma) {
+  const body = document.getElementById('ai-body');
+  if (!body) return;
+  
+  body.innerHTML = '<div class="ai-load"><div class="ai-dots"><span></span><span></span><span></span></div> Processando dados neurais...</div>';
+  
+  const hrAvg = S.hrLog.length ? Math.round(S.hrLog.map(x => x.bpm).reduce((a, b) => a + b, 0) / S.hrLog.length) : null;
+  const rrAvg = S.rrLog.length ? Math.round(S.rrLog.map(x => x.rr).reduce((a, b) => a + b, 0) / S.rrLog.length) : null;
+  const mNm = { wake: 'Prime Neural', focus: 'Estado de Flow', deep: 'Recuperação Profunda', sleep: 'Indução ao Sono', heart: 'Coerência Vagal', free: 'Livre', sos: 'S.O.S. Reset' };
 
-Protocolo: ${mNm[S.breathMode]||'Livre'} · Duração: ${totalMin} min
-Alpha: ${pcts.alfa}% (${Math.round(totalMin*pcts.alfa/100)} min) · Theta: ${pcts.theta}% (${Math.round(totalMin*pcts.theta/100)} min) · Delta: ${pcts.delta}% (${Math.round(totalMin*pcts.delta/100)} min)
-Score: ${score}/100
-${hrAvg?`FC média: ${hrAvg} bpm, mínima: ${hrMin} bpm`:''}${rrAvg?` · Respiração: ${rrAvg} resp/min`:''}
-${S.intention?`Intenção: "${S.intention}"`:''}
-${gamma?'Padrão Gamma detectado (FC estável + Delta prolongado — Harvard PNAS 2025)':''}
+  setTimeout(() => {
+    let text = `Sessão de ${mNm[S.breathMode] || 'Livre'} concluída (${totalMin} min). `;
+    
+    if (S.intention) {
+      text += `Intenção processada: "${S.intention}". `;
+    }
 
-Explique o que aconteceu no sistema nervoso, neurotransmissores e ondas cerebrais. Use os dados reais. Termine com avaliação direta do desempenho.`;
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();
-    const text=data.content?.map(c=>c.text||'').join('').trim();
-    if(text){
-      body.style.opacity='0';body.style.transition='opacity 0.5s';
-      setTimeout(()=>{body.textContent=text;body.style.opacity='1';},400);
-    } else body.textContent='Dados registrados. Continue a sequência de protocolos.';
-  }catch(e){body.textContent='Análise neural indisponível. Dados salvos com sucesso.';}
+    // Análise da onda dominante
+    if (pcts.delta >= pcts.theta && pcts.delta >= pcts.alfa) {
+      text += `Onda Delta dominante (${pcts.delta}%), sinalizando regeneração celular profunda, liberação de GH e máxima atividade parassimpática. `;
+    } else if (pcts.theta >= pcts.alfa) {
+      text += `Onda Theta predominante (${pcts.theta}%), indicando acesso ao subconsciente, alta plasticidade sináptica e isolamento cortical eficiente. `;
+    } else {
+      text += `Onda Alpha sustentada (${pcts.alfa}%), refletindo um estado de relaxamento consciente e redução expressiva do cortisol sistêmico. `;
+    }
+
+    // Análise Gamma (se detectada)
+    if (gamma) {
+      text += "Padrão Gamma extraordinário detectado: a alta coerência cardíaca em conjunto com as ondas lentas gerou uma hiper-sincronização neural. ";
+    }
+
+    // Métricas Autonômicas
+    if (hrAvg || rrAvg) {
+      text += `Métricas consolidadas ` + 
+              (hrAvg ? `com FC média de ${hrAvg} bpm ` : "") + 
+              (rrAvg ? `e ritmo respiratório estabilizado a ${rrAvg} rpm. ` : ".");
+    }
+
+    // Avaliação Final baseada no Score
+    if (score >= 80) {
+      text += " Comando absoluto do sistema nervoso. Excelente adaptação fisiológica.";
+    } else if (score >= 55) {
+      text += " Bom controle alcançado. A sincronização cérebro-coração está em evolução constante.";
+    } else {
+      text += " Processo de estabilização em andamento. Mantenha a consistência para aprofundar a resposta neural.";
+    }
+
+    // Exibe o texto com transição suave
+    body.style.opacity = '0';
+    body.style.transition = 'opacity 0.5s';
+    setTimeout(() => {
+      body.textContent = text.trim();
+      body.style.opacity = '1';
+    }, 400);
+
+  }, 1500); // 1.5s de delay simulando o cálculo
 }
 
 function drawChart(id,data,startTime,color){
