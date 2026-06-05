@@ -744,9 +744,9 @@ function openDrawer(type){
         <div class="hrv-dc-top">
           <div class="hrv-dc-left">
             <div class="hrv-dc-titulo">❤️ HRV Matinal</div>
-            <div class="hrv-dc-sub">RMSSD · 5 min deitado · cinta conectada</div>
+            <div class="hrv-dc-sub">RMSSD · 5 min deitado · sensor conectado</div>
             <div class="hrv-m-bar" style="margin-top:6px;"><div class="hrv-m-fill" id="hrv-m-fill" style="width:0%"></div></div>
-            <div class="hrv-dc-sub" id="hrv-m-status" style="margin-top:4px;color:var(--t2);">Conecte a cinta para medir</div>
+            <div class="hrv-dc-sub" id="hrv-m-status" style="margin-top:4px;color:var(--t2);">Conecte o sensor para medir</div>
           </div>
           <div>
             <div class="hrv-dc-val" id="hrv-m-val">--</div>
@@ -1008,7 +1008,7 @@ function speak(text,rate=0.78,pitch=0.88){
 
 // ══ HRV MATINAL ═══════════════════════════════════════
 function handleHRVClick(){
-  if(!S.btOn){alert('Conecte a cinta cardíaca primeiro.');return;}
+  if(!S.btOn){alert('Conecte o sensor cardíaco primeiro.');return;}
   if(S.hrvMorning.active){
     // Encerrar medição
     clearInterval(S.hrvMorning.timer);
@@ -1326,7 +1326,7 @@ function generateAI(totalMin,pcts,score,gamma){
       if(pcts.alfa>40){
         txt+='Coerência Vagal bem estabelecida: padrão Alpha dominante ('+pcts.alfa+'%) confirma ativação do sistema nervoso parassimpático. A respiração em 5-6 ciclos/minuto sincroniza oscilações cardíacas com pressão arterial — estado de HRV coherence validado por Medicine International (2025 — correlação r=0.88 entre RMSSD e tônus vagal). Scientific Reports (2025) confirma que respiração diafragmática profunda ativa o núcleo do trato solitário no tronco cerebral, que ativa diretamente o nervo vago. Cortisol suprimido, GABA e serotonina em ascensão. ';
       } else {
-        txt+='Protocolo de Coerência Vagal iniciado. A sincronização cardiorrespiratória requer prática consistente. Frontiers in Cardiovascular Medicine (2025) confirma: 6 semanas de HRV biofeedback aumentam SDNN em 20-30ms e melhoram distância de caminhada de 6 minutos. O protocolo de 5-6 respirações/minuto (frequência de ressonância cardíaca) é o mais validado cientificamente — sincroniza oscilações barorreflexas para maximizar RMSSD. ';
+        txt+='✅ Coerência Vagal — 5-6 resp/min. Parassimpático ativado. HRV em ascensão. ';
       }
     } else if(S.breathMode==='focus'){
       // Estado de Flow — Alpha+Theta
@@ -1341,13 +1341,13 @@ function generateAI(totalMin,pcts,score,gamma){
       if(pcts.delta>30){
         txt+='Delta dominante ('+pcts.delta+'%) — recuperação profunda ativada. Ondas Delta (0,5-4Hz) sinalizam ativação máxima do sistema nervoso parassimpático. GH (hormônio do crescimento) é secretado em pulsos durante Delta profundo — essencial para reparar as microlesões do trabalho físico pesado. PNAS Harvard 2025 confirmou que trabalhadores físicos têm maiores ganhos de GH em sessões Delta mediadas que a população geral. ';
       } else {
-        txt+='Sessão de recuperação ativa: '+totalMin+' minutos de downregulation neural. Sistema simpático em queda, parassimpático em ascensão. Para trabalhadores com turno noturno, esta prática compensa a inversão circadiana ao ativar o eixo vagal sem depender do horário. ';
+        txt+='✅ '+totalMin+'min de downregulation. Simpático caindo, parassimpático subindo. ';
       }
     } else if(S.breathMode==='wake'){
       // Prime Neural — Beta/Gamma
-      txt+='Prime Neural: ativação cortical controlada. A respiração estimulante eleva Beta (13-30Hz) — estado de alerta e foco executivo. Córtex pré-frontal ativado: tomada de decisão, planejamento, controle inibitório aprimorados. Dopamina e noradrenalina em ascensão. Score de '+score+'/100 indica qualidade do estado de ativação atingido. ';
+      txt+='⚡ Prime Neural score '+score+'/100. Alerta e foco ativados. ';
     } else if(S.breathMode==='sos'){
-      txt+='Protocolo S.O.S. executado: reset do sistema nervoso autonômico. A respiração lenta e profunda ativa o reflexo de Hering-Breuer — mecanorreceptores pulmonares estimulam o núcleo do trato solitário no tronco cerebral, que ativa diretamente o nervo vago. Resultado: FC reduzida, cortisol suprimido, GABA aumentado em minutos. ';
+      txt+='🆘 S.O.S. executado. FC reduzida, cortisol suprimido. Reset completo. ';
     } else {
       txt+='Sessão de '+totalMin+' minutos completada. Alpha em '+pcts.alfa+'%, Theta em '+pcts.theta+'%, Delta em '+pcts.delta+'%. Score '+score+'/100. ';
     }
@@ -1371,12 +1371,12 @@ function generateAI(totalMin,pcts,score,gamma){
 
     // ── BLOCO 3: Gamma (estado especial) ──
     if(gamma){
-      txt+='Padrão Gamma detectado: FC estável + Delta prolongado — assinatura de estados meditativos avançados documentada por Harvard PNAS 2025 em meditadores experientes. Excepcional. ';
+      txt+='🌟 Padrão Gamma detectado. Estado meditativo profundo. Excepcional. ';
     }
 
     // ── BLOCO 3b: Contexto turno noturno ──
     if(S.breathMode==='heart'||S.breathMode==='deep'){
-      txt+='Especialmente relevante para turno noturno: a inversão circadiana eleva o tônus simpático basal e suprime a variabilidade cardíaca basal (Journal Circadian Rhythms, 2024). Sessões regulares de coerência vagal e recuperação ativa compensam esse desequilíbrio — ativam o parassimpático sem depender do horário solar. ';
+      txt+='→ Para turno noturno: sessões regulares compensam o desequilíbrio circadiano. ';
     }
     // ── BLOCO 4: Intenção da sessão ──
     if(S.intention&&S.intention.length>2){
