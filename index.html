@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- MAX.CORE © 2025 — Todos os direitos reservados -->
-<!-- Criado por: Eliezer Silva Giorni — Versão 1.2 -->
+<!-- Criado por: Eliezer Silva Giorni — Versão 2.1 -->
+<!-- CORREÇÕES V2.1: Lilita One, letter-spacing:0, SVG simples, sem template literal aninhado, updateModeInfo fix -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -9,79 +10,80 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-title" content="MAX.CORE">
 <meta name="theme-color" content="#09090b">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Oswald:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- FIX 1: Lilita One no lugar de Fredoka -->
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Oswald:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script>
 (function(){
-  // Ícone: cérebro estilizado com ondas — fundo preto puro
-  const ico=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-    <rect width="512" height="512" rx="112" fill="#09090b"/>
-    <path d="M80 230 Q140 165 200 230 Q260 295 320 230 Q380 165 440 230" fill="none" stroke="#3b82f6" stroke-width="26" stroke-linecap="round"/>
-    <path d="M80 272 Q140 207 200 272 Q260 337 320 272 Q380 207 440 272" fill="none" stroke="#8b5cf6" stroke-width="18" stroke-linecap="round" opacity="0.88"/>
-    <path d="M80 308 Q140 247 200 308 Q260 369 320 308 Q380 247 440 308" fill="none" stroke="#4f46e5" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
-  </svg>`;
-  const iUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ico);
-  const mf={name:"MAX.CORE",short_name:"MAX.CORE",display:"fullscreen",orientation:"portrait",start_url:"./index.html",scope:"./",background_color:"#09090b",theme_color:"#09090b",icons:[{src:iUrl,sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
-  const ml=document.createElement('link');ml.rel='manifest';ml.href='data:application/manifest+json;charset=utf-8,'+encodeURIComponent(JSON.stringify(mf));document.head.appendChild(ml);
-  const il=document.createElement('link');il.rel='apple-touch-icon';il.href=iUrl;document.head.appendChild(il);
-  const isl=document.createElement('link');isl.rel='apple-touch-startup-image';isl.href=iUrl;document.head.appendChild(isl);
+  // FIX 3: SVG ícone com formas simples — sem <path> complexo
+  var ico = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">' +
+    '<rect width="512" height="512" rx="112" fill="#09090b"/>' +
+    '<polyline points="60,230 130,175 200,230 270,285 340,230 410,175 460,200" fill="none" stroke="#3b82f6" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<polyline points="60,272 130,217 200,272 270,327 340,272 410,217 460,242" fill="none" stroke="#8b5cf6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.88"/>' +
+    '<polyline points="60,308 130,255 200,308 270,361 340,308 410,255 460,280" fill="none" stroke="#4f46e5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.72"/>' +
+    '</svg>';
+  var iUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(ico);
+  var mf = {
+    name:'MAX.CORE', short_name:'MAX.CORE', display:'fullscreen',
+    orientation:'portrait', start_url:'./', background_color:'#09090b',
+    theme_color:'#09090b',
+    icons:[{src:iUrl, sizes:'512x512', type:'image/svg+xml', purpose:'any maskable'}]
+  };
+  var ml = document.createElement('link');
+  ml.rel = 'manifest';
+  ml.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(mf));
+  document.head.appendChild(ml);
+  var il = document.createElement('link');
+  il.rel = 'apple-touch-icon';
+  il.href = iUrl;
+  document.head.appendChild(il);
 })();
 </script>
 <style>
 :root{
-  --bg:#09090b; --s1:#111114; --s2:#18181c; --s3:#242428; --bd:#36363e;
-  --tx:#f4f4f5; --t2:#a1a1aa; --t3:#62626e;
-  --alfa:#3b82f6; --alfa-d:#3b82f612; --alfa-m:#3b82f645;
-  --theta:#8b5cf6; --theta-d:#8b5cf612; --theta-m:#8b5cf645;
-  --delta:#4f46e5; --delta-d:#4f46e512; --delta-m:#4f46e545;
-  --heart:#e11d48; --heart-d:#e11d4812; --heart-m:#e11d4845;
-  --sos:#ef4444; --sos-d:#ef444412;
+  --bg:#09090b;--s1:#111114;--s2:#18181c;--s3:#242428;--bd:#36363e;
+  --tx:#f4f4f5;--t2:#a1a1aa;--t3:#62626e;
+  --alfa:#3b82f6;--alfa-d:#3b82f612;--alfa-m:#3b82f645;
+  --theta:#8b5cf6;--theta-d:#8b5cf612;--theta-m:#8b5cf645;
+  --delta:#4f46e5;--delta-d:#4f46e512;--delta-m:#4f46e545;
+  --heart:#e11d48;--heart-d:#e11d4812;--heart-m:#e11d4845;
+  --sos:#ef4444;--sos-d:#ef444412;
   --gamma:#f59e0b;
-  --grn:#10b981; --org:#f97316; --red:#ef4444;
+  --grn:#10b981;--org:#f97316;--red:#ef4444;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body,html{width:100%;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Inter',sans-serif;}
+/* FIX 2: letter-spacing ZERO em todos os elementos */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;letter-spacing:0!important;}
+html,body{width:100%;max-width:100vw;height:100%;background:var(--bg);color:var(--tx);overflow:hidden;position:fixed;top:0;left:0;font-family:'Inter',sans-serif;}
 button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:inherit;cursor:pointer;outline:none;text-align:left;}
-
-/* ── FUNDO — ONDAS CEREBRAIS VIVAS ── */
-.bg-waves{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-waves{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .bg-waves canvas{position:absolute;inset:0;width:100%;height:100%;}
-
-/* ── SPLASH ── */
 #splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:999;transition:opacity 0.9s ease;padding:0 30px;}
 #splash.hide{opacity:0;pointer-events:none;}
 #splash .sp-waves{width:60px;height:28px;animation:spUp 1s ease forwards;opacity:0;}
-#splash .sp-name{font-family:'Fredoka',sans-serif;font-size:1.4rem;letter-spacing:2px;background:linear-gradient(120deg,var(--alfa),var(--theta),var(--delta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:spUp 1s 0.2s ease forwards,spPulse 2.5s 1.2s ease-in-out infinite;opacity:0;text-align:center;width:100%;padding:0 40px;}
-#splash .sp-sub{font-family:'Roboto Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);animation:spUp 1s 0.4s ease forwards;opacity:0;text-align:center;max-width:90vw;}
+/* FIX 1: Lilita One */
+#splash .sp-name{font-family:'Lilita One',cursive;font-size:1.4rem;background:linear-gradient(120deg,var(--alfa),var(--theta),var(--delta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:spUp 1s 0.2s ease forwards,spPulse 2.5s 1.2s ease-in-out infinite;opacity:0;text-align:center;}
+#splash .sp-sub{font-family:'Roboto Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:var(--t3);animation:spUp 1s 0.4s ease forwards;opacity:0;}
 #splash::before{content:'';position:absolute;width:min(240px,65vw);height:min(240px,65vw);border-radius:50%;background:radial-gradient(circle,#3b82f618 0%,#8b5cf610 40%,transparent 70%);animation:spGlow 2s 0.8s ease forwards;opacity:0;pointer-events:none;}
 @keyframes spUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 @keyframes spPulse{0%,100%{filter:brightness(1);}50%{filter:brightness(1.25);}}
 @keyframes spGlow{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
-
-/* ── DIM ── */
 #dim{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:50;transition:opacity 1.8s ease;display:flex;align-items:center;justify-content:center;}
 #dim.on{opacity:0.98;pointer-events:all;}
-#dim-hint{font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:#1e1e1e;animation:dh 5s ease-in-out infinite;}
+#dim-hint{font-family:'Roboto Mono',monospace;font-size:0.65rem;text-transform:uppercase;color:#1e1e1e;animation:dh 5s ease-in-out infinite;}
 @keyframes dh{0%,100%{opacity:0;}50%{opacity:1;}}
-
-/* ── DRAWER ── */
 #dov{position:fixed;inset:0;background:#000000bb;z-index:80;opacity:0;pointer-events:none;transition:opacity 0.3s;}
 #dov.on{opacity:1;pointer-events:all;}
 #drawer{position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-top:1px solid var(--bd);z-index:90;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);max-height:90vh;display:flex;flex-direction:column;}
 #drawer.on{transform:translateY(0);}
 .dh{width:44px;height:4px;background:var(--s3);margin:12px auto 0;border-radius:2px;}
-.dt{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);padding:14px 18px 0;letter-spacing:1px;}
+.dt{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);padding:14px 18px 0;}
 .ds{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px 36px;display:flex;flex-direction:column;gap:10px;}
-
-/* ── APP ── */
 .app{display:flex;flex-direction:column;width:100vw;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);position:relative;z-index:10;}
-
-/* ── HEADER ── */
 .hdr{padding:10px 8px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;width:100%;overflow:hidden;}
 .hlogo{display:flex;align-items:center;gap:6px;min-width:0;flex-shrink:0;}
-.hbtns{display:flex;gap:3px;flex-shrink:0;align-items:center;}.hlogo svg{width:26px;height:15px;flex-shrink:0;}
-.hname{font-family:'Fredoka',sans-serif;font-size:1rem;letter-spacing:1px;white-space:nowrap;}
+.hlogo svg{width:26px;height:15px;flex-shrink:0;}
+/* FIX 1: Lilita One */
+.hname{font-family:'Lilita One',cursive;font-size:1rem;white-space:nowrap;}
 .hbtns{display:flex;gap:4px;flex-shrink:0;align-items:center;}
 .pill{display:flex;align-items:center;gap:3px;background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:4px 6px;font-family:'Roboto Mono',monospace;font-size:0.52rem;font-weight:700;color:var(--t2);transition:all 0.2s;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .pill.on-a{border-color:var(--alfa);color:var(--alfa);}
@@ -92,39 +94,29 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .pill.on-g .pdot{background:var(--grn);animation:bl 1.4s infinite;}
 .pill.on-b .pdot{background:var(--gamma);animation:bl 1.4s infinite;}
 @keyframes bl{0%,100%{opacity:1;}50%{opacity:0.15;}}
-
-/* ── SCROLL ── */
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:0 13px 28px;display:flex;flex-direction:column;}
-
-/* ── CARD FLUTUANTE ── */
 .fc{background:var(--s1);border:1px solid rgba(255,255,255,0.055);box-shadow:0 12px 32px rgba(0,0,0,0.7),0 4px 12px rgba(0,0,0,0.4);border-radius:8px;}
-
-/* ── HOME ── */
 #sc-home{display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:0;}
-
 .greeting{text-align:center;margin-bottom:24px;}
-.gt{font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
-.gm{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);line-height:1.2;letter-spacing:1px;}
+.gt{font-family:'Roboto Mono',monospace;font-size:0.65rem;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
+.gm{font-family:'Oswald',sans-serif;font-size:1.3rem;text-transform:uppercase;color:var(--tx);line-height:1.2;}
 .gs{font-family:'Inter',sans-serif;font-size:0.82rem;color:var(--t2);margin-top:6px;line-height:1.5;}
-
-.big-start{width:100%;max-width:340px;padding:22px 20px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Fredoka',sans-serif;font-size:1.5rem;letter-spacing:1px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform 0.12s,opacity 0.12s;box-shadow:0 16px 40px rgba(0,0,0,0.8);}
+/* FIX 1: Lilita One */
+.big-start{width:100%;max-width:340px;padding:22px 20px;background:var(--tx);color:var(--bg);border-radius:8px;font-family:'Lilita One',cursive;font-size:1.5rem;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform 0.12s,opacity 0.12s;box-shadow:0 16px 40px rgba(0,0,0,0.8);}
 .big-start:active{transform:scale(0.97);opacity:0.9;}
-.bss{font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:2px;opacity:0.75;}
-
-.mini-stats{display:flex;gap:16px;margin-top:20px;margin-bottom:24px;justify-content:center;}
+.bss{font-family:'Roboto Mono',monospace;font-size:0.68rem;opacity:0.75;}
+.mini-stats{display:flex;gap:16px;margin-top:20px;margin-bottom:20px;justify-content:center;}
 .ms-item{display:flex;flex-direction:column;align-items:center;gap:1px;}
 .ms-val{font-family:'Roboto Mono',monospace;font-size:1.55rem;color:var(--tx);font-weight:700;}
-.ms-lbl{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);white-space:nowrap;}
-
-/* Calendário */
+.ms-lbl{font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;color:var(--t3);white-space:nowrap;}
 .cal-wrap{width:100%;max-width:340px;margin-bottom:20px;}
 .cal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.cal-lbl{font-family:'Roboto Mono',monospace;font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);}
+.cal-lbl{font-family:'Roboto Mono',monospace;font-size:0.62rem;text-transform:uppercase;color:var(--t3);}
 .cal-mon{font-family:'Oswald',sans-serif;font-size:0.9rem;text-transform:uppercase;color:var(--t2);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
 .cal-dl{font-family:'Roboto Mono',monospace;font-size:0.56rem;color:var(--t3);text-align:center;padding-bottom:2px;}
 .cal-dot{width:100%;aspect-ratio:1;border-radius:3px;background:var(--s2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.cal-dot.done{background:var(--theta-d);border-color:var(--theta);box-shadow:0 0 6px var(--theta-d);}
+.cal-dot.done{background:var(--theta-d);border-color:var(--theta);}
 .cal-dot.done-wake{background:rgba(249,115,22,0.1);border-color:#f97316;}
 .cal-dot.done-sleep{background:var(--delta-d);border-color:var(--delta);}
 .cal-dot.done-heart{background:var(--heart-d);border-color:var(--heart);}
@@ -133,17 +125,16 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .cal-dot.future{opacity:0.18;pointer-events:none;}
 .cal-dn{font-family:'Roboto Mono',monospace;font-size:0.56rem;color:var(--t3);}
 .cal-dot.done .cal-dn,.cal-dot.done-wake .cal-dn,.cal-dot.done-sleep .cal-dn,.cal-dot.done-heart .cal-dn,.cal-dot.done-sos .cal-dn{color:var(--tx);}
-
 .panels-row{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;}
 .pb{display:flex;align-items:center;gap:11px;padding:15px;border-radius:8px;width:100%;cursor:pointer;transition:transform 0.12s;}
 .pb:active{transform:scale(0.98);}
 .pi{font-size:1.1rem;flex-shrink:0;width:24px;text-align:center;}
 .pinfo{flex:1;}
-.pname{font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;color:var(--tx);letter-spacing:0.5px;}
-.pdesc{font-family:'Roboto Mono',monospace;font-size:0.6rem;letter-spacing:1px;color:var(--t3);margin-top:2px;text-transform:uppercase;}
+.pname{font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;color:var(--tx);}
+.pdesc{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t3);margin-top:2px;text-transform:uppercase;}
 .parr{font-family:'Roboto Mono',monospace;font-size:0.9rem;color:var(--t3);}
-
-/* ── DRAWER MODO ── */
+#mic-cal{display:none;align-items:center;gap:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:6px;padding:8px 12px;font-family:'Roboto Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--grn);margin-bottom:8px;}
+.mic-cal-dot{width:6px;height:6px;background:var(--grn);border-radius:1px;animation:bl 0.8s infinite;flex-shrink:0;}
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .mc{border-radius:8px;padding:13px;display:flex;flex-direction:column;gap:5px;cursor:pointer;transition:transform 0.12s;border:1px solid rgba(255,255,255,0.05);}
 .mc:active{transform:scale(0.97);}
@@ -156,7 +147,7 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .mc.sel.m-sos{border-color:var(--sos);}
 .mc.sel.m-free{border-color:var(--t2);}
 .mc.full{grid-column:1/-1;}
-.mn{font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;letter-spacing:0.5px;}
+.mn{font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;}
 .m-wake .mn{color:var(--org);}
 .m-focus .mn{color:var(--alfa);}
 .m-deep .mn{color:var(--theta);}
@@ -165,22 +156,22 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .m-sos .mn{color:var(--sos);}
 .m-free .mn{color:var(--t2);}
 .md{font-family:'Inter',sans-serif;font-size:0.68rem;color:var(--t2);line-height:1.4;}
-.ms{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t3);text-transform:uppercase;}
+.ms-d{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t3);text-transform:uppercase;}
 .intent-input{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-family:'Inter',sans-serif;font-size:0.88rem;padding:11px 13px;outline:none;resize:none;line-height:1.5;transition:border-color 0.2s;}
 .intent-input:focus{border-color:var(--theta);}
 .intent-input::placeholder{color:var(--t3);}
-
 .hrv-drawer-card{background:var(--heart-d);border:1px solid var(--heart-m);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-top:4px;}
 .hrv-dc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
 .hrv-dc-left{display:flex;flex-direction:column;gap:2px;}
-.hrv-dc-titulo{font-family:'Oswald',sans-serif;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;color:var(--heart);}
-.hrv-dc-sub{font-family:'Roboto Mono',monospace;font-size:0.52rem;color:var(--t3);letter-spacing:1px;text-transform:uppercase;}
-.hrv-dc-val{font-family:'Lilita One',cursive;font-size:2.4rem;color:var(--heart);line-height:1;text-align:right;}
-.hrv-dc-ms{font-family:'Roboto Mono',monospace;font-size:0.5rem;color:var(--t3);letter-spacing:1px;text-align:right;}
-.btn-confirm{width:100%;padding:15px;background:var(--tx);color:var(--bg);border-radius:6px;font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:1px;text-align:center;text-transform:uppercase;transition:opacity 0.12s;}
+.hrv-dc-titulo{font-family:'Oswald',sans-serif;font-size:0.9rem;text-transform:uppercase;color:var(--heart);}
+.hrv-dc-sub{font-family:'Roboto Mono',monospace;font-size:0.52rem;color:var(--t3);text-transform:uppercase;}
+.hrv-dc-val{font-family:'Roboto Mono',monospace;font-size:2.4rem;color:var(--heart);line-height:1;text-align:right;}
+.hrv-dc-ms{font-family:'Roboto Mono',monospace;font-size:0.5rem;color:var(--t3);text-align:right;}
+.hrv-m-bar{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;margin-top:6px;}
+.hrv-m-fill{height:100%;border-radius:2px;background:var(--heart);transition:width 1s ease;}
+.btn-confirm{width:100%;padding:15px;background:var(--tx);color:var(--bg);border-radius:6px;font-family:'Oswald',sans-serif;font-size:1rem;text-align:center;text-transform:uppercase;transition:opacity 0.12s;}
 .btn-confirm:active{opacity:0.85;}
-
-/* ── DRAWER HISTÓRICO ── */
+.btn-hrv-m{width:100%;padding:11px;background:var(--heart-d);color:var(--heart);border:1px solid var(--heart-m);border-radius:9px;font-family:'Oswald',sans-serif;font-size:0.85rem;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
 .hist-empty{font-family:'Roboto Mono',monospace;font-size:0.75rem;color:var(--t3);text-align:center;padding:24px 0;line-height:1.8;}
 .hi{display:flex;align-items:center;gap:11px;padding:13px;border-radius:8px;margin-bottom:8px;}
 .hi-date{display:flex;flex-direction:column;gap:1px;flex-shrink:0;width:30px;}
@@ -194,14 +185,12 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .hi-seg.delta{background:var(--delta);}
 .hi-meta{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t2);}
 .hi-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
-.hi-dur{font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:0.5px;}
+.hi-dur{font-family:'Oswald',sans-serif;font-size:1rem;}
 .hi-sc{font-family:'Roboto Mono',monospace;font-size:0.6rem;}
 .hi-sc.great{color:var(--alfa);}
 .hi-sc.good{color:var(--theta);}
 .hi-sc.ok{color:var(--t3);}
 .del-btn{font-family:'Roboto Mono',monospace;font-size:0.58rem;color:var(--red);background:#ef444412;padding:3px 7px;border-radius:3px;border:1px solid #ef444438;text-transform:uppercase;}
-
-/* ── DRAWER ONDAS ── */
 .wave-rows{display:flex;flex-direction:column;gap:8px;}
 .wr{display:flex;align-items:stretch;gap:10px;padding:13px;border-radius:8px;border:1px solid transparent;}
 .wr.r-a{background:var(--alfa-d);border-color:var(--alfa-m);}
@@ -213,7 +202,7 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .r-t .wd{background:var(--theta);}
 .r-d .wd{background:var(--delta);}
 .wi{flex:1;min-width:0;}
-.wn{font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;letter-spacing:0.5px;}
+.wn{font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;}
 .r-a .wn{color:var(--alfa);}
 .r-t .wn{color:var(--theta);}
 .r-d .wn{color:var(--delta);}
@@ -221,57 +210,44 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .wb{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;padding-top:1px;}
 .whz{font-family:'Roboto Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--t3);white-space:nowrap;}
 .wrng{font-family:'Roboto Mono',monospace;font-size:0.57rem;color:var(--t3);white-space:nowrap;}
-
-/* ── MEDITAÇÃO ── */
 .arena{border-radius:8px;padding:clamp(14px,4vw,22px) 12px clamp(12px,3vw,18px);display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid transparent;transition:background 1.2s,border-color 1.2s;margin-bottom:10px;overflow:hidden;width:100%;}
 .arena.alfa{background:var(--alfa-d);border-color:var(--alfa-m);}
 .arena.theta{background:var(--theta-d);border-color:var(--theta-m);}
 .arena.delta{background:var(--delta-d);border-color:var(--delta-m);}
 .arena.heart{background:var(--heart-d);border-color:var(--heart-m);}
 .arena svg.wv{width:clamp(50px,14vw,74px);height:auto;margin-bottom:4px;}
-.arena-ph{font-family:'Oswald',sans-serif;font-size:clamp(1.5rem,6vw,2.4rem);letter-spacing:2px;transition:color 1.2s;line-height:1;text-transform:uppercase;}
+.arena-ph{font-family:'Oswald',sans-serif;font-size:clamp(1.5rem,6vw,2.4rem);transition:color 1.2s;line-height:1;text-transform:uppercase;}
 .arena.alfa .arena-ph{color:var(--alfa);}
 .arena.theta .arena-ph{color:var(--theta);}
 .arena.delta .arena-ph{color:var(--delta);}
 .arena.heart .arena-ph{color:var(--heart);}
-.arena-hz{font-family:'Roboto Mono',monospace;font-size:clamp(0.55rem,2vw,0.68rem);letter-spacing:2px;text-transform:uppercase;color:var(--t2);text-align:center;}
-.arena-timer{font-family:'Roboto Mono',monospace;font-size:clamp(1.4rem,6vw,2.2rem);color:var(--tx);line-height:1;margin-top:4px;letter-spacing:-1px;}
-
+.arena-hz{font-family:'Roboto Mono',monospace;font-size:clamp(0.55rem,2vw,0.68rem);text-transform:uppercase;color:var(--t2);text-align:center;}
+.arena-timer{font-family:'Roboto Mono',monospace;font-size:clamp(1.4rem,6vw,2.2rem);color:var(--tx);line-height:1;margin-top:4px;}
 .bio-row{display:flex;gap:6px;margin-bottom:8px;}
 .bio-box{flex:1;border-radius:8px;padding:9px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;}
 .bv{font-family:'Roboto Mono',monospace;font-size:clamp(1rem,4vw,1.3rem);line-height:1;font-weight:700;}
-.bu{font-family:'Oswald',sans-serif;font-size:clamp(0.55rem,1.8vw,0.65rem);letter-spacing:1px;color:var(--t3);}
+.bu{font-family:'Oswald',sans-serif;font-size:clamp(0.55rem,1.8vw,0.65rem);color:var(--t3);}
 .bl2{font-family:'Inter',sans-serif;font-size:clamp(0.48rem,1.5vw,0.56rem);text-transform:uppercase;color:var(--t3);}
 .bio-hr .bv{color:var(--red);}
 .bio-rr .bv{color:var(--grn);}
 .bio-hrv .bv{color:var(--heart);}
-.hrv-morning{background:var(--heart-d);border:1px solid var(--heart-m);border-radius:10px;padding:13px;display:flex;flex-direction:column;gap:8px;}
-.hrv-m-titulo{font-family:'Oswald',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--heart);}
-.hrv-m-val{font-family:'Roboto Mono',monospace;font-size:2.8rem;font-weight:700;color:var(--heart);line-height:1;}
-.hrv-m-sub{font-family:'Roboto Mono',monospace;font-size:0.58rem;color:var(--t3);letter-spacing:1px;text-transform:uppercase;}
-.hrv-m-bar{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;margin-top:4px;}
-.hrv-m-fill{height:100%;border-radius:2px;background:var(--heart);transition:width 1s ease;}
-.btn-hrv-m{width:100%;padding:11px;background:var(--heart-d);color:var(--heart);border:1px solid var(--heart-m);border-radius:9px;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
 .bio-auto .bv{font-size:clamp(0.7rem,2.5vw,0.85rem);transition:color 0.5s;}
-
 .coh-wrap{border-radius:8px;padding:11px;display:flex;flex-direction:column;gap:7px;margin-bottom:8px;}
 .coh-top{display:flex;justify-content:space-between;align-items:center;}
 .coh-lbl{font-family:'Roboto Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--t3);}
 .coh-val{font-family:'Roboto Mono',monospace;font-size:0.9rem;color:var(--heart);font-weight:700;}
 .coh-bg{height:6px;background:var(--s3);border-radius:2px;overflow:hidden;}
 .coh-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--theta),var(--heart));transition:width 1s ease;}
-
 .bg-wrap{border-radius:8px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:8px;}
-.bg-lbl{font-family:'Roboto Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);text-align:center;}
+.bg-lbl{font-family:'Roboto Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--t3);text-align:center;}
 .bg-ring{position:relative;width:clamp(72px,20vw,92px);height:clamp(72px,20vw,92px);}
 .bg-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
 .bgct{fill:none;stroke:var(--s3);stroke-width:6;}
 .bgcf{fill:none;stroke-width:6;stroke-linecap:square;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 0.1s linear;}
 .bg-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
-.bg-act{font-family:'Oswald',sans-serif;font-size:clamp(0.65rem,2.5vw,0.82rem);letter-spacing:1px;text-transform:uppercase;}
+.bg-act{font-family:'Oswald',sans-serif;font-size:clamp(0.65rem,2.5vw,0.82rem);text-transform:uppercase;}
 .bg-cnt{font-family:'Roboto Mono',monospace;font-size:clamp(1.2rem,5vw,1.6rem);color:var(--tx);font-weight:700;line-height:1;}
 .bg-sub{font-family:'Inter',sans-serif;font-size:clamp(0.55rem,2vw,0.62rem);text-transform:uppercase;color:var(--t3);text-align:center;}
-
 .ph-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;}
 .ph-btn{padding:8px 4px;border-radius:7px;border:2px solid transparent;background:var(--s1);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all 0.2s;}
 .ph-btn.alfa{border-color:var(--alfa-m);}
@@ -280,27 +256,16 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .ph-btn.active.alfa{background:var(--alfa-d);border-color:var(--alfa);}
 .ph-btn.active.theta{background:var(--theta-d);border-color:var(--theta);}
 .ph-btn.active.delta{background:var(--delta-d);border-color:var(--delta);}
-.phn{font-family:'Oswald',sans-serif;font-size:clamp(0.7rem,2.5vw,0.82rem);text-transform:uppercase;letter-spacing:0.5px;}
+.phn{font-family:'Oswald',sans-serif;font-size:clamp(0.7rem,2.5vw,0.82rem);text-transform:uppercase;}
 .ph-btn.alfa .phn{color:var(--alfa);}
 .ph-btn.theta .phn{color:var(--theta);}
 .ph-btn.delta .phn{color:var(--delta);}
 .pht{font-family:'Roboto Mono',monospace;font-size:0.58rem;color:var(--t3);}
 .phd{font-family:'Roboto Mono',monospace;font-size:0.5rem;color:var(--grn);min-height:7px;}
-
-.btn-end{width:100%;padding:13px;background:transparent;color:var(--red);border:1px solid var(--red);border-radius:7px;font-family:'Oswald',sans-serif;font-size:clamp(0.85rem,3vw,1rem);letter-spacing:1px;text-transform:uppercase;transition:background 0.15s;}
+.btn-end{width:100%;padding:13px;background:transparent;color:var(--red);border:1px solid var(--red);border-radius:7px;font-family:'Oswald',sans-serif;font-size:clamp(0.85rem,3vw,1rem);text-transform:uppercase;transition:background 0.15s;}
 .btn-end:active{background:#ef444415;}
-
-/* ── CONFIRMAÇÃO ── */
-#sc-confirm{display:none;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;text-align:center;gap:18px;min-height:60vh;}
-.cf-title{font-family:'Oswald',sans-serif;font-size:2.2rem;text-transform:uppercase;color:var(--tx);letter-spacing:1px;}
-.cf-sub{font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--t2);line-height:1.6;max-width:280px;}
-.btn-save{width:100%;max-width:300px;padding:17px;background:var(--tx);color:var(--bg);border-radius:7px;font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:1px;text-transform:uppercase;transition:opacity 0.15s;}
-.btn-save:active{opacity:0.85;}
-.btn-discard{width:100%;max-width:300px;padding:17px;background:transparent;color:var(--t3);border:1px solid var(--bd);border-radius:7px;font-family:'Oswald',sans-serif;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;}
-
-/* ── RELATÓRIO ── */
 .rcard{border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:13px;margin-bottom:10px;}
-.rlbl{font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
+.rlbl{font-family:'Roboto Mono',monospace;font-size:0.68rem;text-transform:uppercase;color:var(--t3);}
 .rep-title{font-family:'Oswald',sans-serif;font-size:1.6rem;text-transform:uppercase;color:var(--tx);}
 .rep-dur{font-family:'Roboto Mono',monospace;font-size:3.2rem;color:var(--tx);font-weight:700;line-height:1;}
 .rep-intent{font-size:0.78rem;color:var(--t2);font-style:italic;padding:9px 12px;background:var(--s2);border-radius:6px;border-left:2px solid var(--theta);line-height:1.5;}
@@ -312,12 +277,10 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .srn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--tx);}
 .sc-lbl{font-family:'Oswald',sans-serif;font-size:1.2rem;text-transform:uppercase;color:var(--tx);}
 .sc-sub{font-family:'Inter',sans-serif;font-size:0.76rem;color:var(--t2);margin-top:3px;line-height:1.5;}
-
 .gamma-card{display:none;border-radius:8px;padding:13px;border:1px solid #f59e0b44;background:#f59e0b0e;flex-direction:column;gap:5px;margin-bottom:10px;}
 .gamma-card.show{display:flex;}
-.gamma-ttl{font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;color:var(--gamma);letter-spacing:0.5px;}
+.gamma-ttl{font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;color:var(--gamma);}
 .gamma-dsc{font-size:0.72rem;color:var(--t2);line-height:1.5;}
-
 .tm-strip{display:flex;height:22px;border-radius:3px;overflow:hidden;gap:1.5px;}
 .tm-m{flex:1;min-width:2px;}
 .tm-m.alfa{background:var(--alfa);}
@@ -325,7 +288,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .tm-m.delta{background:var(--delta);}
 .tm-m.empty{background:var(--s3);}
 .tm-axis{display:flex;justify-content:space-between;font-family:'Roboto Mono',monospace;font-size:0.56rem;color:var(--t3);margin-top:4px;}
-
 .hb-rows{display:flex;flex-direction:column;gap:8px;}
 .hb-row{display:flex;align-items:center;gap:9px;}
 .hb-lbl{font-family:'Oswald',sans-serif;font-size:0.82rem;width:46px;flex-shrink:0;text-transform:uppercase;}
@@ -341,7 +303,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .hb-row.alfa .hb-pct{color:var(--alfa);}
 .hb-row.theta .hb-pct{color:var(--theta);}
 .hb-row.delta .hb-pct{color:var(--delta);}
-
 .ps-rows{display:flex;flex-direction:column;gap:7px;}
 .ps-row{display:flex;align-items:center;gap:9px;padding:10px 11px;border-radius:7px;}
 .ps-row.alfa{background:var(--alfa-d);}
@@ -351,43 +312,41 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 .ps-row.alfa .ps-dot{background:var(--alfa);}
 .ps-row.theta .ps-dot{background:var(--theta);}
 .ps-row.delta .ps-dot{background:var(--delta);}
-.ps-nm{font-family:'Oswald',sans-serif;font-size:0.88rem;text-transform:uppercase;flex:1;letter-spacing:0.5px;}
+.ps-nm{font-family:'Oswald',sans-serif;font-size:0.88rem;text-transform:uppercase;flex:1;}
 .ps-row.alfa .ps-nm{color:var(--alfa);}
 .ps-row.theta .ps-nm{color:var(--theta);}
 .ps-row.delta .ps-nm{color:var(--delta);}
 .ps-tm{font-family:'Roboto Mono',monospace;font-size:0.88rem;color:var(--tx);}
 .ps-pc{font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t3);margin-left:3px;}
-
 .bio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
 .bg-stat{background:var(--s2);border-radius:6px;padding:11px 5px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--bd);}
 .bg-v{font-family:'Roboto Mono',monospace;font-size:1.45rem;font-weight:700;}
-.bg-l{font-family:'Oswald',sans-serif;font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3);}
+.bg-l{font-family:'Oswald',sans-serif;font-size:0.6rem;text-transform:uppercase;color:var(--t3);}
 .bg-u{font-family:'Roboto Mono',monospace;font-size:0.56rem;color:var(--t3);}
 .chart-wrap{height:50px;position:relative;}
 .chart-wrap canvas{position:absolute;inset:0;width:100%;height:100%;}
-
-/* IA */
 .ai-card{border-radius:8px;padding:15px;display:flex;flex-direction:column;gap:10px;margin-bottom:10px;}
 .ai-hdr{display:flex;align-items:center;gap:9px;}
 .ai-icon{width:30px;height:30px;border-radius:6px;background:linear-gradient(135deg,var(--alfa),var(--theta));display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
-.ai-title{font-family:'Oswald',sans-serif;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.5px;}
-.ai-sub{font-family:'Roboto Mono',monospace;font-size:0.57rem;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-top:1px;}
+.ai-title{font-family:'Oswald',sans-serif;font-size:0.9rem;text-transform:uppercase;}
+.ai-sub{font-family:'Roboto Mono',monospace;font-size:0.57rem;text-transform:uppercase;color:var(--t3);margin-top:1px;}
 .ai-body{font-size:0.78rem;color:var(--t2);line-height:1.7;min-height:50px;}
+.ai-body p{margin-bottom:9px;}
+.ai-body p:last-child{margin-bottom:0;}
 .ai-load{display:flex;align-items:center;gap:8px;color:var(--t3);font-size:0.72rem;}
 .ai-dots span{display:inline-block;width:4px;height:4px;border-radius:1px;animation:aiD 1.2s ease-in-out infinite;}
 .ai-dots span:nth-child(1){background:var(--alfa);}
 .ai-dots span:nth-child(2){background:var(--theta);animation-delay:0.2s;}
 .ai-dots span:nth-child(3){background:var(--delta);animation-delay:0.4s;}
 @keyframes aiD{0%,80%,100%{transform:scale(0.5);opacity:0.3;}40%{transform:scale(1);opacity:1;}}
-
-.btn-new{width:100%;padding:17px;background:var(--tx);color:var(--bg);border-radius:7px;font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:1px;text-transform:uppercase;text-align:center;transition:opacity 0.15s;}
+/* FIX 1: Lilita One */
+.btn-new{width:100%;padding:17px;background:var(--tx);color:var(--bg);border-radius:7px;font-family:'Lilita One',cursive;font-size:1.1rem;text-transform:uppercase;text-align:center;transition:opacity 0.15s;}
 .btn-new:active{opacity:0.85;}
-
 #ib{display:none;background:#0a1520;border:1px solid var(--alfa);border-radius:7px;padding:9px 12px;align-items:center;gap:8px;font-size:0.75rem;color:var(--t2);margin-bottom:10px;}
 #ib.show{display:flex;}
 #ib span{flex:1;line-height:1.4;}
 #ib strong{color:var(--alfa);}
-.ib-y{background:var(--alfa);color:#000;font-family:'Oswald',sans-serif;font-size:0.8rem;border:none;border-radius:5px;padding:6px 10px;cursor:pointer;white-space:nowrap;letter-spacing:0.5px;}
+.ib-y{background:var(--alfa);color:#000;font-family:'Oswald',sans-serif;font-size:0.8rem;border:none;border-radius:5px;padding:6px 10px;cursor:pointer;white-space:nowrap;}
 .ib-n{background:transparent;color:var(--t3);border:none;font-size:0.9rem;cursor:pointer;padding:3px;}
 </style>
 </head>
@@ -395,7 +354,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
 
 <div class="bg-waves" aria-hidden="true"><canvas id="bg-canvas"></canvas></div>
 
-<!-- SPLASH -->
 <div id="splash" aria-hidden="true">
   <svg class="sp-waves" viewBox="0 0 120 56" xmlns="http://www.w3.org/2000/svg">
     <path d="M5 20 Q22 4 39 20 Q56 36 73 20 Q90 4 107 20" fill="none" stroke="#3b82f6" stroke-width="5" stroke-linecap="square"/>
@@ -415,7 +373,7 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
   <div class="ds" id="db" onclick="onDC(event)"></div>
 </section>
 
-<main class="app" id="main-app">
+<main class="app">
   <header class="hdr">
     <div class="hlogo">
       <svg viewBox="0 0 120 56" xmlns="http://www.w3.org/2000/svg">
@@ -428,33 +386,28 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
     <div class="hbtns">
       <div class="pill" id="bin-btn" onclick="toggleBinaural()"><div class="pdot"></div><span id="bin-lbl">♪</span></div>
       <div class="pill" id="mic-btn" onclick="toggleMic()"><div class="pdot"></div><span id="mic-lbl">MIC</span></div>
-      <div class="pill" id="bt-btn" onclick="toggleBT()"><div class="pdot"></div><span id="bt-lbl">BT</span></div>
+      <div class="pill" id="bt-btn" onclick="handleBT()"><div class="pdot"></div><span id="bt-lbl">BT</span></div>
     </div>
   </header>
 
   <div class="scroll">
     <div id="ib"><span>📲 <strong>INSTALAR APP?</strong></span><button class="ib-y" id="ib-y">INSTALAR</button><button class="ib-n" id="ib-n">✕</button></div>
 
-
-    <!-- HOME -->
-    <section id="sc-home" style="display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:0;">
+    <section id="sc-home">
       <div class="greeting">
         <div class="gt" id="gt">SISTEMA ATIVO</div>
         <div class="gm" id="gm">PRONTO PARA<br>O COMANDO?</div>
         <div class="gs">Protocolo: <strong id="mb">Recup. Profunda</strong></div>
       </div>
-
-      <button class="big-start" id="btn-start" onclick="startSession()">
+      <button class="big-start" onclick="startSession()">
         INICIAR PROTOCOLO
         <span class="bss" id="bss">DOWN-REGULATION · 5 RESP/MIN</span>
       </button>
-
       <div class="mini-stats">
         <div class="ms-item"><div class="ms-val" id="ms-t">0</div><div class="ms-lbl">Registros</div></div>
         <div class="ms-item"><div class="ms-val" id="ms-m">0</div><div class="ms-lbl">Neste mês</div></div>
         <div class="ms-item"><div class="ms-val" id="ms-b">0</div><div class="ms-lbl">Melhor sem.</div></div>
       </div>
-
 
       <nav class="panels-row">
         <div class="pb fc" onclick="openDrawer('mode')">
@@ -475,8 +428,8 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
       </nav>
     </section>
 
-    <!-- MEDITAÇÃO -->
     <section id="sc-med" style="display:none;flex-direction:column;">
+      <div id="mic-cal"><div class="mic-cal-dot"></div>CALIBRANDO AMBIENTE...</div>
       <div class="arena alfa fc" id="arena">
         <svg class="wv" viewBox="0 0 100 44" xmlns="http://www.w3.org/2000/svg">
           <path id="wv-p" d="M5 22 Q18 5 31 22 Q44 39 57 22 Q70 5 83 22 Q90 30 95 22" fill="none" stroke="#3b82f6" stroke-width="4.5" stroke-linecap="square"/>
@@ -485,31 +438,26 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         <div class="arena-hz" id="arena-hz">Ondas Alpha · 8–14 Hz</div>
         <div class="arena-timer" id="arena-timer">00:00:00</div>
       </div>
-
       <div class="bio-row">
         <div class="bio-box bio-hr fc"><div class="bv" id="bio-hr">--</div><div class="bu">BPM</div><div class="bl2">CARDÍACO</div></div>
         <div class="bio-box bio-rr fc"><div class="bv" id="bio-rr">--</div><div class="bu">RPM</div><div class="bl2">RESPIRAÇÃO</div></div>
         <div class="bio-box bio-auto fc"><div class="bv" id="bio-auto" style="color:var(--t2)">--</div><div class="bu">FASE</div><div class="bl2">DETECTADA</div></div>
         <div class="bio-box bio-hrv fc" id="bio-hrv-box" style="display:none"><div class="bv" id="bio-hrv">--</div><div class="bu">ms</div><div class="bl2">RMSSD</div></div>
       </div>
-
       <div class="coh-wrap fc" id="coh-wrap" style="display:none;">
         <div class="coh-top"><span class="coh-lbl">COERÊNCIA VAGAL</span><span class="coh-val" id="coh-val">0%</span></div>
         <div class="coh-bg"><div class="coh-fill" id="coh-bar" style="width:0%"></div></div>
-        <!-- RMSSD em tempo real -->
         <div id="hrv-rmssd-wrap" style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;background:var(--heart-d);border:1px solid var(--heart-m);border-radius:8px;padding:10px 14px;">
           <div>
-            <div style="font-family:'Roboto Mono',monospace;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--t3);">RMSSD em tempo real</div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--t3);">RMSSD em tempo real</div>
             <div style="font-family:'Roboto Mono',monospace;font-size:0.52rem;color:var(--t3);margin-top:2px;" id="hrv-rmssd-sub">Aguardando R-R intervals...</div>
           </div>
           <div style="text-align:right;">
-            <div style="font-family:'Lilita One',cursive;font-size:2.2rem;color:var(--heart);line-height:1;" id="hrv-rmssd-live">--</div>
-            <div style="font-family:'Roboto Mono',monospace;font-size:0.52rem;color:var(--heart);letter-spacing:1px;">ms</div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:2.2rem;color:var(--heart);line-height:1;" id="hrv-rmssd-live">--</div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:0.52rem;color:var(--heart);">ms</div>
           </div>
         </div>
-
       </div>
-
       <div class="bg-wrap fc" id="bg-widget">
         <div class="bg-lbl" id="bg-lbl">ALVO RESPIRATÓRIO</div>
         <div class="bg-ring">
@@ -521,31 +469,21 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         </div>
         <div class="bg-sub" id="bg-sub">Sincronização Ativa</div>
       </div>
-
       <div class="ph-grid">
-        <button class="ph-btn alfa active" id="pb-alfa" onclick="manualPhase('alfa')">
-          <div class="phn">Alpha</div><div class="pht" id="pt-alfa">0:00</div><div class="phd" id="pd-alfa"></div>
-        </button>
-        <button class="ph-btn theta" id="pb-theta" onclick="manualPhase('theta')">
-          <div class="phn">Theta</div><div class="pht" id="pt-theta">0:00</div><div class="phd" id="pd-theta"></div>
-        </button>
-        <button class="ph-btn delta" id="pb-delta" onclick="manualPhase('delta')">
-          <div class="phn">Delta</div><div class="pht" id="pt-delta">0:00</div><div class="phd" id="pd-delta"></div>
-        </button>
+        <button class="ph-btn alfa active" id="pb-alfa" onclick="manualPhase('alfa')"><div class="phn">Alpha</div><div class="pht" id="pt-alfa">0:00</div><div class="phd" id="pd-alfa"></div></button>
+        <button class="ph-btn theta" id="pb-theta" onclick="manualPhase('theta')"><div class="phn">Theta</div><div class="pht" id="pt-theta">0:00</div><div class="phd" id="pd-theta"></div></button>
+        <button class="ph-btn delta" id="pb-delta" onclick="manualPhase('delta')"><div class="phn">Delta</div><div class="pht" id="pt-delta">0:00</div><div class="phd" id="pd-delta"></div></button>
       </div>
-
       <button class="btn-end fc" onclick="endSession()">ABORTAR SESSÃO</button>
     </section>
 
-    <!-- CONFIRMAÇÃO -->
     <section id="sc-confirm" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;text-align:center;gap:18px;min-height:60vh;">
-      <div class="cf-title">SESSÃO FINALIZADA</div>
+      <div style="font-family:'Oswald',sans-serif;font-size:2.2rem;text-transform:uppercase;color:var(--tx);">SESSÃO FINALIZADA</div>
       <p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--t2);line-height:1.6;max-width:280px;">Protocolo concluído. Deseja armazenar os dados no seu histórico de performance?</p>
-      <button class="btn-save fc" onclick="finalizeSession(true)">SALVAR PERFORMANCE</button>
-      <button class="btn-discard fc" style="margin-top:4px;width:100%;max-width:300px;padding:17px;background:transparent;color:var(--t3);border:1px solid var(--bd);border-radius:7px;font-family:'Oswald',sans-serif;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;" onclick="finalizeSession(false)">DESCARTAR · DADOS SUJOS</button>
+      <button class="fc" style="width:100%;max-width:300px;padding:17px;background:var(--tx);color:var(--bg);border-radius:7px;font-family:'Oswald',sans-serif;font-size:1rem;text-transform:uppercase;" onclick="finalizeSession(true)">SALVAR PERFORMANCE</button>
+      <button class="fc" style="width:100%;max-width:300px;padding:17px;background:transparent;color:var(--t3);border:1px solid var(--bd);border-radius:7px;font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;" onclick="finalizeSession(false)">DESCARTAR · DADOS SUJOS</button>
     </section>
 
-    <!-- RELATÓRIO -->
     <section id="sc-rep" style="display:none;flex-direction:column;">
       <div class="rcard fc">
         <div class="rlbl" id="rep-date"></div>
@@ -553,19 +491,14 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         <div class="rep-dur" id="rep-dur">--</div>
         <div class="rep-intent" id="rep-intent" style="display:none"></div>
         <div class="score-wrap">
-          <div class="score-ring">
-            <svg viewBox="0 0 78 78"><circle class="srt" cx="39" cy="39" r="34"/><circle class="srf" id="srf" cx="39" cy="39" r="34"/></svg>
-            <div class="srn" id="srn">0</div>
-          </div>
+          <div class="score-ring"><svg viewBox="0 0 78 78"><circle class="srt" cx="39" cy="39" r="34"/><circle class="srf" id="srf" cx="39" cy="39" r="34"/></svg><div class="srn" id="srn">0</div></div>
           <div><div class="sc-lbl" id="sc-lbl">—</div><div class="sc-sub" id="sc-sub"></div></div>
         </div>
       </div>
-
       <div class="gamma-card" id="gamma-card">
-        <div class="gamma-ttl">✦ ESTADO GAMMA DETECTADO</div>
-        <div class="gamma-dsc">FC excepcionalmente estável com Delta prolongado — padrão associado a ondas Gamma (30–100Hz). Estado de consciência expandida. Harvard · PNAS 2025.</div>
+        <div class="gamma-ttl">ESTADO GAMMA DETECTADO</div>
+        <div class="gamma-dsc">FC excepcionalmente estável com Delta prolongado. Estado de consciência expandida. Harvard · PNAS 2025.</div>
       </div>
-
       <div class="rcard fc">
         <div class="rlbl">HIPOGRAMA NEURAL</div>
         <div class="tm-strip" id="tm-strip"></div>
@@ -577,7 +510,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
           <div class="hb-row delta"><div class="hb-lbl">Delta</div><div class="hb-track"><div class="hb-fill" id="hf-delta"></div></div><div class="hb-pct" id="hp-delta">0%</div></div>
         </div>
       </div>
-
       <div class="rcard fc">
         <div class="rlbl">MINUTOS POR FASE</div>
         <div class="ps-rows">
@@ -586,7 +518,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
           <div class="ps-row delta"><div class="ps-dot"></div><div class="ps-nm">Delta</div><div><span class="ps-tm" id="ps-delta">0 min</span><span class="ps-pc" id="pp-delta"></span></div></div>
         </div>
       </div>
-
       <div class="rcard fc">
         <div class="rlbl">BIOMETRIA CARDÍACA</div>
         <div class="bio-grid">
@@ -596,7 +527,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         </div>
         <div class="chart-wrap"><canvas id="fc-canvas"></canvas></div>
       </div>
-
       <div class="rcard fc">
         <div class="rlbl">RESPIRAÇÃO</div>
         <div class="bio-grid">
@@ -606,7 +536,6 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         </div>
         <div class="chart-wrap"><canvas id="rr-canvas"></canvas></div>
       </div>
-
       <div class="ai-card fc">
         <div class="ai-hdr">
           <div class="ai-icon">⬡</div>
@@ -614,29 +543,28 @@ button{border:none;background:none;padding:0;margin:0;font-family:inherit;color:
         </div>
         <div class="ai-body" id="ai-body"><div class="ai-load"><div class="ai-dots"><span></span><span></span><span></span></div> Processando dados...</div></div>
       </div>
-
       <button class="btn-new fc" onclick="newSession()">NOVO PROTOCOLO</button>
     </section>
   </div>
 </main>
 
 <script>
-// ══ NEUROCIÊNCIA ══════════════════════════════════════
-const PHASES={
-  alfa: {name:'ALPHA',hz:'Ondas Alpha · 8–14 Hz',color:'#3b82f6',hrLo:65,hrHi:80,rrLo:8,rrHi:12},
-  theta:{name:'THETA',hz:'Ondas Theta · 3–7 Hz', color:'#8b5cf6',hrLo:55,hrHi:68,rrLo:4,rrHi:7},
-  delta:{name:'DELTA',hz:'Ondas Delta · 0.5–3 Hz',color:'#4f46e5',hrLo:45,hrHi:60,rrLo:2,rrHi:5},
+// ══ DADOS ═════════════════════════════════════════════
+var PHASES = {
+  alfa: {name:'ALPHA', hz:'Ondas Alpha · 8–14 Hz', color:'#3b82f6', hrLo:65, hrHi:80, rrLo:8, rrHi:12},
+  theta:{name:'THETA', hz:'Ondas Theta · 3–7 Hz',  color:'#8b5cf6', hrLo:55, hrHi:68, rrLo:4, rrHi:7},
+  delta:{name:'DELTA', hz:'Ondas Delta · 0.5–3 Hz',color:'#4f46e5', hrLo:45, hrHi:60, rrLo:2, rrHi:5},
 };
-const MODES={
-  wake: {name:'Prime Neural',    sub:'ATIVAÇÃO SIMPÁTICA',       color:'#f97316',phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
-  focus:{name:'Estado de Flow',  sub:'ISOLAMENTO DO CÓRTEX',     color:'#3b82f6',phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:4},{a:'EXPIRE',s:4},{a:'SEGURE',s:4}]},
-  deep: {name:'Recup. Profunda', sub:'DOWN-REGULATION',          color:'#8b5cf6',phases:[{a:'INSPIRE',s:6},{a:'EXPIRE',s:6}]},
-  sleep:{name:'Indução ao Sono', sub:'SISTEMA PARASSIMPÁTICO',   color:'#4f46e5',phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:7},{a:'EXPIRE',s:8}]},
-  heart:{name:'Coerência Vagal', sub:'SINCRONIZAÇÃO HRV',        color:'#e11d48',phases:[{a:'INSPIRE',s:5},{a:'EXPIRE',s:5}]},
-  sos:  {name:'S.O.S. / Reset',  sub:'QUEBRA DE CORTISOL RÁPIDA',color:'#ef4444',phases:[{a:'INSPIRE',s:1.5},{a:'SEGURE',s:0.5},{a:'EXPIRE',s:4}]},
-  free: {name:'Modo Livre',      sub:'DETECÇÃO AUTOMÁTICA',      color:'#a1a1aa',phases:[]},
+var MODES = {
+  wake: {name:'Prime Neural',    sub:'ATIVAÇÃO SIMPÁTICA',        color:'#f97316', phases:[{a:'INSPIRE',s:1.5},{a:'EXPIRE',s:1.5}]},
+  focus:{name:'Estado de Flow',  sub:'ISOLAMENTO DO CÓRTEX',      color:'#3b82f6', phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:4},{a:'EXPIRE',s:4},{a:'SEGURE',s:4}]},
+  deep: {name:'Recup. Profunda', sub:'DOWN-REGULATION',           color:'#8b5cf6', phases:[{a:'INSPIRE',s:6},{a:'EXPIRE',s:6}]},
+  sleep:{name:'Indução ao Sono', sub:'SISTEMA PARASSIMPÁTICO',    color:'#4f46e5', phases:[{a:'INSPIRE',s:4},{a:'SEGURE',s:7},{a:'EXPIRE',s:8}]},
+  heart:{name:'Coerência Vagal', sub:'SINCRONIZAÇÃO HRV',         color:'#e11d48', phases:[{a:'INSPIRE',s:5},{a:'EXPIRE',s:5}]},
+  sos:  {name:'S.O.S. / Reset',  sub:'QUEBRA DE CORTISOL RÁPIDA', color:'#ef4444', phases:[{a:'INSPIRE',s:1.5},{a:'SEGURE',s:0.5},{a:'EXPIRE',s:4}]},
+  free: {name:'Modo Livre',      sub:'DETECÇÃO AUTOMÁTICA',       color:'#a1a1aa', phases:[]},
 };
-const MODE_DESC={
+var MODE_DESC = {
   wake:'Ativação simpática. Respiração energizante para ignição do dia.',
   focus:'Isolamento do córtex pré-frontal. Foco profundo e trabalho cognitivo.',
   deep:'Reparo do sistema nervoso. Down-regulation. Theta e Delta.',
@@ -647,774 +575,907 @@ const MODE_DESC={
 };
 
 // ══ ESTADO ════════════════════════════════════════════
-const S={
-  phase:'alfa',manual:false,
-  startTime:null,phaseStart:null,
+var S = {
+  phase:'alfa', manual:false,
+  startTime:null, phaseStart:null,
   phaseTimes:{alfa:0,theta:0,delta:0},
-  log:[],hrLog:[],rrLog:[],
-  btDevice:null,btOn:false,
-  micOn:false,micStream:null,micCtx:null,micAna:null,
-  binCtx:null,binL:null,binR:null,binOn:false,
-  breathMode:'deep',bgIdx:0,bgTimer:null,
-  rrBuf:[],rrLastPeak:0,rrEnv:0,rrFloor:0,rrPeak:false,
-  rrIntervals:[],rmssd:null,
-  hrvMorning:{active:false,timer:null,elapsed:0,rmssdSamples:[]},
+  log:[], hrLog:[], rrLog:[],
+  btDevice:null, btOn:false,
+  micOn:false, micStream:null, micCtx:null, micAna:null,
+  calibrating:false, calibSamples:[],
+  binCtx:null, binL:null, binR:null, binOn:false,
+  breathMode:'deep', bgIdx:0, bgTimer:null,
+  rrBuf:[], rrLastPeak:0, rrEnv:0, rrFloor:0, rrPeak:false,
+  rrIntervals:[], rmssd:null,
+  hrvMorning:{active:false, timer:null, elapsed:0, rmssdSamples:[]},
   baselineRMSSD:null,
-  cohScore:0,ticker:null,
-  dimTimer:null,dimOn:false,
-  intention:'',tempData:null,
+  cohScore:0, ticker:null,
+  dimTimer:null, dimOn:false,
+  intention:'', tempData:null,
 };
+var wakeLock = null;
+var deferredInstallPrompt = null;
+var cachedVoices = [];
 
-// ══ SAUDAÇÃO ══════════════════════════════════════════
-function updateGreeting(){
-  const h=new Date().getHours();
-  const t=h<5?'SISTEMA NOTURNO':h<12?'SISTEMA ATIVO':h<18?'OPERAÇÃO TARDE':'PROTOCOLO NOITE';
-  const m=h<5?'MODO NOTURNO\nATIVO':h<12?'PRONTO PARA\nO COMANDO':h<18?'SESSÃO\nDA TARDE':h<21?'ENCERRAMENTO\nDO DIA':'MODO\nNOTURNO';
-  document.getElementById('gt').textContent=t;
-  document.getElementById('gm').innerHTML=m;
+// ══ STORAGE ═══════════════════════════════════════════
+function loadSessions() {
+  try { return JSON.parse(localStorage.getItem('mc_v1') || '[]'); }
+  catch(e) { return []; }
 }
-
-// ══ CALENDÁRIO ════════════════════════════════════════
-function renderCalendar(){
-  const grid=document.getElementById('cal-grid');
-  const monEl=document.getElementById('cal-mon');
-  grid.innerHTML='<div class="cal-dl">S</div><div class="cal-dl">T</div><div class="cal-dl">Q</div><div class="cal-dl">Q</div><div class="cal-dl">S</div><div class="cal-dl">S</div><div class="cal-dl">D</div>';
-  const sessions=loadSessions();
-  const sm={};
-  sessions.forEach(s=>{const d=new Date(s.date);const k=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;if(!sm[k])sm[k]=s.mode;});
-  const now=new Date();
-  if(monEl)monEl.textContent=now.toLocaleDateString('pt-BR',{month:'long'}).toUpperCase();
-  const days=[];
-  for(let i=27;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);days.push(d);}
-  const pad=(days[0].getDay()+6)%7;
-  for(let i=0;i<pad;i++){const e=document.createElement('div');e.style.aspectRatio='1';grid.appendChild(e);}
-  days.forEach(d=>{
-    const k=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-    const nk=`${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-    const mode=sm[k];
-    const dot=document.createElement('div');
-    dot.className='cal-dot'+(d>now&&k!==nk?' future':'')+(k===nk?' today':'');
-    if(mode){
-      if(mode==='wake')dot.classList.add('done-wake');
-      else if(mode==='sleep')dot.classList.add('done-sleep');
-      else if(mode==='heart')dot.classList.add('done-heart');
-      else if(mode==='sos')dot.classList.add('done-sos');
-      else dot.classList.add('done');
-    }
-    const n=document.createElement('div');n.className='cal-dn';n.textContent=d.getDate();
-    dot.appendChild(n);grid.appendChild(dot);
+function saveSession(dur, pcts, score, mode) {
+  var sessions = loadSessions();
+  sessions.unshift({
+    date:Date.now(), dur:dur, pcts:pcts, score:score, mode:mode,
+    intention:S.intention || '',
+    hrAvg:S.hrLog.length ? Math.round(S.hrLog.map(function(x){return x.bpm;}).reduce(function(a,b){return a+b;},0)/S.hrLog.length) : null,
+    rrAvg:S.rrLog.length ? Math.round(S.rrLog.map(function(x){return x.rr;}).reduce(function(a,b){return a+b;},0)/S.rrLog.length) : null,
+    rmssd:S.rmssd,
   });
+  localStorage.setItem('mc_v1', JSON.stringify(sessions.slice(0,200)));
+}
+function delSession(i) {
+  if(!confirm('Apagar este registro?')) return;
+  var s = loadSessions(); s.splice(i,1);
+  localStorage.setItem('mc_v1', JSON.stringify(s));
+  openDrawer('history'); renderStats(); renderCalendar();
 }
 
-function renderStats(){
-  const s=loadSessions();
-  document.getElementById('ms-t').textContent=s.length;
-  const now=new Date();
-  document.getElementById('ms-m').textContent=s.filter(x=>{const d=new Date(x.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).length;
-  const ds=new Set(s.map(x=>{const d=new Date(x.date);return `${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}));
-  let best=0,cur=0;
-  for(let i=364;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;if(ds.has(k)){cur++;best=Math.max(best,cur);}else cur=0;}
-  document.getElementById('ms-b').textContent=best;
-  document.getElementById('phd').textContent=s.length?`${s.length} registros`:'Sem registros';
+// ══ WAKE LOCK ═════════════════════════════════════════
+async function requestWakeLock() {
+  try { if('wakeLock' in navigator) { wakeLock = await navigator.wakeLock.request('screen'); } } catch(e) {}
+}
+function releaseWakeLock() { if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;} }
+document.addEventListener('visibilitychange', async function() {
+  if(wakeLock !== null && document.visibilityState === 'visible' && S.ticker) await requestWakeLock();
+});
+
+// ══ HÁPTICO ═══════════════════════════════════════════
+function haptic(p) { try { if(navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
+
+// ══ VOZ ═══════════════════════════════════════════════
+if(window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = function(){ cachedVoices = window.speechSynthesis.getVoices(); };
+  cachedVoices = window.speechSynthesis.getVoices();
+}
+function speak(text, rate, pitch) {
+  rate = rate || 0.78; pitch = pitch || 0.88;
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'pt-BR'; u.rate = rate; u.pitch = pitch; u.volume = 0.8;
+  var voices = cachedVoices.length ? cachedVoices : window.speechSynthesis.getVoices();
+  var v = voices.filter(function(v){return v.lang.startsWith('pt')&&v.name.toLowerCase().includes('female');})[0] ||
+          voices.filter(function(v){return v.lang.startsWith('pt');})[0] || null;
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
 }
 
-function updateModeInfo(){
-  const m=MODES[S.breathMode];
-  if(!m)return;
-  document.getElementById('mb').textContent=m.name;
-  document.getElementById('bss').textContent=m.sub;
-  document.getElementById('pmd').textContent=m.name+' · '+m.sub.split('·')[0].trim();
+// ══ BINAURAL ══════════════════════════════════════════
+var BF = {alfa:{freq:10,base:200}, theta:{freq:6,base:180}, delta:{freq:2,base:160}};
+function toggleBinaural() { if(S.binOn){stopBinaural();return;} startBinaural(S.phase); }
+function startBinaural(phase) {
+  try {
+    if(!S.binCtx) S.binCtx = new(window.AudioContext||window.webkitAudioContext)();
+    if(S.binCtx.state === 'suspended') S.binCtx.resume();
+    stopBinaural(true);
+    var b = BF[phase] || BF.alfa;
+    var gain = S.binCtx.createGain();
+    gain.gain.setValueAtTime(0, S.binCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.1, S.binCtx.currentTime+2);
+    var merger = S.binCtx.createChannelMerger(2);
+    var gL = S.binCtx.createGain(), gR = S.binCtx.createGain();
+    S.binL = S.binCtx.createOscillator(); S.binL.frequency.value = b.base; S.binL.type = 'sine';
+    S.binR = S.binCtx.createOscillator(); S.binR.frequency.value = b.base+b.freq; S.binR.type = 'sine';
+    S.binL.connect(gL); S.binR.connect(gR);
+    gL.connect(merger,0,0); gR.connect(merger,0,1);
+    merger.connect(gain); gain.connect(S.binCtx.destination);
+    S.binL.start(); S.binR.start(); S.binOn = true; updateBinUI(phase);
+  } catch(e) { console.log('Bin:',e); }
+}
+function stopBinaural(silent) {
+  if(S.binL){try{S.binL.stop();}catch(e){}S.binL=null;}
+  if(S.binR){try{S.binR.stop();}catch(e){}S.binR=null;}
+  if(!silent){S.binOn=false;updateBinUI(null);}
+}
+function updateBinUI(p) {
+  var b = document.getElementById('bin-btn'), l = document.getElementById('bin-lbl');
+  var lb = {alfa:'α 10Hz', theta:'θ 6Hz', delta:'δ 2Hz'};
+  b.className = 'pill' + (S.binOn ? ' on-b' : '');
+  l.textContent = S.binOn ? (lb[p||S.phase]||'♪') : '♪';
 }
 
-// ══ DRAWER ════════════════════════════════════════════
-function openDrawer(type){
-  const dt=document.getElementById('dt'),db=document.getElementById('db');
-  if(type==='mode'){
-    dt.textContent='PROTOCOLOS DE COMANDO';
-    db.innerHTML=`
-      <div class="mgrid" id="mgd">
-        ${Object.entries(MODES).map(([k,m])=>`
-          <button class="mc fc m-${k}${['heart','sos','free'].includes(k)?' full':''} ${S.breathMode===k?'sel':''}" data-mode="${k}">
-            <div class="mn">${m.name}</div>
-            <div class="ms">${m.sub}</div>
-            <div class="md">${MODE_DESC[k]}</div>
-          </button>`).join('')}
-      </div>
-      <div class="hrv-drawer-card">
-        <div class="hrv-dc-top">
-          <div class="hrv-dc-left">
-            <div class="hrv-dc-titulo">❤️ HRV Matinal</div>
-            <div class="hrv-dc-sub">RMSSD · 5 min deitado · sensor conectado</div>
-            <div class="hrv-m-bar" style="margin-top:6px;"><div class="hrv-m-fill" id="hrv-m-fill" style="width:0%"></div></div>
-            <div class="hrv-dc-sub" id="hrv-m-status" style="margin-top:4px;color:var(--t2);">Conecte o sensor para medir</div>
-          </div>
-          <div>
-            <div class="hrv-dc-val" id="hrv-m-val">--</div>
-            <div class="hrv-dc-ms">ms</div>
-          </div>
-        </div>
-        <button class="btn-hrv-m" id="btn-hrv-m">Medir agora</button>
-      </div>
-      <textarea id="intent-d" class="intent-input" rows="2" placeholder="Intenção da sessão — opcional">${S.intention}</textarea>
-      <button class="btn-confirm fc">CONFIRMAR PROTOCOLO</button>`;
-  } else if(type==='waves'){
-    dt.textContent='ONDAS CEREBRAIS';
-    db.innerHTML=`
-      <div class="wave-rows">
-        <div class="wr r-a"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Alpha</div><div class="wdesc">Relaxamento consciente. Ansiedade reduz, serotonina sobe. Porta de entrada da meditação.</div></div><div class="wb"><div class="whz">α 8–14 Hz</div><div class="wrng">65–80 bpm</div><div class="wrng">8–12 resp/min</div></div></div>
-        <div class="wr r-t"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Theta</div><div class="wdesc">Subconsciente acessado. GABA em pico. Dopamina e criatividade profunda. Estado de meditadores experientes.</div></div><div class="wb"><div class="whz">θ 3–7 Hz</div><div class="wrng">55–68 bpm</div><div class="wrng">4–7 resp/min</div></div></div>
-        <div class="wr r-d"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Delta</div><div class="wdesc">Regeneração celular. Hormônio do crescimento liberado. Autofagia ativa. Estado mais profundo atingido conscientemente.</div></div><div class="wb"><div class="whz">δ 0.5–3 Hz</div><div class="wrng">45–60 bpm</div><div class="wrng">2–5 resp/min</div></div></div>
-        <div style="background:var(--s2);border-radius:7px;padding:13px;border:1px solid #f59e0b33;">
-          <div style="font-family:'Oswald',sans-serif;font-size:0.95rem;text-transform:uppercase;color:var(--gamma);letter-spacing:0.5px;margin-bottom:5px;">✦ Gamma</div>
-          <div style="font-size:0.7rem;color:var(--t2);line-height:1.5;">Estado mais avançado. Observado em meditadores com milhares de horas. Associado à compaixão profunda e consciência expandida. Detectado automaticamente pelo app.</div>
-          <div style="font-family:'Roboto Mono',monospace;font-size:0.6rem;color:var(--t3);margin-top:4px;text-transform:uppercase;">γ 30–100 Hz · Harvard · PNAS 2025</div>
-        </div>
-      </div>`;
-  } else if(type==='history'){
-    dt.textContent='DADOS DE PERFORMANCE';
-    const sessions=loadSessions();
-    // Stats resumo
-    const now2=new Date();
-    const thisM=sessions.filter(x=>{const d=new Date(x.date);return d.getMonth()===now2.getMonth()&&d.getFullYear()===now2.getFullYear();}).length;
-    const ds2=new Set(sessions.map(x=>{const d=new Date(x.date);return `${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}));
-    let best2=0,cur2=0;
-    for(let i=364;i>=0;i--){const d=new Date(now2);d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;if(ds2.has(k)){cur2++;best2=Math.max(best2,cur2);}else cur2=0;}
-    // Calendário
-    let calHtml=`
-      <div style="display:flex;gap:20px;justify-content:center;margin-bottom:16px;">
-        <div style="text-align:center;"><div style="font-family:'Roboto Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">${sessions.length}</div><div style="font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3)">Total</div></div>
-        <div style="text-align:center;"><div style="font-family:'Roboto Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">${thisM}</div><div style="font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3)">Este mês</div></div>
-        <div style="text-align:center;"><div style="font-family:'Roboto Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">${best2}</div><div style="font-family:'Oswald',sans-serif;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--t3)">Melhor sem.</div></div>
-      </div>
-      <div class="cal-wrap" style="width:100%;max-width:100%;margin-bottom:16px;">
-        <div class="cal-top"><span class="cal-lbl">Últimos 28 dias</span><span class="cal-mon">${new Date().toLocaleDateString('pt-BR',{month:'long'}).toUpperCase()}</span></div>
-        <div class="cal-grid" id="cal-grid-d">
-          <div class="cal-dl">S</div><div class="cal-dl">T</div><div class="cal-dl">Q</div><div class="cal-dl">Q</div><div class="cal-dl">S</div><div class="cal-dl">S</div><div class="cal-dl">D</div>
-        </div>
-      </div>`;
-    if(!sessions.length){
-      calHtml+='<div class="hist-empty">NENHUM DADO REGISTRADO.<br>ASSUMA O COMANDO.</div>';
-    } else {
-      calHtml+=sessions.map((s,i)=>{
-        const d=new Date(s.date);
-        const day=String(d.getDate()).padStart(2,'0');
-        const mon=d.toLocaleDateString('pt-BR',{month:'short'}).toUpperCase();
-        const time=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-        const dur=s.dur>=60?Math.floor(s.dur/60)+'h'+(s.dur%60?' '+s.dur%60+'min':''):s.dur+'min';
-        const sc=s.score>=80?'great':s.score>=55?'good':'ok';
-        const scL=s.score>=80?'COMANDO ABSOLUTO':s.score>=55?'BOM CONTROLE':'PROCESSO';
-        return `<div class="hi fc">
-          <div class="hi-date"><div class="hi-d">${day}</div><div class="hi-m">${mon}</div></div>
-          <div class="hi-bar">
-            <div class="hi-strip"><div class="hi-seg alfa" style="width:${s.pcts.alfa}%"></div><div class="hi-seg theta" style="width:${s.pcts.theta}%"></div><div class="hi-seg delta" style="width:${s.pcts.delta}%"></div></div>
-            <div class="hi-meta">${time} · SCORE ${s.score}/100</div>
-          </div>
-          <div class="hi-right"><div class="hi-dur">${dur}</div><div class="hi-sc ${sc}">${scL}</div><button class="del-btn" onclick="delSession(${i})">DEL</button></div>
-        </div>`;
-      }).join('');
+// ══ MICROFONE ═════════════════════════════════════════
+async function toggleMic() {
+  if(S.micOn){stopMic();return;}
+  try {
+    var stream = await navigator.mediaDevices.getUserMedia({
+      audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}, video:false
+    });
+    S.micStream = stream;
+    S.micCtx = new(window.AudioContext||window.webkitAudioContext)();
+    var src = S.micCtx.createMediaStreamSource(stream);
+    S.micAna = S.micCtx.createAnalyser();
+    S.micAna.fftSize = 1024;
+    S.micAna.smoothingTimeConstant = 0.85;
+    var filter = S.micCtx.createBiquadFilter();
+    filter.type = 'bandpass'; filter.frequency.value = 800; filter.Q.value = 0.7;
+    src.connect(filter); filter.connect(S.micAna);
+    S.micOn = true; S.rrBuf = []; S.rrLastPeak = 0; S.rrEnv = 0; S.rrFloor = 0; S.rrPeak = false;
+    S.calibrating = true; S.calibSamples = [];
+    var cal = document.getElementById('mic-cal'); if(cal) cal.style.display = 'flex';
+    updateMicUI();
+    setTimeout(function(){
+      if(S.calibSamples.length > 0) {
+        S.rrFloor = S.calibSamples.reduce(function(a,b){return a+b;},0) / S.calibSamples.length;
+      }
+      S.calibrating = false;
+      var cal2 = document.getElementById('mic-cal'); if(cal2) cal2.style.display = 'none';
+      updateMicUI();
+    }, 2500);
+    detectBreath();
+  } catch(e) { alert('Microfone: ' + e.message); }
+}
+function stopMic() {
+  if(S.micStream) S.micStream.getTracks().forEach(function(t){t.stop();});
+  if(S.micCtx) S.micCtx.close().catch(function(){});
+  S.micOn = false; S.micAna = null; S.micCtx = null; S.micStream = null;
+  var cal = document.getElementById('mic-cal'); if(cal) cal.style.display = 'none';
+  updateMicUI();
+}
+function updateMicUI() {
+  var b = document.getElementById('mic-btn'), l = document.getElementById('mic-lbl');
+  if(S.calibrating){b.className='pill';l.textContent='CAL...';}
+  else{b.className='pill'+(S.micOn?' on-g':'');l.textContent=S.micOn?'MIC ✓':'MIC';}
+}
+function detectBreath() {
+  if(!S.micOn || !S.micAna) return;
+  var buf = new Uint8Array(S.micAna.frequencyBinCount);
+  S.micAna.getByteTimeDomainData(buf);
+  var sum = 0;
+  for(var i=0;i<buf.length;i++){var v=(buf[i]-128)/128;sum+=v*v;}
+  var rms = Math.sqrt(sum/buf.length);
+  var now = Date.now();
+  if(S.calibrating){S.calibSamples.push(rms);requestAnimationFrame(detectBreath);return;}
+  S.rrEnv = rms>S.rrEnv ? S.rrEnv*0.6+rms*0.4 : S.rrEnv*0.97+rms*0.03;
+  S.rrFloor = S.rrFloor*0.998 + rms*0.002;
+  var thr = Math.max(0.008, S.rrFloor*3.5);
+  var hasHolds = ['sleep','focus'].indexOf(S.breathMode) >= 0;
+  var minInterval = hasHolds ? 5000 : 2800;
+  if(S.rrEnv>thr && !S.rrPeak && now-S.rrLastPeak>minInterval) {
+    S.rrPeak = true; S.rrLastPeak = now; S.rrBuf.push(now);
+    S.rrBuf = S.rrBuf.filter(function(t){return now-t<40000;});
+    if(S.rrBuf.length >= 3) {
+      var ivs = [];
+      for(var j=1;j<S.rrBuf.length;j++) ivs.push(S.rrBuf[j]-S.rrBuf[j-1]);
+      ivs.sort(function(a,b){return a-b;});
+      var mid = Math.floor(ivs.length/2);
+      var med = ivs.length%2===0 ? (ivs[mid-1]+ivs[mid])/2 : ivs[mid];
+      var rr = Math.round(60000/med);
+      if(rr>=1 && rr<=20) {
+        var prev = S.rrLog.length ? S.rrLog[S.rrLog.length-1].rr : rr;
+        var sm = Math.round(prev*0.35+rr*0.65);
+        S.rrLog.push({t:now, rr:sm});
+        var el = document.getElementById('bio-rr'); if(el) el.textContent = sm;
+        updateCoherence(); if(!S.manual) autoDetect();
+        haptic([25]);
+      }
     }
-    db.innerHTML=calHtml;
-    // Renderizar calendário no drawer
-    renderCalendarIn('cal-grid-d',sessions);
   }
-  document.getElementById('dov').classList.add('on');
-  document.getElementById('drawer').classList.add('on');
+  if(S.rrEnv < thr*0.4) S.rrPeak = false;
+  requestAnimationFrame(detectBreath);
 }
 
-function closeDrawer(){
-  const id=document.getElementById('intent-d');
-  if(id)S.intention=id.value.trim();
-  document.getElementById('dov').classList.remove('on');
-  document.getElementById('drawer').classList.remove('on');
-  updateModeInfo();
-}
-
-function onDC(e){
-  const card=e.target.closest('.mc');
-  if(card){document.querySelectorAll('.mc').forEach(c=>c.classList.remove('sel'));card.classList.add('sel');S.breathMode=card.dataset.mode;}
-  if(e.target.closest('.btn-confirm'))closeDrawer();
-  if(e.target.closest('.btn-hrv-m'))handleHRVClick();
-}
-
-function delSession(i){
-  if(!confirm('Apagar este registro?'))return;
-  const s=loadSessions();s.splice(i,1);
-  localStorage.setItem('mc_v1',JSON.stringify(s));
-  openDrawer('history');renderStats();renderCalendar();
-}
-
-// ══ BLUETOOTH FC ══════════════════════════════════════
-document.getElementById('bt-btn').addEventListener('click',async()=>{
+// ══ BLUETOOTH ═════════════════════════════════════════
+async function handleBT() {
   if(S.btOn){disconnectBT();return;}
   if(!navigator.bluetooth){alert('Bluetooth não disponível.\nUse Chrome no Android.');return;}
-  try{
-    const dev=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}],optionalServices:['heart_rate']});
-    S.btDevice=dev;
-    const srv=await dev.gatt.connect();
-    const svc=await srv.getPrimaryService('heart_rate');
-    const chr=await svc.getCharacteristic('heart_rate_measurement');
+  try {
+    var dev = await navigator.bluetooth.requestDevice({
+      filters:[{services:['heart_rate']}], optionalServices:['heart_rate']
+    });
+    S.btDevice = dev;
+    var srv = await dev.gatt.connect();
+    var svc = await srv.getPrimaryService('heart_rate');
+    var chr = await svc.getCharacteristic('heart_rate_measurement');
     await chr.startNotifications();
-    chr.addEventListener('characteristicvaluechanged',e=>{
-      const v=e.target.value;
-      const flags=v.getUint8(0);
-      const bpm=(flags&0x01)?v.getUint16(1,true):v.getUint8(1);
+    chr.addEventListener('characteristicvaluechanged', function(e){
+      var v = e.target.value;
+      var flags = v.getUint8(0);
+      var bpm = (flags&0x01) ? v.getUint16(1,true) : v.getUint8(1);
       onHR(bpm);
-      // Extrair R-R intervals (bytes após FC)
-      let offset=(flags&0x01)?3:2;
-      if(flags&0x10){// R-R interval presente
-        while(offset+1<v.byteLength){
-          const rr=v.getUint16(offset,true)/1024*1000;// converter para ms
-          if(rr>300&&rr<2000){// filtro fisiológico
+      var offset = (flags&0x01) ? 3 : 2;
+      if(flags&0x10) {
+        while(offset+1 < v.byteLength) {
+          var rr = v.getUint16(offset,true)/1024*1000;
+          if(rr>300 && rr<2000) {
             S.rrIntervals.push(rr);
-            if(S.rrIntervals.length>60)S.rrIntervals.shift();
+            if(S.rrIntervals.length > 60) S.rrIntervals.shift();
             calcRMSSD();
           }
-          offset+=2;
+          offset += 2;
         }
       }
     });
-    dev.addEventListener('gattserverdisconnected',disconnectBT);
-    S.btOn=true;updateBTUI();
-  }catch(e){console.log('BT:',e);}
-});
-// ══ RMSSD ═════════════════════════════════════════════
-function calcRMSSD(){
-  const rr=S.rrIntervals;
-  if(rr.length<5)return;
-  const diffs=[];
-  for(let i=1;i<rr.length;i++)diffs.push((rr[i]-rr[i-1])**2);
-  const rmssd=Math.round(Math.sqrt(diffs.reduce((a,b)=>a+b,0)/diffs.length));
-  S.rmssd=rmssd;
-  // Mostrar no biosinal
-  const el=document.getElementById('bio-hrv');
-  if(el)el.textContent=rmssd;
-  // Mostrar caixa HRV só no protocolo Coerência Vagal
-  const box=document.getElementById('bio-hrv-box');
-  if(box)box.style.display=S.breathMode==='heart'?'flex':'none';
-  // HRV matinal
-  // Atualizar RMSSD em tempo real (dentro da Coerência Vagal)
-  const elLive=document.getElementById('hrv-rmssd-live');if(elLive)elLive.textContent=rmssd;
-  const elSub=document.getElementById('hrv-rmssd-sub');
-  if(elSub){
-    if(rmssd>60)elSub.style.color='#10b981';
-    else if(rmssd>40)elSub.style.color='var(--t2)';
-    else elSub.style.color='#ef4444';
-    elSub.textContent='RMSSD: '+rmssd+'ms';
+    dev.addEventListener('gattserverdisconnected', disconnectBT);
+    S.btOn = true; updateBTUI();
+  } catch(e) { console.log('BT:',e); }
+}
+function disconnectBT() {
+  if(S.btDevice && S.btDevice.gatt && S.btDevice.gatt.connected) S.btDevice.gatt.disconnect();
+  S.btOn = false; S.btDevice = null; updateBTUI();
+}
+function updateBTUI() {
+  var b = document.getElementById('bt-btn'), l = document.getElementById('bt-lbl');
+  b.className = 'pill' + (S.btOn ? ' on-a' : '');
+  l.textContent = S.btOn ? 'BT ✓' : 'BT';
+}
+function onHR(bpm) {
+  S.hrLog.push({t:Date.now(), bpm:bpm});
+  var el = document.getElementById('bio-hr'); if(el) el.textContent = bpm;
+  updateCoherence(); if(!S.manual) autoDetect();
+}
+function calcRMSSD() {
+  var rr = S.rrIntervals; if(rr.length < 5) return;
+  var diffs = [];
+  for(var i=1;i<rr.length;i++) diffs.push(Math.pow(rr[i]-rr[i-1],2));
+  var rmssd = Math.round(Math.sqrt(diffs.reduce(function(a,b){return a+b;},0)/diffs.length));
+  S.rmssd = rmssd;
+  var el = document.getElementById('bio-hrv'); if(el) el.textContent = rmssd;
+  var box = document.getElementById('bio-hrv-box');
+  if(box) box.style.display = S.breathMode === 'heart' ? 'flex' : 'none';
+  var elLive = document.getElementById('hrv-rmssd-live'); if(elLive) elLive.textContent = rmssd;
+  var elSub = document.getElementById('hrv-rmssd-sub');
+  if(elSub) {
+    elSub.style.color = rmssd>60 ? '#10b981' : rmssd>40 ? 'var(--t2)' : '#ef4444';
+    elSub.textContent = 'RMSSD: ' + rmssd + 'ms';
   }
-  if(S.hrvMorning.active){
+  if(S.hrvMorning.active) {
     S.hrvMorning.rmssdSamples.push(rmssd);
-    const avg=Math.round(S.hrvMorning.rmssdSamples.reduce((a,b)=>a+b,0)/S.hrvMorning.rmssdSamples.length);
-    const el2=document.getElementById('hrv-m-val');if(el2)el2.textContent=avg;
+    var avg = Math.round(S.hrvMorning.rmssdSamples.reduce(function(a,b){return a+b;},0)/S.hrvMorning.rmssdSamples.length);
+    var el2 = document.getElementById('hrv-m-val'); if(el2) el2.textContent = avg;
     updateHRVStatus(avg);
   }
 }
-
-function updateHRVStatus(rmssd){
-  const baseline=S.baselineRMSSD||rmssd;
-  const diff=((rmssd-baseline)/baseline*100).toFixed(0);
-  const el=document.getElementById('hrv-m-status');
-  const fill=document.getElementById('hrv-m-fill');
-  if(!el||!fill)return;
-  const pct=Math.min(Math.max(rmssd/100*100,5),100);
-  fill.style.width=pct+'%';
+function updateHRVStatus(rmssd) {
+  var baseline = S.baselineRMSSD || rmssd;
+  var diff = ((rmssd-baseline)/baseline*100).toFixed(0);
+  var el = document.getElementById('hrv-m-status');
+  var fill = document.getElementById('hrv-m-fill');
+  if(!el || !fill) return;
+  fill.style.width = Math.min(Math.max(rmssd/100*100,5),100) + '%';
   if(rmssd>=baseline*1.05){el.textContent='RECUPERADO · +'+diff+'% da média';el.style.color='#10b981';}
   else if(rmssd>=baseline*0.95){el.textContent='NORMAL · na média';el.style.color='var(--t2)';}
   else if(rmssd>=baseline*0.8){el.textContent='ALERTA · '+diff+'% abaixo';el.style.color='#f59e0b';}
   else{el.textContent='SOBRECARREGADO · '+diff+'% abaixo';el.style.color='#ef4444';}
 }
-
-function disconnectBT(){if(S.btDevice?.gatt?.connected)S.btDevice.gatt.disconnect();S.btOn=false;S.btDevice=null;updateBTUI();}
-function updateBTUI(){const b=document.getElementById('bt-btn'),l=document.getElementById('bt-lbl');b.className='pill'+(S.btOn?' on-a':'');l.textContent=S.btOn?'BT ✓':'BT';}
-function toggleBT(){document.getElementById('bt-btn').click();}
-function onHR(bpm){S.hrLog.push({t:Date.now(),bpm});const el=document.getElementById('bio-hr');if(el)el.textContent=bpm;updateCoherence();if(!S.manual)autoDetect();}
-
-// ══ MICROFONE ═════════════════════════════════════════
-async function toggleMic(){
-  if(S.micOn){stopMic();return;}
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
-    S.micStream=stream;S.micCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const src=S.micCtx.createMediaStreamSource(stream);
-    S.micAna=S.micCtx.createAnalyser();S.micAna.fftSize=512;S.micAna.smoothingTimeConstant=0.8;
-    src.connect(S.micAna);S.micOn=true;S.rrBuf=[];S.rrLastPeak=0;S.rrEnv=0;S.rrFloor=0;S.rrPeak=false;
-    updateMicUI();detectBreath();
-  }catch(e){alert('Microfone: '+e.message);}
-}
-function stopMic(){if(S.micStream)S.micStream.getTracks().forEach(t=>t.stop());if(S.micCtx)S.micCtx.close().catch(()=>{});S.micOn=false;S.micAna=null;updateMicUI();}
-function updateMicUI(){const b=document.getElementById('mic-btn'),l=document.getElementById('mic-lbl');b.className='pill'+(S.micOn?' on-g':'');l.textContent=S.micOn?'MIC ✓':'MIC';}
-function detectBreath(){
-  if(!S.micOn||!S.micAna)return;
-  const buf=new Uint8Array(S.micAna.frequencyBinCount);
-  S.micAna.getByteTimeDomainData(buf);
-  let sum=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
-  const rms=Math.sqrt(sum/buf.length);const now=Date.now();
-  S.rrEnv=rms>S.rrEnv?S.rrEnv*0.7+rms*0.3:S.rrEnv*0.97+rms*0.03;
-  S.rrFloor=S.rrFloor*0.995+rms*0.005;
-  const thr=Math.max(0.035,S.rrFloor*2.8);
-  if(S.rrEnv>thr&&!S.rrPeak&&now-S.rrLastPeak>3500){
-    S.rrPeak=true;S.rrLastPeak=now;S.rrBuf.push(now);
-    S.rrBuf=S.rrBuf.filter(t=>now-t<90000);
-    if(S.rrBuf.length>=3){
-      const ivs=[];for(let i=1;i<S.rrBuf.length;i++)ivs.push(S.rrBuf[i]-S.rrBuf[i-1]);
-      ivs.sort((a,b)=>a-b);const mid=Math.floor(ivs.length/2);
-      const med=ivs.length%2===0?(ivs[mid-1]+ivs[mid])/2:ivs[mid];
-      const rr=Math.round(60000/med);
-      if(rr>=1&&rr<=20){
-        const prev=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:rr;
-        const sm=Math.round(prev*0.4+rr*0.6);
-        S.rrLog.push({t:now,rr:sm});
-        const el=document.getElementById('bio-rr');if(el)el.textContent=sm;
-        updateCoherence();if(!S.manual)autoDetect();
-      }
-    }
-  }
-  if(S.rrEnv<thr*0.5)S.rrPeak=false;
-  requestAnimationFrame(detectBreath);
-}
-
-// ══ BINAURAL REAL ═════════════════════════════════════
-const BF={alfa:{freq:10,base:200},theta:{freq:6,base:180},delta:{freq:2,base:160}};
-function toggleBinaural(){if(S.binOn){stopBinaural();return;}startBinaural(S.phase);}
-function startBinaural(phase){
-  try{
-    if(!S.binCtx)S.binCtx=new(window.AudioContext||window.webkitAudioContext)();
-    if(S.binCtx.state==='suspended')S.binCtx.resume();
-    stopBinaural(true);
-    const b=BF[phase]||BF.alfa;
-    S.binL=S.binCtx.createOscillator();S.binL.frequency.value=b.base;S.binL.type='sine';
-    S.binR=S.binCtx.createOscillator();S.binR.frequency.value=b.base+b.freq;S.binR.type='sine';
-    const gain=S.binCtx.createGain();gain.gain.setValueAtTime(0,S.binCtx.currentTime);gain.gain.linearRampToValueAtTime(0.1,S.binCtx.currentTime+2);
-    const merger=S.binCtx.createChannelMerger(2);
-    const gL=S.binCtx.createGain(),gR=S.binCtx.createGain();
-    S.binL.connect(gL);S.binR.connect(gR);gL.connect(merger,0,0);gR.connect(merger,0,1);
-    merger.connect(gain);gain.connect(S.binCtx.destination);
-    S.binL.start();S.binR.start();S.binOn=true;updateBinUI(phase);
-  }catch(e){console.log('Bin:',e);}
-}
-function stopBinaural(silent=false){if(S.binL){try{S.binL.stop();}catch(e){}S.binL=null;}if(S.binR){try{S.binR.stop();}catch(e){}S.binR=null;}if(!silent){S.binOn=false;updateBinUI(null);}}
-function updateBinUI(p){const b=document.getElementById('bin-btn'),l=document.getElementById('bin-lbl');const lb={alfa:'α 10Hz',theta:'θ 6Hz',delta:'δ 2Hz'};b.className='pill'+(S.binOn?' on-b':'');l.textContent=S.binOn?(lb[p||S.phase]||'♪'):'♪';}
-
-// ══ VOZ GUIADA ════════════════════════════════════════
-function speak(text,rate=0.78,pitch=0.88){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='pt-BR';u.rate=rate;u.pitch=pitch;u.volume=0.8;
-  const voices=window.speechSynthesis.getVoices();
-  const v=voices.find(v=>v.lang.startsWith('pt')&&v.name.toLowerCase().includes('female'))||voices.find(v=>v.lang.startsWith('pt'))||null;
-  if(v)u.voice=v;
-  window.speechSynthesis.speak(u);
-}
-
-// ══ HRV MATINAL ═══════════════════════════════════════
-function handleHRVClick(){
+function handleHRVClick() {
   if(!S.btOn){alert('Conecte o sensor cardíaco primeiro.');return;}
-  if(S.hrvMorning.active){
-    // Encerrar medição
-    clearInterval(S.hrvMorning.timer);
-    S.hrvMorning.active=false;
-    const avg=S.hrvMorning.rmssdSamples.length?
-      Math.round(S.hrvMorning.rmssdSamples.reduce((a,b)=>a+b,0)/S.hrvMorning.rmssdSamples.length):null;
-    if(avg){
-      // Salvar baseline
-      const saved=JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
+  if(S.hrvMorning.active) {
+    clearInterval(S.hrvMorning.timer); S.hrvMorning.active = false;
+    var avg = S.hrvMorning.rmssdSamples.length ?
+      Math.round(S.hrvMorning.rmssdSamples.reduce(function(a,b){return a+b;},0)/S.hrvMorning.rmssdSamples.length) : null;
+    if(avg) {
+      var saved = JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
       saved.push({date:Date.now(),rmssd:avg});
       localStorage.setItem('maxcore_hrv_hist',JSON.stringify(saved.slice(-30)));
-      // Calcular baseline dos últimos 7 dias
-      const recent=saved.slice(-7);
-      S.baselineRMSSD=Math.round(recent.reduce((a,x)=>a+x.rmssd,0)/recent.length);
+      var recent = saved.slice(-7);
+      S.baselineRMSSD = Math.round(recent.reduce(function(a,x){return a+x.rmssd;},0)/recent.length);
+      updateHRVStatus(avg);
     }
-    const btnHrv=document.getElementById('btn-hrv-m');if(btnHrv)btnHrv.textContent='Medir agora';
-    const sub=document.getElementById('hrv-m-status');
-    if(sub&&avg)updateHRVStatus(avg);
+    var btn = document.getElementById('btn-hrv-m'); if(btn) btn.textContent = 'Medir agora';
     return;
   }
-  // Iniciar medição
-  S.hrvMorning.active=true;
-  S.hrvMorning.elapsed=0;
-  S.hrvMorning.rmssdSamples=[];
-  S.rrIntervals=[];
-  const DURACAO=300;// 5 minutos
-  const btnHrv=document.getElementById('btn-hrv-m');if(btnHrv)btnHrv.textContent='Parar medição';
-  const sub=document.getElementById('hrv-m-status');
+  S.hrvMorning.active = true; S.hrvMorning.elapsed = 0; S.hrvMorning.rmssdSamples = []; S.rrIntervals = [];
+  var DURACAO = 300;
+  var btn = document.getElementById('btn-hrv-m'); if(btn) btn.textContent = 'Parar medição';
+  var sub = document.getElementById('hrv-m-status');
   if(sub){sub.textContent='Fique deitado e quieto...';sub.style.color='var(--heart)';}
-  S.hrvMorning.timer=setInterval(()=>{
+  S.hrvMorning.timer = setInterval(function(){
     S.hrvMorning.elapsed++;
-    const fill=document.getElementById('hrv-m-fill');
-    if(fill)fill.style.width=(S.hrvMorning.elapsed/DURACAO*100)+'%';
-    if(S.hrvMorning.elapsed>=DURACAO){
-      clearInterval(S.hrvMorning.timer);
-      S.hrvMorning.active=false;
-      const btnHrv=document.getElementById('btn-hrv-m');if(btnHrv)btnHrv.textContent='Medir agora';
-      const avg=S.hrvMorning.rmssdSamples.length?
-        Math.round(S.hrvMorning.rmssdSamples.reduce((a,b)=>a+b,0)/S.hrvMorning.rmssdSamples.length):null;
-      if(avg){
-        const saved=JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
-        saved.push({date:Date.now(),rmssd:avg});
-        localStorage.setItem('maxcore_hrv_hist',JSON.stringify(saved.slice(-30)));
-        const recent=saved.slice(-7);
-        S.baselineRMSSD=Math.round(recent.reduce((a,b)=>a+b.rmssd,0)/recent.length);
-        updateHRVStatus(avg);
+    var fill = document.getElementById('hrv-m-fill');
+    if(fill) fill.style.width = (S.hrvMorning.elapsed/DURACAO*100) + '%';
+    if(S.hrvMorning.elapsed >= DURACAO) {
+      clearInterval(S.hrvMorning.timer); S.hrvMorning.active = false;
+      var btn2 = document.getElementById('btn-hrv-m'); if(btn2) btn2.textContent = 'Medir agora';
+      var avg2 = S.hrvMorning.rmssdSamples.length ?
+        Math.round(S.hrvMorning.rmssdSamples.reduce(function(a,b){return a+b;},0)/S.hrvMorning.rmssdSamples.length) : null;
+      if(avg2) {
+        var saved2 = JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
+        saved2.push({date:Date.now(),rmssd:avg2});
+        localStorage.setItem('maxcore_hrv_hist',JSON.stringify(saved2.slice(-30)));
+        S.baselineRMSSD = Math.round(saved2.slice(-7).reduce(function(a,x){return a+x.rmssd;},0)/Math.min(saved2.length,7));
+        updateHRVStatus(avg2);
       }
     }
-  },1000);
+  }, 1000);
 }
-
-// Carregar baseline salvo
 (function(){
-  const saved=JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
-  if(saved.length){
-    const recent=saved.slice(-7);
-    S.baselineRMSSD=Math.round(recent.reduce((a,x)=>a+x.rmssd,0)/recent.length);
-    const last=saved[saved.length-1];
-    const el=document.getElementById('hrv-m-val');if(el)el.textContent=last.rmssd;
-    updateHRVStatus(last.rmssd);
+  var saved = JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
+  if(saved.length) {
+    S.baselineRMSSD = Math.round(saved.slice(-7).reduce(function(a,x){return a+x.rmssd;},0)/Math.min(saved.length,7));
   }
 })();
 
 // ══ COERÊNCIA VAGAL ═══════════════════════════════════
-function updateCoherence(){
-  if(S.breathMode!=='heart')return;
-  const hr=S.hrLog.length?S.hrLog[S.hrLog.length-1].bpm:null;
-  const rr=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:null;
-  let score=0;
+function updateCoherence() {
+  if(S.breathMode !== 'heart') return;
+  var hr = S.hrLog.length ? S.hrLog[S.hrLog.length-1].bpm : null;
+  var rr = S.rrLog.length ? S.rrLog[S.rrLog.length-1].rr : null;
+  var score = 0;
   if(hr){if(hr>=55&&hr<=75)score+=50;else score+=Math.max(0,50-Math.abs(hr-65)*3);}
   if(rr){if(rr>=4&&rr<=6)score+=50;else score+=Math.max(0,50-Math.abs(rr-5)*10);}
-  S.cohScore=Math.round(S.cohScore*0.7+score*0.3);
-  const bar=document.getElementById('coh-bar'),val=document.getElementById('coh-val');
-  if(bar)bar.style.width=S.cohScore+'%';if(val)val.textContent=S.cohScore+'%';
-  const auto=document.getElementById('bio-auto');
+  S.cohScore = Math.round(S.cohScore*0.7+score*0.3);
+  var bar = document.getElementById('coh-bar'), val = document.getElementById('coh-val');
+  if(bar) bar.style.width = S.cohScore + '%';
+  if(val) val.textContent = S.cohScore + '%';
+  var auto = document.getElementById('bio-auto');
   if(auto){auto.textContent=S.cohScore+'%';auto.style.color=S.cohScore>70?'#e11d48':S.cohScore>40?'#8b5cf6':'var(--t2)';}
 }
 
-// ══ DETECÇÃO AUTOMÁTICA DE FASE ═══════════════════════
-function autoDetect(){
-  const hr=S.hrLog.length?S.hrLog[S.hrLog.length-1].bpm:null;
-  const rr=S.rrLog.length?S.rrLog[S.rrLog.length-1].rr:null;
-  if(!hr&&!rr)return;
-  let scores={alfa:0,theta:0,delta:0};
-  if(hr){Object.entries(PHASES).forEach(([k,p])=>{if(hr>=p.hrLo&&hr<=p.hrHi)scores[k]+=3;else scores[k]+=Math.max(0,2-Math.abs(hr<p.hrLo?p.hrLo-hr:hr-p.hrHi)/12);});}
-  if(rr){Object.entries(PHASES).forEach(([k,p])=>{if(rr>=p.rrLo&&rr<=p.rrHi)scores[k]+=3;else scores[k]+=Math.max(0,2-Math.abs(rr<p.rrLo?p.rrLo-rr:rr-p.rrHi)/5);});}
-  const best=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  if(S.breathMode!=='heart'){
-    const el=document.getElementById('bio-auto');
+// ══ DETECÇÃO AUTOMÁTICA ═══════════════════════════════
+function autoDetect() {
+  var hr = S.hrLog.length ? S.hrLog[S.hrLog.length-1].bpm : null;
+  var rr = S.rrLog.length ? S.rrLog[S.rrLog.length-1].rr : null;
+  if(!hr && !rr) return;
+  var scores = {alfa:0, theta:0, delta:0};
+  if(hr){Object.entries(PHASES).forEach(function(e){var k=e[0],p=e[1];if(hr>=p.hrLo&&hr<=p.hrHi)scores[k]+=3;else scores[k]+=Math.max(0,2-Math.abs(hr<p.hrLo?p.hrLo-hr:hr-p.hrHi)/12);});}
+  if(rr){Object.entries(PHASES).forEach(function(e){var k=e[0],p=e[1];if(rr>=p.rrLo&&rr<=p.rrHi)scores[k]+=3;else scores[k]+=Math.max(0,2-Math.abs(rr<p.rrLo?p.rrLo-rr:rr-p.rrHi)/5);});}
+  var best = Object.entries(scores).sort(function(a,b){return b[1]-a[1];})[0][0];
+  if(S.breathMode !== 'heart') {
+    var el = document.getElementById('bio-auto');
     if(el){el.textContent={alfa:'ALPHA',theta:'THETA',delta:'DELTA'}[best];el.style.color=PHASES[best].color;}
   }
-  ['alfa','theta','delta'].forEach(ph=>{const d=document.getElementById('pd-'+ph);if(d)d.textContent=ph===best?'● DETECTADO':'';});
-  if(best!==S.phase)setPhase(best,false);
+  ['alfa','theta','delta'].forEach(function(ph){var d=document.getElementById('pd-'+ph);if(d)d.textContent=ph===best?'● DETECTADO':'';});
+  if(best !== S.phase) setPhase(best, false);
 }
 
 // ══ TELA ESCURA ═══════════════════════════════════════
-function startDimTimer(){
+function startDimTimer() {
   clearTimeout(S.dimTimer);
-  const delay=S.breathMode==='free'?30000:70000;
-  S.dimTimer=setTimeout(()=>{if(!S.ticker)return;S.dimOn=true;document.getElementById('dim').classList.add('on');},delay);
+  S.dimTimer = setTimeout(function(){
+    if(!S.ticker) return;
+    S.dimOn = true;
+    document.getElementById('dim').classList.add('on');
+  }, S.breathMode==='free' ? 30000 : 70000);
 }
-function resetDim(){if(!S.dimOn)return;S.dimOn=false;document.getElementById('dim').classList.remove('on');startDimTimer();}
+function resetDim() {
+  if(!S.dimOn) return;
+  S.dimOn = false;
+  document.getElementById('dim').classList.remove('on');
+  startDimTimer();
+}
 
-// ══ RESPIRAÇÃO GUIADA ═════════════════════════════════
-function startBreathGuide(){
-  const mode=MODES[S.breathMode];
-  const widget=document.getElementById('bg-widget');
-  const cohWrap=document.getElementById('coh-wrap');
-  if(!mode||!mode.phases.length){widget.style.display='none';if(cohWrap)cohWrap.style.display='none';return;}
-  widget.style.display='flex';
-  if(cohWrap)cohWrap.style.display=S.breathMode==='heart'?'flex':'none';
-  document.getElementById('bg-lbl').textContent=MODES[S.breathMode].name.toUpperCase()+' · '+MODES[S.breathMode].sub;
-  document.getElementById('bg-sub').textContent=MODES[S.breathMode].sub;
-  if(S.breathMode==='heart')speak('Feche os olhos. Traga sua atenção para o coração.',0.74,0.86);
-  S.bgIdx=0;runBGPhase();
+// ══ GUIA RESPIRATÓRIO ════════════════════════════════
+function startBreathGuide() {
+  var mode = MODES[S.breathMode];
+  var widget = document.getElementById('bg-widget');
+  var cohWrap = document.getElementById('coh-wrap');
+  if(!mode || !mode.phases.length) {
+    widget.style.display = 'none';
+    if(cohWrap) cohWrap.style.display = 'none';
+    return;
+  }
+  widget.style.display = 'flex';
+  if(cohWrap) cohWrap.style.display = S.breathMode==='heart' ? 'flex' : 'none';
+  document.getElementById('bg-lbl').textContent = mode.name.toUpperCase() + ' · ' + mode.sub;
+  document.getElementById('bg-sub').textContent = mode.sub;
+  if(S.breathMode === 'heart') speak('Feche os olhos. Traga sua atenção para o coração.', 0.74, 0.86);
+  S.bgIdx = 0; runBGPhase();
 }
-function runBGPhase(){
-  if(!S.ticker)return;
-  const mode=MODES[S.breathMode];if(!mode||!mode.phases.length)return;
-  const ph=mode.phases[S.bgIdx%mode.phases.length],dur=ph.s;
-  const cols={INSPIRE:PHASES[S.phase]?.color||'#3b82f6',EXPIRE:'#10b981',SEGURE:'#f97316'};
-  const col=cols[ph.a]||'#3b82f6';
-  document.getElementById('bg-act').textContent=ph.a;document.getElementById('bg-act').style.color=col;
-  document.getElementById('bgc').style.stroke=col;
-  const circ=283;
-  document.getElementById('bgc').style.transition='none';
-  document.getElementById('bgc').style.strokeDashoffset=ph.a==='INSPIRE'?circ:0;
-  speak(ph.a==='INSPIRE'?'Inspire':ph.a==='EXPIRE'?'Expire':'Segure',0.68,0.82);
-  let elapsed=0;if(S.bgTimer)clearInterval(S.bgTimer);
-  S.bgTimer=setInterval(()=>{
-    elapsed+=100;
-    document.getElementById('bg-cnt').textContent=Math.max(Math.ceil(dur-elapsed/1000),0);
-    const pct=elapsed/(dur*1000);
-    const off=ph.a==='INSPIRE'?circ*(1-pct):circ*pct;
-    document.getElementById('bgc').style.transition='stroke-dashoffset 0.1s linear';
-    document.getElementById('bgc').style.strokeDashoffset=Math.max(0,Math.min(circ,off));
-    if(elapsed>=dur*1000){
-      clearInterval(S.bgTimer);S.bgIdx++;
-      if(S.bgIdx%mode.phases.length===0)startDimTimer();
+function runBGPhase() {
+  if(!S.ticker) return;
+  var mode = MODES[S.breathMode]; if(!mode || !mode.phases.length) return;
+  var ph = mode.phases[S.bgIdx % mode.phases.length];
+  var dur = ph.s;
+  var cols = {INSPIRE:PHASES[S.phase]?PHASES[S.phase].color:'#3b82f6', EXPIRE:'#10b981', SEGURE:'#f97316'};
+  var col = cols[ph.a] || '#3b82f6';
+  document.getElementById('bg-act').textContent = ph.a;
+  document.getElementById('bg-act').style.color = col;
+  document.getElementById('bgc').style.stroke = col;
+  var circ = 283;
+  document.getElementById('bgc').style.transition = 'none';
+  document.getElementById('bgc').style.strokeDashoffset = ph.a==='INSPIRE' ? circ : 0;
+  speak(ph.a==='INSPIRE'?'Inspire':ph.a==='EXPIRE'?'Expire':'Segure', 0.68, 0.82);
+  if(ph.a==='INSPIRE') haptic([80]);
+  else if(ph.a==='EXPIRE') haptic([30,30,30]);
+  else haptic([200]);
+  var elapsed = 0;
+  if(S.bgTimer) clearInterval(S.bgTimer);
+  var phaseStart = Date.now();
+  S.bgTimer = setInterval(function(){
+    elapsed = Date.now() - phaseStart;
+    document.getElementById('bg-cnt').textContent = Math.max(Math.ceil(dur-elapsed/1000),0);
+    var pct = elapsed/(dur*1000);
+    var off = ph.a==='INSPIRE' ? circ*(1-pct) : circ*pct;
+    document.getElementById('bgc').style.transition = 'stroke-dashoffset 0.1s linear';
+    document.getElementById('bgc').style.strokeDashoffset = Math.max(0, Math.min(circ, off));
+    if(elapsed >= dur*1000) {
+      clearInterval(S.bgTimer); S.bgIdx++;
+      if(S.bgIdx % mode.phases.length === 0) startDimTimer();
       runBGPhase();
     }
-  },100);
+  }, 100);
 }
 
 // ══ NAVEGAÇÃO ═════════════════════════════════════════
-function showScreen(id){
-  ['sc-home','sc-med','sc-confirm','sc-rep'].forEach(s=>{
-    const el=document.getElementById(s);if(!el)return;
-    el.style.display=(s===id)?'flex':'none';
-    if(s===id)el.style.flexDirection='column';
+function showScreen(id) {
+  ['sc-home','sc-med','sc-confirm','sc-rep'].forEach(function(s){
+    var el = document.getElementById(s); if(!el) return;
+    el.style.display = s===id ? 'flex' : 'none';
+    if(s===id) el.style.flexDirection = 'column';
   });
   try{document.querySelector('.scroll').scrollTop=0;}catch(e){}
 }
 
 // ══ INICIAR SESSÃO ════════════════════════════════════
-function startSession(){
-  S.startTime=Date.now();S.phaseStart=Date.now();
-  S.phase='alfa';S.manual=false;S.cohScore=0;
-  S.phaseTimes={alfa:0,theta:0,delta:0};
-  S.log=[{phase:'alfa',start:Date.now()}];
-  S.hrLog=[];S.rrLog=[];S.rrBuf=[];S.rrLastPeak=0;S.rrEnv=0;S.rrFloor=0;S.rrPeak=false;
-  ['bio-hr','bio-rr'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='--';});
-  const au=document.getElementById('bio-auto');if(au){au.textContent='--';au.style.color='var(--t2)';}
-  ['alfa','theta','delta'].forEach(ph=>{const d=document.getElementById('pd-'+ph);if(d)d.textContent='';});
-  updateArena();showScreen('sc-med');
-  if(S.ticker)clearInterval(S.ticker);
-  S.ticker=setInterval(tick,1000);
+async function startSession() {
+  S.startTime = Date.now(); S.phaseStart = Date.now();
+  S.phase = 'alfa'; S.manual = false; S.cohScore = 0;
+  S.phaseTimes = {alfa:0, theta:0, delta:0};
+  S.log = [{phase:'alfa', start:Date.now()}];
+  S.hrLog = []; S.rrLog = []; S.rrBuf = []; S.rrLastPeak = 0; S.rrEnv = 0; S.rrFloor = 0; S.rrPeak = false;
+  ['bio-hr','bio-rr'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='--';});
+  var au = document.getElementById('bio-auto'); if(au){au.textContent='--';au.style.color='var(--t2)';}
+  ['alfa','theta','delta'].forEach(function(ph){var d=document.getElementById('pd-'+ph);if(d)d.textContent='';});
+  updateArena(); showScreen('sc-med');
+  if(S.ticker) clearInterval(S.ticker);
+  S.ticker = setInterval(tick, 1000);
   startBreathGuide();
-  if(S.breathMode==='free')startDimTimer();
-  document.addEventListener('touchstart',resetDim);
-  document.addEventListener('click',resetDim);
+  if(S.breathMode === 'free') startDimTimer();
+  await requestWakeLock();
+  document.addEventListener('touchstart', resetDim);
+  document.addEventListener('click', resetDim);
+  localStorage.setItem('mc_progress', JSON.stringify({startTime:S.startTime, mode:S.breathMode, intention:S.intention}));
+  haptic([50,30,80]);
 }
 
 // ══ FASE ══════════════════════════════════════════════
-function setPhase(phase,isManual=true){
-  if(phase===S.phase)return;
-  S.manual=isManual;
-  const now=Date.now();
-  S.phaseTimes[S.phase]+=now-S.phaseStart;
-  if(S.log.length)S.log[S.log.length-1].end=now;
-  S.log.push({phase,start:now});S.phase=phase;S.phaseStart=now;
-  updateArena();if(S.binOn)startBinaural(phase);
-  if(isManual)setTimeout(()=>{S.manual=false;},180000);
+function setPhase(phase, isManual) {
+  if(isManual === undefined) isManual = true;
+  if(phase === S.phase) return;
+  S.manual = isManual;
+  var now = Date.now();
+  S.phaseTimes[S.phase] += now - S.phaseStart;
+  if(S.log.length) S.log[S.log.length-1].end = now;
+  S.log.push({phase:phase, start:now}); S.phase = phase; S.phaseStart = now;
+  updateArena(); if(S.binOn) startBinaural(phase);
+  if(isManual) setTimeout(function(){S.manual=false;}, 180000);
 }
-function manualPhase(ph){setPhase(ph,true);}
-function updateArena(){
-  const p=PHASES[S.phase];
-  const cls=S.breathMode==='heart'?'heart':S.phase;
-  document.getElementById('arena').className='arena '+cls+' fc';
-  document.getElementById('arena-ph').textContent=S.breathMode==='heart'?'CORAÇÃO':p.name;
-  document.getElementById('arena-hz').textContent=S.breathMode==='heart'?'Sincronia Vagal Ativa':p.hz;
-  document.getElementById('wv-p').setAttribute('stroke',S.breathMode==='heart'?'#e11d48':p.color);
-  ['alfa','theta','delta'].forEach(ph=>{const btn=document.getElementById('pb-'+ph);if(btn)btn.className='ph-btn '+ph+(ph===S.phase?' active':'');});
+function manualPhase(ph) { setPhase(ph, true); }
+function updateArena() {
+  var p = PHASES[S.phase];
+  var cls = S.breathMode==='heart' ? 'heart' : S.phase;
+  document.getElementById('arena').className = 'arena ' + cls + ' fc';
+  document.getElementById('arena-ph').textContent = S.breathMode==='heart' ? 'CORAÇÃO' : p.name;
+  document.getElementById('arena-hz').textContent = S.breathMode==='heart' ? 'Sincronia Vagal Ativa' : p.hz;
+  document.getElementById('wv-p').setAttribute('stroke', S.breathMode==='heart' ? '#e11d48' : p.color);
+  ['alfa','theta','delta'].forEach(function(ph){
+    var btn = document.getElementById('pb-'+ph);
+    if(btn) btn.className = 'ph-btn ' + ph + (ph===S.phase ? ' active' : '');
+  });
 }
 
 // ══ TICK ══════════════════════════════════════════════
-function tick(){
-  const e=Date.now()-S.startTime;
-  const h=Math.floor(e/3600000),m=Math.floor((e%3600000)/60000),s=Math.floor((e%60000)/1000);
-  const el=document.getElementById('arena-timer');
-  if(el)el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const now=Date.now(),times={...S.phaseTimes};times[S.phase]+=now-S.phaseStart;
-  ['alfa','theta','delta'].forEach(ph=>{const sec=Math.floor(times[ph]/1000);const el2=document.getElementById('pt-'+ph);if(el2)el2.textContent=Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');});
+function tick() {
+  var e = Date.now() - S.startTime;
+  var h = Math.floor(e/3600000), m = Math.floor((e%3600000)/60000), s = Math.floor((e%60000)/1000);
+  var el = document.getElementById('arena-timer');
+  if(el) el.textContent = String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  var now = Date.now(), times = Object.assign({},S.phaseTimes);
+  times[S.phase] += now - S.phaseStart;
+  ['alfa','theta','delta'].forEach(function(ph){
+    var sec = Math.floor(times[ph]/1000);
+    var el2 = document.getElementById('pt-'+ph);
+    if(el2) el2.textContent = Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
+  });
+  if(Math.floor(e/1000)%60===0 && S.startTime) {
+    localStorage.setItem('mc_progress', JSON.stringify({startTime:S.startTime, mode:S.breathMode, intention:S.intention, elapsed:e}));
+  }
 }
 
 // ══ ENCERRAR ══════════════════════════════════════════
-function endSession(){
-  clearInterval(S.ticker);clearInterval(S.bgTimer);S.ticker=null;
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
-  stopBinaural();clearTimeout(S.dimTimer);resetDim();
-  document.removeEventListener('touchstart',resetDim);
-  document.removeEventListener('click',resetDim);
-  const now=Date.now();
-  S.phaseTimes[S.phase]+=now-S.phaseStart;
-  if(S.log.length)S.log[S.log.length-1].end=now;
-  const totMin=Math.max(1,Math.floor((now-S.startTime)/60000));
-  const T=S.phaseTimes,tot=T.alfa+T.theta+T.delta||1;
-  const pcts={alfa:Math.round(T.alfa/tot*100),theta:Math.round(T.theta/tot*100),delta:Math.round(T.delta/tot*100)};
-  const score=Math.min(100,Math.round((pcts.alfa*0.5+pcts.theta*1.6+pcts.delta*2.4)/1.5));
-  S.tempData={dur:totMin,pcts,score,mode:S.breathMode};
+function endSession() {
+  clearInterval(S.ticker); clearInterval(S.bgTimer); S.ticker = null;
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  stopBinaural(); clearTimeout(S.dimTimer); resetDim(); releaseWakeLock();
+  localStorage.removeItem('mc_progress');
+  document.removeEventListener('touchstart', resetDim);
+  document.removeEventListener('click', resetDim);
+  var now = Date.now();
+  S.phaseTimes[S.phase] += now - S.phaseStart;
+  if(S.log.length) S.log[S.log.length-1].end = now;
+  var totMin = Math.max(1, Math.floor((now-S.startTime)/60000));
+  var T = S.phaseTimes, tot = T.alfa+T.theta+T.delta || 1;
+  var pcts = {alfa:Math.round(T.alfa/tot*100), theta:Math.round(T.theta/tot*100), delta:Math.round(T.delta/tot*100)};
+  var score = Math.min(100, Math.round((pcts.alfa*0.5+pcts.theta*1.6+pcts.delta*2.4)/1.5));
+  S.tempData = {dur:totMin, pcts:pcts, score:score, mode:S.breathMode};
   showScreen('sc-confirm');
+  haptic([50,50,100]);
 }
-
-function finalizeSession(save){
-  if(save&&S.tempData){
-    saveSession(S.tempData.dur,S.tempData.pcts,S.tempData.score,S.tempData.mode);
-    buildReport(S.tempData.dur,S.tempData.pcts,S.tempData.score);
+function finalizeSession(save) {
+  if(save && S.tempData) {
+    saveSession(S.tempData.dur, S.tempData.pcts, S.tempData.score, S.tempData.mode);
+    buildReport(S.tempData.dur, S.tempData.pcts, S.tempData.score);
+    renderStats(); renderCalendar();
     showScreen('sc-rep');
   } else {
-    S.tempData=null;newSession();
+    S.tempData = null; newSession();
   }
+}
+function newSession() {
+  S.intention = ''; S.tempData = null;
+  showScreen('sc-home');
+  updateGreeting(); renderStats(); renderCalendar(); updateModeInfo();
+}
+
+// ══ CHARTS ════════════════════════════════════════════
+function drawChart(canvasId, data, startTime, color) {
+  var canvas = document.getElementById(canvasId);
+  if(!canvas || !data.length) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.offsetWidth || canvas.parentElement.offsetWidth || 200;
+  var H = canvas.offsetHeight || 50;
+  canvas.width = W * devicePixelRatio; canvas.height = H * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  ctx.clearRect(0,0,W,H);
+  var vals = data.map(function(x){return x.v;});
+  var min = Math.min.apply(null,vals), max = Math.max.apply(null,vals);
+  var range = Math.max(max-min, 5);
+  var totalTime = (data[data.length-1].t - startTime) || 1;
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  data.forEach(function(pt, i){
+    var x = ((pt.t-startTime)/totalTime)*W;
+    var y = H - ((pt.v-min)/range)*H*0.8 - H*0.1;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
 }
 
 // ══ RELATÓRIO ═════════════════════════════════════════
-function buildReport(totalMin,pcts,score){
-  const h=Math.floor(totalMin/60),m=totalMin%60;
-  document.getElementById('rep-dur').textContent=(h>0?h+'h ':'')+m+'min';
-  const now=new Date();
-  document.getElementById('rep-date').textContent=now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toUpperCase()+' · '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  const ri=document.getElementById('rep-intent');
+function buildReport(totalMin, pcts, score) {
+  var h = Math.floor(totalMin/60), m = totalMin%60;
+  document.getElementById('rep-dur').textContent = (h>0?h+'h ':'')+m+'min';
+  var now = new Date();
+  document.getElementById('rep-date').textContent =
+    now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'}).toUpperCase() +
+    ' · '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  var ri = document.getElementById('rep-intent');
   if(ri){if(S.intention){ri.textContent='"'+S.intention+'"';ri.style.display='block';}else ri.style.display='none';}
-  // Score
-  const circ=2*Math.PI*34;
-  const f=document.getElementById('srf');
-  f.style.strokeDasharray=circ;f.style.stroke=score>=80?'#3b82f6':score>=55?'#8b5cf6':'#4f46e5';
-  setTimeout(()=>{f.style.strokeDashoffset=circ*(1-score/100);},300);
-  document.getElementById('srn').textContent=score;
-  const grades=[[85,'COMANDO ABSOLUTO','Autofagia e down-regulation maximizados. GH e GABA em pico.'],[65,'BOM CONTROLE','Estado de fluxo estável. Theta dominante.'],[40,'PROCESSO','Cortisol reduzido. Alpha consolidado.'],[0,'INICIAL','Sistema em adaptação. Continue.']];
-  const [,lb,sub]=grades.find(([t])=>score>=t);
-  document.getElementById('sc-lbl').textContent=lb;
-  document.getElementById('sc-sub').textContent=sub;
-  // Gamma
-  const gamma=S.hrLog.length>=10&&(()=>{const b=S.hrLog.map(x=>x.bpm);const avg=b.reduce((a,c)=>a+c,0)/b.length;const std=Math.sqrt(b.map(x=>(x-avg)**2).reduce((a,c)=>a+c,0)/b.length);return std<4&&pcts.delta>15&&totalMin>=25;})();
-  document.getElementById('gamma-card').classList.toggle('show',gamma);
-  // Hipograma
-  const strip=document.getElementById('tm-strip'),axis=document.getElementById('tm-axis');
-  strip.innerHTML='';axis.innerHTML='';
-  const maxMin=Math.max(totalMin,1);
-  for(let i=0;i<maxMin;i++){
-    const ms=S.startTime+i*60000,me=ms+60000;let ph='empty',best=0;
-    S.log.forEach(seg=>{const ov=Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);if(ov>best){best=ov;ph=seg.phase;}});
-    const d=document.createElement('div');d.className='tm-m '+ph;strip.appendChild(d);
+  var circ = 2*Math.PI*34;
+  var f = document.getElementById('srf');
+  f.style.strokeDasharray = circ;
+  f.style.stroke = score>=80 ? '#3b82f6' : score>=55 ? '#8b5cf6' : '#4f46e5';
+  setTimeout(function(){f.style.strokeDashoffset=circ*(1-score/100);}, 300);
+  document.getElementById('srn').textContent = score;
+  var grades = [[85,'COMANDO ABSOLUTO','Autofagia e down-regulation maximizados. GH e GABA em pico.'],[65,'BOM CONTROLE','Estado de fluxo estável. Theta dominante.'],[40,'PROCESSO','Cortisol reduzido. Alpha consolidado.'],[0,'INICIAL','Sistema em adaptação. Continue.']];
+  var grade = grades.filter(function(t){return score>=t[0];})[0];
+  document.getElementById('sc-lbl').textContent = grade[1];
+  document.getElementById('sc-sub').textContent = grade[2];
+  var gamma = S.hrLog.length >= 10 && (function(){
+    var b = S.hrLog.map(function(x){return x.bpm;});
+    var avg = b.reduce(function(a,c){return a+c;},0)/b.length;
+    var std = Math.sqrt(b.map(function(x){return Math.pow(x-avg,2);}).reduce(function(a,c){return a+c;},0)/b.length);
+    return std<4 && pcts.delta>15 && totalMin>=25;
+  })();
+  document.getElementById('gamma-card').classList.toggle('show', gamma);
+  var strip = document.getElementById('tm-strip'), axis = document.getElementById('tm-axis');
+  strip.innerHTML = ''; axis.innerHTML = '';
+  var maxMin = Math.max(totalMin,1);
+  for(var i=0;i<maxMin;i++){
+    var ms=S.startTime+i*60000, me=ms+60000, ph='empty', best=0;
+    S.log.forEach(function(seg){var ov=Math.min(me,seg.end||Date.now())-Math.max(ms,seg.start);if(ov>best){best=ov;ph=seg.phase;}});
+    var d = document.createElement('div'); d.className = 'tm-m '+ph; strip.appendChild(d);
   }
-  for(let i=0;i<=Math.min(6,maxMin);i++){const sp=document.createElement('span');sp.textContent=Math.round(i*maxMin/Math.min(6,maxMin))+'min';axis.appendChild(sp);}
-  // Fases
-  ['alfa','theta','delta'].forEach(ph=>{
-    const hf=document.getElementById('hf-'+ph),hp=document.getElementById('hp-'+ph);
-    const ps=document.getElementById('ps-'+ph),pp=document.getElementById('pp-'+ph);
+  for(var j=0;j<=Math.min(6,maxMin);j++){
+    var sp = document.createElement('span');
+    sp.textContent = Math.round(j*maxMin/Math.min(6,maxMin))+'min';
+    axis.appendChild(sp);
+  }
+  ['alfa','theta','delta'].forEach(function(ph){
+    var hf=document.getElementById('hf-'+ph),hp=document.getElementById('hp-'+ph);
+    var ps=document.getElementById('ps-'+ph),pp=document.getElementById('pp-'+ph);
     if(hf)hf.style.width=pcts[ph]+'%';if(hp)hp.textContent=pcts[ph]+'%';
     if(ps)ps.textContent=Math.round(S.phaseTimes[ph]/60000)+' min';if(pp)pp.textContent='· '+pcts[ph]+'%';
   });
-  // FC real (sem dados falsos)
   if(S.hrLog.length){
-    const b=S.hrLog.map(x=>x.bpm);
-    document.getElementById('fc-avg').textContent=Math.round(b.reduce((a,c)=>a+c,0)/b.length);
-    document.getElementById('fc-max').textContent=Math.max(...b);
-    document.getElementById('fc-min').textContent=Math.min(...b);
-    drawChart('fc-canvas',S.hrLog.map(x=>({t:x.t,v:x.bpm})),S.startTime,'#ef4444');
-  } else ['fc-avg','fc-max','fc-min'].forEach(id=>document.getElementById(id).textContent='--');
-  // Respiração real
+    var b=S.hrLog.map(function(x){return x.bpm;});
+    document.getElementById('fc-avg').textContent=Math.round(b.reduce(function(a,c){return a+c;},0)/b.length);
+    document.getElementById('fc-max').textContent=Math.max.apply(null,b);
+    document.getElementById('fc-min').textContent=Math.min.apply(null,b);
+    setTimeout(function(){drawChart('fc-canvas',S.hrLog.map(function(x){return{t:x.t,v:x.bpm};}),S.startTime,'#ef4444');},100);
+  }else['fc-avg','fc-max','fc-min'].forEach(function(id){document.getElementById(id).textContent='--';});
   if(S.rrLog.length){
-    const r=S.rrLog.map(x=>x.rr);
-    document.getElementById('rr-avg').textContent=Math.round(r.reduce((a,c)=>a+c,0)/r.length);
-    document.getElementById('rr-max').textContent=Math.max(...r);
-    document.getElementById('rr-min').textContent=Math.min(...r);
-    drawChart('rr-canvas',S.rrLog.map(x=>({t:x.t,v:x.rr})),S.startTime,'#10b981');
-  } else ['rr-avg','rr-max','rr-min'].forEach(id=>document.getElementById(id).textContent='--');
-  // IA
-  generateAI(totalMin,pcts,score,gamma);
+    var r=S.rrLog.map(function(x){return x.rr;});
+    document.getElementById('rr-avg').textContent=Math.round(r.reduce(function(a,c){return a+c;},0)/r.length);
+    document.getElementById('rr-max').textContent=Math.max.apply(null,r);
+    document.getElementById('rr-min').textContent=Math.min.apply(null,r);
+    setTimeout(function(){drawChart('rr-canvas',S.rrLog.map(function(x){return{t:x.t,v:x.rr};}),S.startTime,'#10b981');},100);
+  }else['rr-avg','rr-max','rr-min'].forEach(function(id){document.getElementById(id).textContent='--';});
+  generateAI(totalMin, pcts, score, gamma);
 }
 
-// ══ IA CIENTÍFICA OFFLINE — MEDITATE v2.0 ═══════════
-// Base: Neuroscience & Biobehavioral Reviews 2024,
-// Frontiers in Psychology 2025, PNAS Harvard 2025,
-// Nature Neuroscience 2024, Psychology Today 2024,
-// Medicine International 2025 (HRV coherence),
-// Scientific Reports 2025 (HRV biofeedback)
-// Cruzamento: ondas, protocolo, FC, respiração, HRV
-// ═════════════════════════════════════════════════════
-function generateAI(totalMin,pcts,score,gamma){
-  const body=document.getElementById('ai-body');if(!body)return;
-  body.innerHTML='<div class="ai-load"><div class="ai-dots"><span></span><span></span><span></span></div> Processando padrões neurais...</div>';
-  const hrAvg=S.hrLog.length?Math.round(S.hrLog.map(x=>x.bpm).reduce((a,b)=>a+b,0)/S.hrLog.length):null;
-  const hrMin=S.hrLog.length?Math.min(...S.hrLog.map(x=>x.bpm)):null;
-  const rrAvg=S.rrLog.length?Math.round(S.rrLog.map(x=>x.rr).reduce((a,b)=>a+b,0)/S.rrLog.length):null;
-  const mNm={wake:'Prime Neural',focus:'Estado de Flow',deep:'Recuperação Profunda',sleep:'Indução ao Sono',heart:'Coerência Vagal',free:'Livre',sos:'S.O.S. Reset'};
-  const modo=mNm[S.breathMode]||'Livre';
-
-  setTimeout(()=>{
-    let txt='';
-
-    // ── BLOCO 1: Diagnóstico por protocolo e ondas ──
+// ══ IA ════════════════════════════════════════════════
+function generateAI(totalMin, pcts, score, gamma) {
+  var body = document.getElementById('ai-body'); if(!body) return;
+  body.innerHTML = '<div class="ai-load"><div class="ai-dots"><span></span><span></span><span></span></div> Processando padrões neurais...</div>';
+  var hrAvg = S.hrLog.length ? Math.round(S.hrLog.map(function(x){return x.bpm;}).reduce(function(a,b){return a+b;},0)/S.hrLog.length) : null;
+  var hrMin = S.hrLog.length ? Math.min.apply(null,S.hrLog.map(function(x){return x.bpm;})) : null;
+  var rrAvg = S.rrLog.length ? Math.round(S.rrLog.map(function(x){return x.rr;}).reduce(function(a,b){return a+b;},0)/S.rrLog.length) : null;
+  var mNm = {wake:'Prime Neural',focus:'Estado de Flow',deep:'Recuperação Profunda',sleep:'Indução ao Sono',heart:'Coerência Vagal',free:'Livre',sos:'S.O.S. Reset'};
+  var modo = mNm[S.breathMode] || 'Livre';
+  setTimeout(function(){
+    var paras = [];
     if(S.breathMode==='heart'){
-      // Coerência Vagal — foco em HRV e nervo vago
-      if(pcts.alfa>40){
-        txt+='Coerência Vagal bem estabelecida: padrão Alpha dominante ('+pcts.alfa+'%) confirma ativação do sistema nervoso parassimpático. A respiração em 5-6 ciclos/minuto sincroniza oscilações cardíacas com pressão arterial — estado de HRV coherence validado por Medicine International (2025 — correlação r=0.88 entre RMSSD e tônus vagal). Scientific Reports (2025) confirma que respiração diafragmática profunda ativa o núcleo do trato solitário no tronco cerebral, que ativa diretamente o nervo vago. Cortisol suprimido, GABA e serotonina em ascensão. ';
-      } else {
-        txt+='✅ Coerência Vagal — 5-6 resp/min. Parassimpático ativado. HRV em ascensão. ';
-      }
+      if(pcts.alfa>40)paras.push('Coerência Vagal bem estabelecida: padrão Alpha dominante ('+pcts.alfa+'%) confirma ativação do sistema nervoso parassimpático. Respiração em 5–6 ciclos/minuto sincroniza oscilações cardíacas com pressão arterial — HRV coherence validado por Medicine International 2025 (correlação r=0.88 entre RMSSD e tônus vagal).');
+      else paras.push('Coerência Vagal ativa. 5–6 resp/min. Nervo vago estimulado, parassimpático dominante. GABA e serotonina em ascensão.');
     } else if(S.breathMode==='focus'){
-      // Estado de Flow — Alpha+Theta
-      const flowScore=pcts.alfa+pcts.theta;
-      if(flowScore>60){
-        txt+='Estado de Flow alcançado: combinação Alpha-Theta ('+flowScore+'% do tempo) é a assinatura neural do estado de flow descrita por Csikszentmihalyi. Alpha frontal (8-12Hz) sinaliza relaxamento alerta; Theta (4-8Hz) indica processamento criativo profundo. O estado Alpha-Theta ativo também estimula PGC-1α — regulador master do metabolismo mitocondrial — confirmando o link entre meditação e saúde celular. BDNF liberado durante este estado promove plasticidade sináptica — aprendizado acelerado nas 2h seguintes à sessão (Nature Neuroscience, 2024). ';
-      } else {
-        txt+='Sessão de Flow em construção. Alpha em '+pcts.alfa+'% — continue. A transição Alpha→Theta acontece naturalmente após 10-15min de foco sustentado. ';
-      }
+      var flowScore=pcts.alfa+pcts.theta;
+      if(flowScore>60)paras.push('Estado de Flow alcançado: Alpha-Theta em '+flowScore+'% do tempo. Combinação validada por Csikszentmihalyi como assinatura neural do flow. BDNF liberado — plasticidade sináptica ativa nas 2h seguintes (Nature Neuroscience 2024).');
+      else paras.push('Sessão de Flow em construção. Alpha em '+pcts.alfa+'%. Transição Alpha→Theta acontece naturalmente após 10–15 min de foco sustentado. Continue o protocolo.');
     } else if(S.breathMode==='deep'||S.breathMode==='sleep'){
-      // Recuperação/Sono — Delta dominante
-      if(pcts.delta>30){
-        txt+='Delta dominante ('+pcts.delta+'%) — recuperação profunda ativada. Ondas Delta (0,5-4Hz) sinalizam ativação máxima do sistema nervoso parassimpático. GH (hormônio do crescimento) é secretado em pulsos durante Delta profundo — essencial para reparar as microlesões do trabalho físico pesado. PNAS Harvard 2025 confirmou que trabalhadores físicos têm maiores ganhos de GH em sessões Delta mediadas que a população geral. ';
-      } else {
-        txt+='✅ '+totalMin+'min de downregulation. Simpático caindo, parassimpático subindo. ';
-      }
+      if(pcts.delta>30)paras.push('Delta dominante ('+pcts.delta+'%) — recuperação profunda ativada. GH secretado em pulsos durante Delta: reparo de microlesões, autofagia, regeneração celular. PNAS Harvard 2025 confirma ganhos de GH em sessões Delta mediadas superior à população geral.');
+      else paras.push('Down-regulation consolidado. '+totalMin+' min de ativação parassimpática. Delta ainda em consolidação — sessões regulares aprofundam o padrão.');
     } else if(S.breathMode==='wake'){
-      // Prime Neural — Beta/Gamma
-      txt+='⚡ Prime Neural score '+score+'/100. Alerta e foco ativados. ';
+      paras.push('Prime Neural executado. Ativação simpática controlada. Sistema de alertas calibrado para o dia. Foco e clareza cognitiva maximizados para as próximas horas.');
     } else if(S.breathMode==='sos'){
-      txt+='🆘 S.O.S. executado. FC reduzida, cortisol suprimido. Reset completo. ';
+      paras.push('Reset S.O.S. completado. Suspiro fisiológico ativa receptores pulmonares que enviam sinal direto ao tronco cerebral para supressão de adrenalina. Cortisol interrompido. Sistema nervoso em processo de restabilização.');
     } else {
-      txt+='Sessão de '+totalMin+' minutos completada. Alpha em '+pcts.alfa+'%, Theta em '+pcts.theta+'%, Delta em '+pcts.delta+'%. Score '+score+'/100. ';
+      paras.push('Sessão Livre: '+totalMin+' min. Alpha '+pcts.alfa+'% · Theta '+pcts.theta+'% · Delta '+pcts.delta+'%. Score '+score+'/100.');
     }
-
-    // ── BLOCO 2: Dados biométricos se disponíveis ──
-    if(hrAvg){
-      const hrDrop=hrMin?hrAvg-hrMin:0;
-      if(hrDrop>8){
-        txt+='FC caiu '+hrDrop+' bpm durante a sessão — queda excelente, indica ativação parassimpática real. RMSSD aumentado confirma dominância vagal (Frontiers Psychology, 2025). ';
-      } else if(hrAvg){
-        txt+='FC média: '+hrAvg+' bpm. ';
-      }
-    }
-    if(rrAvg&&rrAvg>0&&rrAvg<25){
-      if(rrAvg<=6){
-        txt+='Respiração em '+rrAvg+' ciclos/min — frequência de ressonância cardíaca (5-6 rpm) atingida. Esta é a frequência que maximiza a amplitude do HRV e o tônus vagal. ';
-      } else if(rrAvg<=10){
-        txt+='Respiração controlada em '+rrAvg+' ciclos/min — redução significativa do ritmo basal. ';
-      }
-    }
-
-    // ── BLOCO 3: Gamma (estado especial) ──
-    if(gamma){
-      txt+='🌟 Padrão Gamma detectado. Estado meditativo profundo. Excepcional. ';
-    }
-
-    // ── BLOCO 3b: Contexto turno noturno ──
-    if(S.breathMode==='heart'||S.breathMode==='deep'){
-      txt+='→ Para turno noturno: sessões regulares compensam o desequilíbrio circadiano. ';
-    }
-    // ── BLOCO 4: Intenção da sessão ──
-    if(S.intention&&S.intention.length>2){
-      txt+='Intenção "'+S.intention+'" foi âncora cognitiva desta sessão — ativação intencional do córtex cingulado anterior direciona a plasticidade sináptica induzida pelo Alpha/Theta. ';
-    }
-
-    // ── BLOCO 5: Avaliação e recomendação ──
-    if(score>=80){
-      txt+='Sessão de alta qualidade. Janela de consolidação: as 2h seguintes são ideais para aprendizado, criatividade e tomada de decisão — capitalize este estado.';
-    } else if(score>=55){
-      txt+='Sessão sólida. Consistência é mais importante que perfeição — meditação regular por 8 semanas produz mudanças estruturais mensuráveis no córtex pré-frontal (Neuroscience & Biobehavioral Reviews, 2024).';
-    } else {
-      txt+='Sessão de '+totalMin+' minutos tem valor mesmo com score menor — o sistema nervoso registra cada prática. Continue a sequência.';
-    }
-
-    body.style.opacity='0';body.style.transition='opacity 0.5s';
-    setTimeout(()=>{body.textContent=txt;body.style.opacity='1';},400);
-  },1600);
+    if(hrAvg){var hrDrop=hrMin?hrAvg-hrMin:0;if(hrDrop>8)paras.push('FC caiu '+hrDrop+' bpm durante a sessão — queda expressiva, confirma ativação parassimpática real. RMSSD aumentado sinaliza dominância vagal (Frontiers Psychology 2025).');else paras.push('FC média: '+hrAvg+' bpm. Padrão cardíaco dentro do esperado para o protocolo '+modo+'.');}
+    if(rrAvg&&rrAvg>0&&rrAvg<25){if(rrAvg<=6)paras.push('Respiração em '+rrAvg+' ciclos/min — frequência de ressonância cardíaca (5–6 rpm) atingida. Esta é a frequência que maximiza amplitude de HRV e tônus vagal.');else if(rrAvg<=10)paras.push('Respiração controlada em '+rrAvg+' ciclos/min — redução significativa do ritmo basal.');}
+    if(gamma)paras.push('Padrão Gamma detectado: FC excepcionalmente estável combinada com Delta prolongado. Estado de consciência expandida observado em meditadores avançados. Excepcional.');
+    if(S.intention&&S.intention.length>2)paras.push('Intenção "'+S.intention+'" — âncora cognitiva que ativa o córtex cingulado anterior e direciona a plasticidade sináptica induzida pelo Alpha/Theta.');
+    if(score>=80)paras.push('Sessão de alta qualidade. Janela de consolidação: as 2h seguintes são ideais para aprendizado, criatividade e decisão de alto impacto. Capitalize este estado.');
+    else if(score>=55)paras.push('Sessão sólida. Consistência supera intensidade — 8 semanas de prática regular produzem mudanças estruturais mensuráveis no córtex pré-frontal (Neuroscience & Biobehavioral Reviews 2024).');
+    else paras.push('Sessão de '+totalMin+' min registrada. O sistema nervoso processa cada prática independente do score. Continue a sequência.');
+    body.style.opacity = '0'; body.style.transition = 'opacity 0.5s';
+    setTimeout(function(){
+      body.innerHTML = paras.map(function(p){return '<p>'+p+'</p>';}).join('');
+      body.style.opacity = '1';
+    }, 400);
+  }, 1600);
 }
 
-// ══ INICIALIZAÇÃO ══════════════════════════════════════
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    const sp=document.getElementById('splash');
-    if(sp){sp.classList.add('hide');setTimeout(()=>{try{sp.remove();}catch(e){}},1000);}
-  },2200);
-  const hd=document.getElementById('hdr-date');
-  if(hd)hd.textContent=new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}).toUpperCase();
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+// ══ CALENDÁRIO ════════════════════════════════════════
+function buildCalendarGrid(gridEl, sessions) {
+  gridEl.innerHTML = '<div class="cal-dl">S</div><div class="cal-dl">T</div><div class="cal-dl">Q</div><div class="cal-dl">Q</div><div class="cal-dl">S</div><div class="cal-dl">S</div><div class="cal-dl">D</div>';
+  var sm = {};
+  sessions.forEach(function(s){var d=new Date(s.date);var k=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();if(!sm[k])sm[k]=s.mode;});
+  var now = new Date();
+  var days = [];
+  for(var i=27;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);days.push(d);}
+  var pad = (days[0].getDay()+6)%7;
+  for(var p=0;p<pad;p++){var e=document.createElement('div');e.style.aspectRatio='1';gridEl.appendChild(e);}
+  days.forEach(function(d){
+    var k=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+    var nk=now.getFullYear()+'-'+now.getMonth()+'-'+now.getDate();
+    var mode=sm[k];
+    var dot=document.createElement('div');
+    dot.className='cal-dot'+(d>now&&k!==nk?' future':'')+(k===nk?' today':'');
+    if(mode){if(mode==='wake')dot.classList.add('done-wake');else if(mode==='sleep')dot.classList.add('done-sleep');else if(mode==='heart')dot.classList.add('done-heart');else if(mode==='sos')dot.classList.add('done-sos');else dot.classList.add('done');}
+    var n=document.createElement('div');n.className='cal-dn';n.textContent=d.getDate();
+    dot.appendChild(n);gridEl.appendChild(dot);
+  });
+}
+function renderCalendar() {
+  var grid = document.getElementById('cal-grid');
+  var monEl = document.getElementById('cal-mon');
+  if(!grid) return;
+  if(monEl) monEl.textContent = new Date().toLocaleDateString('pt-BR',{month:'long'}).toUpperCase();
+  buildCalendarGrid(grid, loadSessions());
+}
+function renderCalendarIn(gridId, sessions) {
+  var grid = document.getElementById(gridId); if(!grid) return;
+  buildCalendarGrid(grid, sessions);
+}
+function renderStats() {
+  var s = loadSessions();
+  document.getElementById('ms-t').textContent = s.length;
+  var now = new Date();
+  document.getElementById('ms-m').textContent = s.filter(function(x){var d=new Date(x.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).length;
+  var ds = new Set(s.map(function(x){var d=new Date(x.date);return d.getFullYear()+'-'+String(d.getMonth()).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}));
+  var best=0,cur=0;
+  for(var i=364;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);var k=d.getFullYear()+'-'+String(d.getMonth()).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(ds.has(k)){cur++;best=Math.max(best,cur);}else cur=0;}
+  document.getElementById('ms-b').textContent = best;
+  document.getElementById('phd').textContent = s.length ? s.length+' registros' : 'Sem registros';
+}
+function updateGreeting() {
+  var h = new Date().getHours();
+  var t = h<5?'SISTEMA NOTURNO':h<12?'SISTEMA ATIVO':h<18?'OPERAÇÃO TARDE':'PROTOCOLO NOITE';
+  var m = h<5?'MODO NOTURNO\nATIVO':h<12?'PRONTO PARA\nO COMANDO':h<18?'SESSÃO\nDA TARDE':h<21?'ENCERRAMENTO\nDO DIA':'MODO\nNOTURNO';
+  document.getElementById('gt').textContent = t;
+  document.getElementById('gm').innerHTML = m;
+}
+// FIX 5: updateModeInfo sem split quebrado
+function updateModeInfo() {
+  var m = MODES[S.breathMode]; if(!m) return;
+  document.getElementById('mb').textContent = m.name;
+  document.getElementById('bss').textContent = m.sub;
+  document.getElementById('pmd').textContent = m.name;
+}
+
+// ══ DRAWER ════════════════════════════════════════════
+// FIX 4: Sem template literal aninhado — concatenação pura
+function openDrawer(type) {
+  var dt = document.getElementById('dt');
+  var db = document.getElementById('db');
+  var html = '';
+  if(type === 'mode') {
+    dt.textContent = 'PROTOCOLOS DE COMANDO';
+    html = '<div class="mgrid">';
+    Object.entries(MODES).forEach(function(entry) {
+      var k = entry[0], m = entry[1];
+      var full = ['heart','sos','free'].indexOf(k) >= 0 ? ' full' : '';
+      var sel = S.breathMode === k ? ' sel' : '';
+      html += '<button class="mc fc m-' + k + full + sel + '" data-mode="' + k + '">';
+      html += '<div class="mn">' + m.name + '</div>';
+      html += '<div class="ms-d">' + m.sub + '</div>';
+      html += '<div class="md">' + MODE_DESC[k] + '</div>';
+      html += '</button>';
+    });
+    html += '</div>';
+    html += '<div class="hrv-drawer-card">';
+    html += '<div class="hrv-dc-top">';
+    html += '<div class="hrv-dc-left">';
+    html += '<div class="hrv-dc-titulo">HRV Matinal</div>';
+    html += '<div class="hrv-dc-sub">RMSSD · 5 min deitado · sensor conectado</div>';
+    html += '<div class="hrv-m-bar"><div class="hrv-m-fill" id="hrv-m-fill" style="width:0%"></div></div>';
+    html += '<div class="hrv-dc-sub" id="hrv-m-status" style="margin-top:4px;color:var(--t2)">Conecte o sensor para medir</div>';
+    html += '</div>';
+    html += '<div><div class="hrv-dc-val" id="hrv-m-val">--</div><div class="hrv-dc-ms">ms</div></div>';
+    html += '</div>';
+    html += '<button class="btn-hrv-m" id="btn-hrv-m" onclick="handleHRVClick()">Medir agora</button>';
+    html += '</div>';
+    html += '<textarea id="intent-d" class="intent-input" rows="2" placeholder="Intenção da sessão — opcional">' + S.intention + '</textarea>';
+    html += '<button class="btn-confirm fc">CONFIRMAR PROTOCOLO</button>';
+    db.innerHTML = html;
+    var saved = JSON.parse(localStorage.getItem('maxcore_hrv_hist')||'[]');
+    if(saved.length){var last=saved[saved.length-1];var elv=document.getElementById('hrv-m-val');if(elv)elv.textContent=last.rmssd;updateHRVStatus(last.rmssd);}
+  } else if(type === 'waves') {
+    dt.textContent = 'ONDAS CEREBRAIS';
+    html = '<div class="wave-rows">';
+    html += '<div class="wr r-a"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Alpha</div><div class="wdesc">Relaxamento consciente. Ansiedade reduz, serotonina sobe. Porta de entrada da meditação.</div></div><div class="wb"><div class="whz">α 8–14 Hz</div><div class="wrng">65–80 bpm</div><div class="wrng">8–12 resp/min</div></div></div>';
+    html += '<div class="wr r-t"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Theta</div><div class="wdesc">Subconsciente acessado. GABA em pico. Dopamina e criatividade profunda.</div></div><div class="wb"><div class="whz">θ 3–7 Hz</div><div class="wrng">55–68 bpm</div><div class="wrng">4–7 resp/min</div></div></div>';
+    html += '<div class="wr r-d"><div class="wd-wrap"><div class="wd"></div></div><div class="wi"><div class="wn">Delta</div><div class="wdesc">Regeneração celular. GH liberado. Autofagia ativa. Estado mais profundo atingido conscientemente.</div></div><div class="wb"><div class="whz">δ 0.5–3 Hz</div><div class="wrng">45–60 bpm</div><div class="wrng">2–5 resp/min</div></div></div>';
+    html += '<div style="background:var(--s2);border-radius:7px;padding:13px;border:1px solid #f59e0b33;">';
+    html += '<div style="font-family:\'Oswald\',sans-serif;font-size:0.95rem;text-transform:uppercase;color:var(--gamma);margin-bottom:5px;">Gamma</div>';
+    html += '<div style="font-size:0.7rem;color:var(--t2);line-height:1.5;">Estado mais avançado. Observado em meditadores com milhares de horas. Associado à compaixão profunda e consciência expandida. Detectado automaticamente pelo app.</div>';
+    html += '<div style="font-family:\'Roboto Mono\',monospace;font-size:0.6rem;color:var(--t3);margin-top:4px;text-transform:uppercase;">γ 30–100 Hz · Harvard · PNAS 2025</div>';
+    html += '</div></div>';
+    db.innerHTML = html;
+  } else if(type === 'history') {
+    dt.textContent = 'DADOS DE PERFORMANCE';
+    var sessions = loadSessions();
+    var now2 = new Date();
+    var thisM = sessions.filter(function(x){var d=new Date(x.date);return d.getMonth()===now2.getMonth()&&d.getFullYear()===now2.getFullYear();}).length;
+    var ds2 = new Set(sessions.map(function(x){var d=new Date(x.date);return d.getFullYear()+'-'+String(d.getMonth()).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}));
+    var best2=0,cur2=0;
+    for(var i=364;i>=0;i--){var d=new Date(now2);d.setDate(d.getDate()-i);var k=d.getFullYear()+'-'+String(d.getMonth()).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(ds2.has(k)){cur2++;best2=Math.max(best2,cur2);}else cur2=0;}
+    html = '<div style="display:flex;gap:20px;justify-content:center;margin-bottom:16px;">';
+    html += '<div style="text-align:center;"><div style="font-family:\'Roboto Mono\',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">' + sessions.length + '</div><div style="font-family:\'Oswald\',sans-serif;font-size:0.68rem;text-transform:uppercase;color:var(--t3)">Total</div></div>';
+    html += '<div style="text-align:center;"><div style="font-family:\'Roboto Mono\',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">' + thisM + '</div><div style="font-family:\'Oswald\',sans-serif;font-size:0.68rem;text-transform:uppercase;color:var(--t3)">Este mês</div></div>';
+    html += '<div style="text-align:center;"><div style="font-family:\'Roboto Mono\',monospace;font-size:1.4rem;font-weight:700;color:var(--tx)">' + best2 + '</div><div style="font-family:\'Oswald\',sans-serif;font-size:0.68rem;text-transform:uppercase;color:var(--t3)">Melhor sem.</div></div>';
+    html += '</div>';
+    html += '<div class="cal-wrap" style="width:100%;max-width:100%;margin-bottom:16px;">';
+    html += '<div class="cal-top"><span class="cal-lbl">Últimos 28 dias</span><span class="cal-mon">' + now2.toLocaleDateString('pt-BR',{month:'long'}).toUpperCase() + '</span></div>';
+    html += '<div class="cal-grid" id="cal-grid-d"></div>';
+    html += '</div>';
+    if(!sessions.length) {
+      html += '<div class="hist-empty">NENHUM DADO REGISTRADO.<br>ASSUMA O COMANDO.</div>';
+    } else {
+      sessions.forEach(function(s, i) {
+        var d = new Date(s.date);
+        var day = String(d.getDate()).padStart(2,'0');
+        var mon = d.toLocaleDateString('pt-BR',{month:'short'}).toUpperCase();
+        var time = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+        var dur = s.dur>=60 ? Math.floor(s.dur/60)+'h'+(s.dur%60?' '+s.dur%60+'min':'') : s.dur+'min';
+        var sc = s.score>=80 ? 'great' : s.score>=55 ? 'good' : 'ok';
+        var scL = s.score>=80 ? 'COMANDO ABSOLUTO' : s.score>=55 ? 'BOM CONTROLE' : 'PROCESSO';
+        html += '<div class="hi fc">';
+        html += '<div class="hi-date"><div class="hi-d">' + day + '</div><div class="hi-m">' + mon + '</div></div>';
+        html += '<div class="hi-bar">';
+        html += '<div class="hi-strip">';
+        html += '<div class="hi-seg alfa" style="width:' + s.pcts.alfa + '%"></div>';
+        html += '<div class="hi-seg theta" style="width:' + s.pcts.theta + '%"></div>';
+        html += '<div class="hi-seg delta" style="width:' + s.pcts.delta + '%"></div>';
+        html += '</div>';
+        html += '<div class="hi-meta">' + time + ' · SCORE ' + s.score + '/100</div>';
+        html += '</div>';
+        html += '<div class="hi-right">';
+        html += '<div class="hi-dur">' + dur + '</div>';
+        html += '<div class="hi-sc ' + sc + '">' + scL + '</div>';
+        html += '<button class="del-btn" onclick="delSession(' + i + ')">DEL</button>';
+        html += '</div></div>';
+      });
+    }
+    db.innerHTML = html;
+    setTimeout(function(){renderCalendarIn('cal-grid-d', sessions);}, 0);
+  }
+  document.getElementById('dov').classList.add('on');
+  document.getElementById('drawer').classList.add('on');
+}
+function closeDrawer() {
+  var id = document.getElementById('intent-d'); if(id) S.intention = id.value.trim();
+  document.getElementById('dov').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+  updateModeInfo();
+}
+function onDC(e) {
+  var card = e.target.closest('.mc');
+  if(card){document.querySelectorAll('.mc').forEach(function(c){c.classList.remove('sel');});card.classList.add('sel');S.breathMode=card.dataset.mode;}
+  if(e.target.closest('.btn-confirm')) closeDrawer();
+}
+
+// ══ FUNDO ════════════════════════════════════════════
+(function initBgWaves(){
+  var canvas = document.getElementById('bg-canvas'); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize(); window.addEventListener('resize', resize);
+  var waves = [
+    {color:'#3b82f6',amp:0.014,freq:0.010,speed:0.6,phase:0,y:0.34,width:2.2,opacity:0.22},
+    {color:'#8b5cf6',amp:0.009,freq:0.016,speed:0.45,phase:Math.PI/2.5,y:0.50,width:1.6,opacity:0.16},
+    {color:'#4f46e5',amp:0.006,freq:0.022,speed:0.3,phase:Math.PI,y:0.64,width:1.1,opacity:0.11},
+  ];
+  var t = 0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    waves.forEach(function(w){
+      ctx.beginPath();ctx.strokeStyle=w.color;ctx.globalAlpha=w.opacity;ctx.lineWidth=w.width;
+      for(var x=0;x<=W;x+=4){var y=H*w.y+Math.sin(x*w.freq+t*w.speed+w.phase)*H*w.amp;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+      ctx.stroke();
+    });
+    ctx.globalAlpha=1;t+=0.016;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ══ PWA ═══════════════════════════════════════════════
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault(); deferredInstallPrompt = e;
+  document.getElementById('ib').classList.add('show');
+});
+document.getElementById('ib-y').addEventListener('click', async function(){
+  if(deferredInstallPrompt){deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;}
+  document.getElementById('ib').classList.remove('show');
+});
+document.getElementById('ib-n').addEventListener('click', function(){
+  document.getElementById('ib').classList.remove('show');
+});
+
+// ══ INIT ══════════════════════════════════════════════
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    var sp = document.getElementById('splash');
+    if(sp){sp.classList.add('hide');setTimeout(function(){try{sp.remove();}catch(e){}},1000);}
+  }, 2200);
+  updateGreeting();
+  renderStats();
+  renderCalendar();
+  updateModeInfo();
+  if('serviceWorker' in navigator) {
+    var host = window.location.hostname;
+    if(host === 'localhost' || host.indexOf('github.io') >= 0 || host.indexOf('127.0.0.1') >= 0) {
+      navigator.serviceWorker.register('./sw.js').catch(function(e){ console.warn('SW:', e); });
+    }
+  }
+  var prev = localStorage.getItem('mc_progress');
+  if(prev){
+    try{
+      var p = JSON.parse(prev);
+      var elapsed = Date.now() - p.startTime;
+      if(elapsed < 7200000){
+        var mins = Math.floor(elapsed/60000);
+        if(confirm('Sessão interrompida detectada (' + mins + 'min, modo ' + (MODES[p.mode]?MODES[p.mode].name:p.mode) + '). Descartar?')){
+          localStorage.removeItem('mc_progress');
+        }
+      } else { localStorage.removeItem('mc_progress'); }
+    } catch(e) { localStorage.removeItem('mc_progress'); }
   }
 });
 </script>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-title" content="MAX.CORE">
-<meta name="theme-color" content="#09090b">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Oswald:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </body>
 </html>
